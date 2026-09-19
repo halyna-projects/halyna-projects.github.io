@@ -258,6 +258,10 @@
     gap: 18px;
     margin-top: 8px;
   }
+  .links-grid.links-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 560px;
+  }
   .link-card {
     display: block;
     background: var(--surface);
@@ -342,6 +346,7 @@
   @media (max-width: 720px) {
     h1 { font-size: 1.9rem; }
     .steps, .shots, .docs-list, .links-grid { grid-template-columns: 1fr; }
+    .links-grid.links-grid-2 { grid-template-columns: 1fr; }
     .hero-inner { justify-content: center; text-align: center; }
     .hero-mascot { flex-basis: 140px; order: -1; }
     .hero-mascot svg { width: 130px; }
@@ -537,7 +542,7 @@
 <section>
   <div class="wrap">
     <h2>Mere om projektet</h2>
-    <div class="links-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 560px;">
+    <div class="links-grid links-grid-2">
       <a class="link-card" href="https://t.me/Demo_job_search_dansk_bot" target="_blank" rel="noopener">
         <strong>Prøv botten</strong>
         <span>@Demo_job_search_dansk_bot på Telegram</span>
