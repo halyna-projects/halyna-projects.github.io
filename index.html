@@ -9,6 +9,8 @@
   :root {
     --accent: #2563eb;
     --accent-dark: #1d4ed8;
+    --accent2: #7c3aed;
+    --accent3: #06b6d4;
     --text: #1e1e1e;
     --muted: #6b6b6b;
     --bg: #ffffff;
@@ -26,10 +28,47 @@
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
 
   header.hero {
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
     border-bottom: 1px solid var(--border);
     padding: 64px 0 48px;
   }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .blob-1 {
+    width: 420px; height: 420px;
+    top: -160px; right: -120px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  }
+  .blob-2 {
+    width: 320px; height: 320px;
+    bottom: -140px; left: -100px;
+    background: radial-gradient(circle, var(--accent2) 0%, transparent 70%);
+  }
+  .blob-3 {
+    width: 260px; height: 260px;
+    top: 40%; right: 8%;
+    background: radial-gradient(circle, var(--accent3) 0%, transparent 70%);
+    opacity: 0.25;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-text { flex: 1 1 480px; min-width: 0; }
+  .hero-mascot { flex: 0 0 220px; display: flex; justify-content: center; }
+  .hero-mascot svg { width: 200px; height: auto; filter: drop-shadow(0 12px 24px rgba(37, 99, 235, 0.18)); }
   .eyebrow {
     color: var(--accent);
     font-weight: 600;
@@ -72,8 +111,24 @@
   }
   .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
-  section { padding: 56px 0; }
-  section.alt { background: var(--bg-alt); }
+  section { padding: 56px 0; position: relative; }
+  section.alt {
+    background: var(--bg-alt);
+    position: relative;
+    overflow: hidden;
+  }
+  section.alt::before {
+    content: "";
+    position: absolute;
+    width: 360px; height: 360px;
+    top: -180px; right: -80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent3) 0%, transparent 70%);
+    opacity: 0.12;
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  section.alt > .wrap { position: relative; z-index: 1; }
   h2 {
     font-size: 1.7rem;
     margin: 0 0 8px;
@@ -99,18 +154,23 @@
     border-radius: 10px;
     padding: 22px;
   }
+  .step {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .step:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.06); }
   .step .num {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    background: var(--accent);
+    width: 42px; height: 42px;
+    border-radius: 12px;
     color: #fff;
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
+  .step .num svg { width: 20px; height: 20px; }
+  .step:nth-child(1) .num { background: linear-gradient(135deg, var(--accent), #60a5fa); }
+  .step:nth-child(2) .num { background: linear-gradient(135deg, var(--accent2), #a78bfa); }
+  .step:nth-child(3) .num { background: linear-gradient(135deg, var(--accent3), #67e8f9); }
   .step h3 { margin: 0 0 8px; font-size: 1.05rem; }
   .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
@@ -176,7 +236,20 @@
     padding: 7px 16px;
     font-size: 0.88rem;
     color: var(--text);
+    position: relative;
+    padding-left: 26px;
   }
+  .pill::before {
+    content: "";
+    position: absolute;
+    left: 12px; top: 50%;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    background: var(--accent);
+  }
+  .stack .pill:nth-child(3n+2)::before { background: var(--accent2); }
+  .stack .pill:nth-child(3n)::before { background: var(--accent3); }
 
   .links-grid {
     display: grid;
@@ -206,28 +279,86 @@
     border-top: 1px solid var(--border);
   }
   footer a { color: var(--accent); text-decoration: none; }
+  .footer-mascot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .footer-mascot svg { width: 26px; height: 26px; }
 
   @media (max-width: 720px) {
     h1 { font-size: 1.9rem; }
     .steps, .shots, .docs-list, .links-grid { grid-template-columns: 1fr; }
+    .hero-inner { justify-content: center; text-align: center; }
+    .hero-mascot { flex-basis: 140px; order: -1; }
+    .hero-mascot svg { width: 130px; }
+    .subtitle { margin-left: auto; margin-right: auto; }
+    .cta-row { justify-content: center; }
   }
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Portfolio-projekt · Telegram-bot</div>
-    <h1>Job Search Bot</h1>
-    <p class="subtitle">
-      En Telegram-bot, der søger job i Danmark, sammenligner dem med dit CV ved hjælp af
-      kunstig intelligens og udarbejder færdige dokumenter til ansøgningen — så du ikke
-      skal gøre det manuelt hver gang.
-    </p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://t.me/Demo_job_search_dansk_bot" target="_blank" rel="noopener">Prøv botten live →</a>
-      <a class="btn btn-secondary" href="https://github.com/halyna-projects/jobbot-dk-demo" target="_blank" rel="noopener">Se koden på GitHub</a>
-      <a class="btn btn-secondary" href="assets/job-search-bot-presentation.pdf" target="_blank" rel="noopener">Download præsentation (PDF)</a>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <div class="eyebrow">Portfolio-projekt · Telegram-bot</div>
+      <h1>Job Search Bot</h1>
+      <p class="subtitle">
+        En Telegram-bot, der søger job i Danmark, sammenligner dem med dit CV ved hjælp af
+        kunstig intelligens og udarbejder færdige dokumenter til ansøgningen — så du ikke
+        skal gøre det manuelt hver gang.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://t.me/Demo_job_search_dansk_bot" target="_blank" rel="noopener">Prøv botten live →</a>
+        <a class="btn btn-secondary" href="https://github.com/halyna-projects/jobbot-dk-demo" target="_blank" rel="noopener">Se koden på GitHub</a>
+        <a class="btn btn-secondary" href="assets/job-search-bot-presentation.pdf" target="_blank" rel="noopener">Download præsentation (PDF)</a>
+      </div>
+    </div>
+    <div class="hero-mascot">
+      <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="205" rx="55" ry="10" fill="#000" opacity="0.06"/>
+        <rect x="92" y="18" width="16" height="26" rx="8" fill="url(#antenna)"/>
+        <circle cx="100" cy="14" r="10" fill="url(#antenna)"/>
+        <circle cx="100" cy="14" r="4" fill="#fff" opacity="0.8"/>
+        <rect x="35" y="42" width="130" height="110" rx="30" fill="url(#head)"/>
+        <rect x="52" y="66" width="96" height="56" rx="18" fill="#0f1b3d" opacity="0.92"/>
+        <circle cx="82" cy="94" r="9" fill="#7dd3fc"/>
+        <circle cx="118" cy="94" r="9" fill="#7dd3fc"/>
+        <path d="M80 110 Q100 122 120 110" stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <rect x="18" y="88" width="17" height="34" rx="8.5" fill="url(#armL)"/>
+        <rect x="165" y="88" width="17" height="34" rx="8.5" fill="url(#armR)"/>
+        <rect x="60" y="150" width="80" height="46" rx="20" fill="url(#body)"/>
+        <circle cx="100" cy="173" r="9" fill="#ffffff" opacity="0.85"/>
+        <path d="M96 173 l3 4 l6 -8" stroke="#2563eb" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <defs>
+          <linearGradient id="head" x1="35" y1="42" x2="165" y2="152" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2563eb"/>
+            <stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+          <linearGradient id="body" x1="60" y1="150" x2="140" y2="196" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#7c3aed"/>
+            <stop offset="1" stop-color="#06b6d4"/>
+          </linearGradient>
+          <linearGradient id="antenna" x1="90" y1="4" x2="110" y2="44" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#06b6d4"/>
+            <stop offset="1" stop-color="#2563eb"/>
+          </linearGradient>
+          <linearGradient id="armL" x1="18" y1="88" x2="35" y2="122" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2563eb"/>
+            <stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+          <linearGradient id="armR" x1="165" y1="88" x2="182" y2="122" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#7c3aed"/>
+            <stop offset="1" stop-color="#06b6d4"/>
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   </div>
 </header>
@@ -238,17 +369,17 @@
     <p class="lead">Tre trin fra søgeord til en færdig ansøgning.</p>
     <div class="steps">
       <div class="step">
-        <div class="num">1</div>
+        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
         <h3>Søg job</h3>
         <p>Botten henter job direkte fra Jobindex.dk og Jobnet.dk ud fra dine søgeord, med mulighed for at filtrere efter by. Resultater fra flere kilder samles, og dubletter fjernes automatisk.</p>
       </div>
       <div class="step">
-        <div class="num">2</div>
+        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/></svg></div>
         <h3>AI sammenligner med dit CV</h3>
         <p>Hvert jobopslag og dit CV sendes til Google Gemini, som vurderer det reelle faglige overlap — ikke bare fælles ord — og giver en match-procent med kort begrundelse.</p>
       </div>
       <div class="step">
-        <div class="num">3</div>
+        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
         <h3>Få færdige dokumenter</h3>
         <p>Vælg et job, og botten udarbejder en ansøgning på dansk plus jobopslaget som PDF med udtrukne kontaktoplysninger. Du gennemgår og sender selv.</p>
       </div>
@@ -339,6 +470,21 @@
 
 <footer>
   <div class="wrap">
+    <div class="footer-mascot">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="10" width="28" height="22" rx="7" fill="url(#footerHead)"/>
+        <circle cx="16" cy="20" r="2.6" fill="#fff"/>
+        <circle cx="24" cy="20" r="2.6" fill="#fff"/>
+        <rect x="18" y="3" width="4" height="8" rx="2" fill="url(#footerHead)"/>
+        <defs>
+          <linearGradient id="footerHead" x1="6" y1="10" x2="34" y2="32" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2563eb"/>
+            <stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>Job Search Bot</span>
+    </div>
     Bygget af Halyna Lukashenko — produktidé, AI-kvalitetssikring og løbende drift.
     Koden er udviklet med hjælp fra Claude Code og ChatGPT/Codex.
   </div>
