@@ -288,6 +288,56 @@
   }
   .footer-mascot svg { width: 26px; height: 26px; }
 
+  .agent-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 8px;
+    align-items: stretch;
+  }
+  .agent-flow .step { padding: 18px; }
+  .agent-flow .arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 1.4rem;
+  }
+  .bot-bubble {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-top: 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  }
+  .bot-bubble .avatar {
+    flex: 0 0 32px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent2), var(--accent3));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  .bot-bubble p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .bot-bubble .label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
   @media (max-width: 720px) {
     h1 { font-size: 1.9rem; }
     .steps, .shots, .docs-list, .links-grid { grid-template-columns: 1fr; }
@@ -387,6 +437,41 @@
   </div>
 </section>
 
+<section>
+  <div class="wrap">
+    <h2>Agentisk søgning: AI'en tænker selv, når søgningen er tom</h2>
+    <p class="lead">
+      Ikke en fast liste af synonymer — når en søgning giver 0 resultater, får Gemini adgang
+      til et rigtigt søgeværktøj og beslutter selv, om og hvad den vil prøve i stedet.
+    </p>
+    <div class="agent-flow">
+      <div class="step">
+        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <h3>0 resultater</h3>
+        <p>Søgeordet findes ikke direkte i nogen jobopslag — botten aktiverer automatisk AI'en i stedet for bare at vise "intet fundet".</p>
+      </div>
+      <div class="step">
+        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/></svg></div>
+        <h3>AI'en vælger selv</h3>
+        <p>Gemini foreslår ét bredere eller synonymt dansk ord, kører en rigtig søgning med det, og ser det reelle resultat — højst 2 forsøg, aldrig flere.</p>
+      </div>
+      <div class="step">
+        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Ærligt afslag på nonsens</h3>
+        <p>Giver søgeordet ingen mening, siger AI'en det ærligt i stedet for at gætte et tilfældigt ord.</p>
+      </div>
+    </div>
+    <div class="bot-bubble">
+      <div class="avatar">🤖</div>
+      <p>
+        <span class="label">Rigtigt eksempel — søgeord: "abrakadabra"</span>
+        "abrakadabra" er et trylleord og en meningsløs tekst i en jobmæssig sammenhæng, og det kan
+        derfor ikke tolkes som et rigtigt fagområde eller en jobtitel.
+      </p>
+    </div>
+  </div>
+</section>
+
 <section class="alt">
   <div class="wrap">
     <h2>Ærlig <span class="accent">match-vurdering</span></h2>
@@ -440,6 +525,7 @@
       <span class="pill">Python</span>
       <span class="pill">python-telegram-bot</span>
       <span class="pill">Google Gemini API</span>
+      <span class="pill">Gemini function calling (agentisk søgning)</span>
       <span class="pill">SQLite</span>
       <span class="pill">fpdf2 (PDF-generering)</span>
       <span class="pill">Jobindex.dk + Jobnet.dk</span>
