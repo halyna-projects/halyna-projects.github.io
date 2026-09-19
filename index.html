@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Search Bot — Telegram-bot til jobsøgning i Danmark</title>
+<meta name="description" content="En Telegram-bot der søger job i Danmark, sammenligner dem med dit CV via kunstig intelligens, og udarbejder færdige ansøgningsdokumenter.">
+<style>
+  :root {
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --text: #1e1e1e;
+    --muted: #6b6b6b;
+    --bg: #ffffff;
+    --bg-alt: #f6f8fb;
+    --border: #e3e7ee;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  header.hero {
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 64px 0 48px;
+  }
+  .eyebrow {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 2.4rem;
+    line-height: 1.15;
+    margin: 0 0 14px;
+  }
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 0 28px;
+  }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 13px 26px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.98rem;
+    transition: transform 0.08s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.25);
+  }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: #fff;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  section { padding: 56px 0; }
+  section.alt { background: var(--bg-alt); }
+  h2 {
+    font-size: 1.7rem;
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+  h2 .accent { color: var(--accent); }
+  p.lead {
+    color: var(--muted);
+    font-size: 1.02rem;
+    max-width: 680px;
+    margin: 0 0 28px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 8px;
+  }
+  .step {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .step .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+  .step h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 32px;
+  }
+  figure { margin: 0; }
+  figure img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  figcaption {
+    margin-top: 10px;
+    font-size: 0.88rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  figcaption strong { color: var(--text); }
+
+  .docs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .docs-list li {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .docs-list li strong { display: block; margin-bottom: 6px; }
+  .docs-list li span { color: var(--muted); font-size: 0.94rem; }
+
+  .note {
+    background: #fff;
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 16px 20px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 24px;
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .pill {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .link-card {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s ease, transform 0.08s ease;
+  }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .link-card strong { display: block; margin-bottom: 4px; color: var(--accent); }
+  .link-card span { color: var(--muted); font-size: 0.9rem; }
+
+  footer {
+    padding: 40px 0 60px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 720px) {
+    h1 { font-size: 1.9rem; }
+    .steps, .shots, .docs-list, .links-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Portfolio-projekt · Telegram-bot</div>
+    <h1>Job Search Bot</h1>
+    <p class="subtitle">
+      En Telegram-bot, der søger job i Danmark, sammenligner dem med dit CV ved hjælp af
+      kunstig intelligens og udarbejder færdige dokumenter til ansøgningen — så du ikke
+      skal gøre det manuelt hver gang.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://t.me/Demo_job_search_dansk_bot" target="_blank" rel="noopener">Prøv botten live →</a>
+      <a class="btn btn-secondary" href="https://github.com/galinalukashenko1967-flw/jobbot-dk-demo" target="_blank" rel="noopener">Se koden på GitHub</a>
+      <a class="btn btn-secondary" href="assets/job-search-bot-presentation.pdf" target="_blank" rel="noopener">Download præsentation (PDF)</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Sådan virker det</h2>
+    <p class="lead">Tre trin fra søgeord til en færdig ansøgning.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Søg job</h3>
+        <p>Botten henter job direkte fra Jobindex.dk og Jobnet.dk ud fra dine søgeord, med mulighed for at filtrere efter by. Resultater fra flere kilder samles, og dubletter fjernes automatisk.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>AI sammenligner med dit CV</h3>
+        <p>Hvert jobopslag og dit CV sendes til Google Gemini, som vurderer det reelle faglige overlap — ikke bare fælles ord — og giver en match-procent med kort begrundelse.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Få færdige dokumenter</h3>
+        <p>Vælg et job, og botten udarbejder en ansøgning på dansk plus jobopslaget som PDF med udtrukne kontaktoplysninger. Du gennemgår og sender selv.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Ærlig <span class="accent">match-vurdering</span></h2>
+    <p class="lead">
+      Det er ikke bare en søgning efter ens ord. Hvis der ikke er nogen relevant erfaring i CV'et
+      til en stilling, viser botten ærligt 0% — uden "trøste-procenter". Jobbet forbliver alligevel
+      på listen, for det er altid personens eget valg, om de vil søge.
+    </p>
+    <div class="shots">
+      <figure>
+        <img src="assets/match-positive.png" alt="Eksempel på positivt match: bogholder-CV mod bogholder-stillinger, 90% og 85%">
+        <figcaption><strong>Godt match</strong> — bogholder-CV mod bogholder-stillinger: 90% og 85%</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/match-partial.png" alt="Eksempel på delvist match: teknisk CV mod SQL-stillinger, 35% og 30%">
+        <figcaption><strong>Delvist match</strong> — teknisk CV mod SQL-stillinger: 35% og 30%, med forklaring på forskellen</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/match-zero.png" alt="Eksempel på intet match: samme bogholder-CV mod malerstillinger, 0%">
+        <figcaption><strong>Intet match</strong> — samme bogholder-CV mod malerstillinger: 0%, uden trøste-procenter</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Hvad den genererer for hvert job</h2>
+    <p class="lead">Når du vælger et konkret job, udarbejder botten 2 dokumenter på under et minut:</p>
+    <ul class="docs-list">
+      <li>
+        <strong>Ansøgning på dansk</strong>
+        <span>Baseret på reelle fakta fra CV'et, uden opdigtet erfaring. Hvis noget mangler, nævnes det ærligt, men taktfuldt som vilje til hurtigt at lære det.</span>
+      </li>
+      <li>
+        <strong>Jobopslaget som PDF</strong>
+        <span>Jobopslaget på dansk med automatisk udtrukne kontaktoplysninger — navn, telefon og e-mail — så du har alt samlet ét sted.</span>
+      </li>
+    </ul>
+    <div class="note">
+      Botten sender ikke noget selv. Den udarbejder kun udkast — det sidste skridt (gennemgå, rette til, sende) er altid personens eget.
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Teknisk</h2>
+    <p class="lead">Bygget som et selvstændigt Python-projekt med fokus på pålidelighed og enkel drift.</p>
+    <div class="stack">
+      <span class="pill">Python</span>
+      <span class="pill">python-telegram-bot</span>
+      <span class="pill">Google Gemini API</span>
+      <span class="pill">SQLite</span>
+      <span class="pill">fpdf2 (PDF-generering)</span>
+      <span class="pill">Jobindex.dk + Jobnet.dk</span>
+      <span class="pill">Hostet på Railway</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Mere om projektet</h2>
+    <div class="links-grid">
+      <a class="link-card" href="https://t.me/Demo_job_search_dansk_bot" target="_blank" rel="noopener">
+        <strong>Prøv botten</strong>
+        <span>@Demo_job_search_dansk_bot på Telegram</span>
+      </a>
+      <a class="link-card" href="https://github.com/galinalukashenko1967-flw/jobbot-dk-demo" target="_blank" rel="noopener">
+        <strong>Kildekode</strong>
+        <span>jobbot-dk-demo på GitHub</span>
+      </a>
+      <a class="link-card" href="https://github.com/galinalukashenko1967-flw/rep_cv" target="_blank" rel="noopener">
+        <strong>Søsterprojekt</strong>
+        <span>Ukrainsksproget version til flygtninge i Danmark</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Bygget af Halyna Lukashenko — produktidé, AI-kvalitetssikring og løbende drift.
+    Koden er udviklet med hjælp fra Claude Code og ChatGPT/Codex.
+  </div>
+</footer>
+
+</body>
+</html>
