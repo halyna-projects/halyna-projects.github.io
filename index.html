@@ -427,6 +427,28 @@
     font-size: 0.85rem;
     margin-top: 18px;
   }
+  .chat-demo .file-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: rgba(59,130,246,0.1);
+  }
+  .chat-demo .file-card + .file-card { margin-top: 8px; }
+  .chat-demo .file-icon {
+    flex: 0 0 30px;
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+  .chat-demo .file-name { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+  .chat-demo .file-caption { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 
   @media (max-width: 720px) {
     h1 { font-size: 1.9rem; }
@@ -507,11 +529,11 @@
   <div class="wrap">
     <h2>Se botten i aktion</h2>
     <p class="lead">
-      Ingen Telegram nødvendig — en animeret gengivelse af en rigtig samtale med botten,
-      bygget af virkelige testresultater.
+      Ingen Telegram nødvendig — en animeret gengivelse af en rigtig samtale: fra søgeord til
+      en færdig, personlig ansøgning som PDF.
     </p>
     <div class="chat-demo" id="chatDemo"></div>
-    <p class="chat-demo-caption">Baseret på virkelige testresultater fra botten (samme data som i skærmbillederne længere nede).</p>
+    <p class="chat-demo-caption">Baseret på et virkeligt testforløb fra botten (samme data som i skærmbillederne længere nede).</p>
   </div>
 </section>
 
@@ -707,17 +729,18 @@
 
   var script = [
     { sender: 'user', text: 'bogholder' },
-    { sender: 'bot', text: 'Fandt 20. For at få en ansøgning til et job — send dets nummer (f.eks.: 1).\n\n1. Erfaren bogholder og administrativ nøgleperson på fuld tid.\nVestermose Dyreklinik | Slagelse | Jobindex\nMatch: 90% — Kandidaten har solid erfaring med daglig bogføring, moms og afstemninger, hvilket matcher stillingens krav perfekt.' },
-    { sender: 'user', text: 'maler' },
-    { sender: 'bot', text: '1. Bygningsmaler til renoveringsprojekter i København og Nordsjælland\nSnedkermester Kasper Nielsen A/S | Jobindex\nMatch: 0% — Kandidaten er erfaren bogholder, mens denne stilling kræver bygningsmaler.' },
-    { sender: 'user', text: 'abrakadabra' },
-    { sender: 'bot', text: '🤖 "abrakadabra" er et trylleord og en meningsløs tekst i en jobmæssig sammenhæng, og det kan derfor ikke tolkes som et rigtigt fagområde eller en jobtitel.' }
+    { sender: 'bot', text: 'Fandt 20. 1. Erfaren bogholder – PwC\nPwC | Vejle | Jobindex\nMatch: 85% — Kandidaten har stærk erfaring med bogføring og digitalisering for mindre og mellemstore virksomheder, hvilket matcher PwC\'s profil.' },
+    { sender: 'user', text: '1' },
+    { sender: 'bot', text: 'Skriver ansøgning til nr. 1 «Erfaren bogholder»...\n\nKære PwC,\n\nMed 6 års erfaring som bogholder hos Nordisk Regnskabsservice ApS og Byggefirma Holm A/S, hvor jeg dagligt arbejder med fuld bogføring, moms og afstemninger, fangede jeres stillingsopslag i Vejle straks min interesse...' },
+    { sender: 'bot', files: [
+      { name: 'ansøgning_Erfaren_bogholder.pdf', caption: 'Ansøgning som PDF — kan gemmes og printes.' },
+      { name: 'job_Erfaren_bogholder.pdf', caption: 'Jobopslag som PDF — med kontaktoplysninger øverst.' }
+    ] }
   ];
 
   var TYPING_MS = 900;
-  var PAUSE_AFTER_BOT_MS = 1300;
   var PAUSE_AFTER_USER_MS = 500;
-  var LOOP_PAUSE_MS = 3200;
+  var LOOP_PAUSE_MS = 3600;
 
   function makeRow(sender, html, extraClass) {
     var row = document.createElement('div');
@@ -737,6 +760,29 @@
 
   function esc(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  }
+
+  function fileCardsHtml(files) {
+    return files.map(function (f) {
+      return '<div class="file-card"><div class="file-icon">📄</div><div class="file-info">' +
+        '<div class="file-name">' + esc(f.name) + '</div>' +
+        '<div class="file-caption">' + esc(f.caption) + '</div>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  function bubbleHtml(msg) {
+    return msg.files ? fileCardsHtml(msg.files) : esc(msg.text);
+  }
+
+  // Longer bot messages (the application excerpt) need more time on
+  // screen to actually read, so the pause scales with content length
+  // instead of being one fixed value for every message.
+  function pauseFor(msg) {
+    var len = msg.files
+      ? msg.files.reduce(function (n, f) { return n + f.name.length + f.caption.length; }, 0)
+      : msg.text.length;
+    return Math.min(1300 + len * 20, 4800);
   }
 
   var cancelled = false;
@@ -763,10 +809,10 @@
         demo.scrollTop = demo.scrollHeight;
         timer = setTimeout(function () {
           demo.removeChild(typingRow);
-          demo.appendChild(makeRow('bot', esc(msg.text)));
+          demo.appendChild(makeRow('bot', bubbleHtml(msg)));
           demo.scrollTop = demo.scrollHeight;
           i++;
-          timer = setTimeout(step, PAUSE_AFTER_BOT_MS);
+          timer = setTimeout(step, pauseFor(msg));
         }, TYPING_MS);
       }
     }
