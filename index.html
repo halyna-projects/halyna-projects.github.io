@@ -231,6 +231,24 @@
     margin-top: 24px;
   }
 
+  .qa-list {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .qa-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent3);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .qa-list li strong { display: block; margin-bottom: 4px; }
+  .qa-list li span { color: var(--muted); font-size: 0.94rem; }
+
   .stack {
     display: flex;
     flex-wrap: wrap;
@@ -665,6 +683,42 @@
     <div class="note">
       Botten sender ikke noget selv. Den udarbejder kun udkast — det sidste skridt (gennemgå, rette til, sende) er altid personens eget.
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Kvalitetssikring <span class="accent">i praksis</span></h2>
+    <p class="lead">
+      Ikke en teoretisk QA-liste — konkrete fejl, fundet gennem gentagen test med rigtige data
+      undervejs i udviklingen, og rettet med det samme.
+    </p>
+    <ul class="qa-list">
+      <li>
+        <strong>Misvisende "intet fundet"-besked</strong>
+        <span>Samme tekst blev vist, uanset om søgningen reelt gav 0 resultater, eller om de bare allerede var vist tidligere — nu to præcise, forskellige beskeder.</span>
+      </li>
+      <li>
+        <strong>«Søgeord:»-linjen forsvandt stille</strong>
+        <span>Når AI'en selv rettede en stavefejl i søgeordet, forsvandt linjen der viser hvilket ord der matchede — fordi botten stadig sammenlignede med det oprindelige, forkerte ord.</span>
+      </li>
+      <li>
+        <strong>Et fejlstavet ord droppet i stilhed</strong>
+        <span>Med flere søgeord på én gang forsvandt et fejlstavet ord helt uden rettelse eller besked, hvis bare ét af de andre ord allerede gav resultater.</span>
+      </li>
+      <li>
+        <strong>Et løfte botten ikke kunne holde</strong>
+        <span>Footeren antydede, at flere resultater kunne findes ved at præcisere søgningen — men de var reelt bare lavere scorede og droppet for altid.</span>
+      </li>
+      <li>
+        <strong>Et hængende AI-kald uden fejlmeddelelse</strong>
+        <span>Et Gemini-kald uden timeout kunne i sjældne tilfælde stoppe botten helt, uden en eneste fejl i loggen. Løst med en eksplicit 45-sekunders grænse.</span>
+      </li>
+      <li>
+        <strong>Data der forsvandt ved hver opdatering</strong>
+        <span>Databasen (CV, søgehistorik) lå ikke på en persistent disk og blev nulstillet ved hver kodeopdatering — rettet, sammen med automatisk sletning af inaktive brugeres data efter 30 dage af hensyn til privatlivet.</span>
+      </li>
+    </ul>
   </div>
 </section>
 
