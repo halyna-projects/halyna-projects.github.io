@@ -181,6 +181,13 @@
     gap: 22px;
     margin-top: 32px;
   }
+  .shots-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    max-width: 640px;
+    margin: 24px auto 0;
+  }
   figure { margin: 0; }
   figure img {
     width: 100%;
@@ -423,7 +430,7 @@
 
   @media (max-width: 720px) {
     h1 { font-size: 1.9rem; }
-    .steps, .shots, .docs-list, .links-grid { grid-template-columns: 1fr; }
+    .steps, .shots, .shots-2, .docs-list, .links-grid { grid-template-columns: 1fr; }
     .links-grid.links-grid-2 { grid-template-columns: 1fr; }
     .hero-inner { justify-content: center; text-align: center; }
     .hero-mascot { flex-basis: 140px; order: -1; }
@@ -580,10 +587,16 @@
         derfor ikke tolkes som et rigtigt fagområde eller en jobtitel.
       </p>
     </div>
-    <figure style="max-width: 420px; margin: 24px auto 0;">
-      <img src="assets/agentic-sq-example.png" alt="Skærmbillede: søgeordet 'abrakadabra' afvises ærligt af botten i stedet for at gætte et tilfældigt ord">
-      <figcaption>Skærmbillede af samme eksempel — botten afviser ærligt i stedet for at søge på et tilfældigt ord.</figcaption>
-    </figure>
+    <div class="shots-2">
+      <figure>
+        <img src="assets/agentic-sq-example-1.png" alt="Skærmbillede: søgeordet 'abrakadabra' skrives direkte efter «Hvad nu?», i stedet for at trykke Vis listen igen">
+        <figcaption>Man kan skrive et nyt søgeord direkte, i stedet for at trykke «Vis listen igen».</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/agentic-sq-example-2.png" alt="Skærmbillede: botten afviser 'abrakadabra' ærligt i stedet for at gætte et tilfældigt ord">
+        <figcaption>Botten afviser ærligt i stedet for at søge på et tilfældigt ord.</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
