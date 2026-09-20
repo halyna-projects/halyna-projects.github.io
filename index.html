@@ -529,8 +529,8 @@
   <div class="wrap">
     <h2>Se botten i aktion</h2>
     <p class="lead">
-      Ingen Telegram nødvendig — en animeret gengivelse af en rigtig samtale: fra søgeord til
-      en færdig, personlig ansøgning som PDF.
+      Ingen Telegram nødvendig — en animeret gengivelse af tre rigtige samtaler: et godt match
+      med en færdig ansøgning som PDF, et ærligt 0%, og et ærligt afslag på et nonsens-søgeord.
     </p>
     <div class="chat-demo" id="chatDemo"></div>
     <p class="chat-demo-caption">Baseret på et virkeligt testforløb fra botten (samme data som i skærmbillederne længere nede).</p>
@@ -735,7 +735,12 @@
     { sender: 'bot', files: [
       { name: 'ansøgning_Erfaren_bogholder.pdf', caption: 'Ansøgning som PDF — kan gemmes og printes.' },
       { name: 'job_Erfaren_bogholder.pdf', caption: 'Jobopslag som PDF — med kontaktoplysninger øverst.' }
-    ] }
+    ] },
+    { sender: 'user', text: 'maler' },
+    { sender: 'bot', text: '1. Bygningsmaler\nTKP BYG A/S | Brabrand / Aarhus | Jobnet\nMatch: 0% — Stillingen kræver en uddannet bygningsmaler, hvilket slet ikke matcher kandidatens bogholderiprofil.' },
+    { sender: 'user', text: 'abrakadabra' },
+    { sender: 'bot', text: '🤖 Ordet \'abrakadabra\' er et trylleord og en meningsløs nonsenstekst uden nogen relevans for jobmarkedet, så jeg kan ikke foreslå et fagligt alternativ eller foretage en søgning.' },
+    { sender: 'bot', text: 'Ingen job fundet for denne søgning. Skriv et nyt søgeord for at søge igen.' }
   ];
 
   var TYPING_MS = 900;
