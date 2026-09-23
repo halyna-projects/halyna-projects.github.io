@@ -548,8 +548,9 @@
   <div class="wrap">
     <h2>Se botten i aktion</h2>
     <p class="lead">
-      Ingen Telegram nødvendig — en animeret gengivelse af tre rigtige samtaler: et godt match
-      med en færdig ansøgning som PDF, et ærligt 0%, og et ærligt afslag på et nonsens-søgeord.
+      Ingen Telegram nødvendig — en animeret gengivelse af rigtige samtaler: et godt match med
+      en færdig ansøgning som PDF, et ærligt 0%, en vakance tilføjet manuelt fra et link, og
+      et ærligt afslag på et nonsens-søgeord.
     </p>
     <div class="chat-demo" id="chatDemo"></div>
     <p class="chat-demo-caption">Baseret på et virkeligt testforløb fra botten (samme data som i skærmbillederne længere nede).</p>
@@ -718,6 +719,18 @@
         <strong>Data der forsvandt ved hver opdatering</strong>
         <span>Databasen (CV, søgehistorik) lå ikke på en persistent disk og blev nulstillet ved hver kodeopdatering — rettet, sammen med automatisk sletning af inaktive brugeres data efter 30 dage af hensyn til privatlivet.</span>
       </li>
+      <li>
+        <strong>Ledelsesstillinger fik for høj score</strong>
+        <span>En Product Manager-stilling fik 80% match, fordi AI'en så det fælles emne "AI" — men CV'et viste et rent teknisk baggrund uden produktledelseserfaring. Selve jobfunktionen (lede vs. bygge) var ikke vurderet som en selvstændig faktor. Rettet med et eksplicit eksempel i vurderingspromptet.</span>
+      </li>
+      <li>
+        <strong>Forklaringen skiftede sprog uden varsel</strong>
+        <span>Instruktionen til AI'en var selv skrevet på et andet sprog end det, den skulle svare på — hvilket i sjældne tilfælde "lækkede" ind i selve svaret. Rettet ved at gøre instruktionssproget konsekvent.</span>
+      </li>
+      <li>
+        <strong>Kontaktoplysninger, der stod lige der, blev overset</strong>
+        <span>En jobannonce nævnte tydeligt en kontaktperson med telefon og e-mail nær bunden af teksten — men udtrækket returnerede "ikke angivet" for alle tre felter. Ikke en tegngrænse, bare AI'en der ikke læste opslaget grundigt nok til enden. Rettet med en tydeligere instruks om at læse hele teksten.</span>
+      </li>
     </ul>
   </div>
 </section>
@@ -802,6 +815,11 @@
     ] },
     { sender: 'user', text: 'maler' },
     { sender: 'bot', text: '1. Bygningsmaler\nTKP BYG A/S | Brabrand / Aarhus | Jobnet\nSøgeord: maler\nMatch: 0% — Stillingen kræver en uddannet bygningsmaler, hvilket slet ikke matcher kandidatens bogholderiprofil.' },
+    { sender: 'user', text: '+ Tilføj job manuelt' },
+    { sender: 'bot', text: 'Send et link til jobopslaget, en PDF-fil, eller et foto/skærmbillede af det.' },
+    { sender: 'user', text: 'careers.pandoragroup.com/.../senior-manager-global-ecommerce-analytics' },
+    { sender: 'bot', text: 'Henter jobopslaget...' },
+    { sender: 'bot', text: '21. Senior Manager, Global eCommerce Analytics\nPandora | Manuelt tilføjet\nMatch: 0% — Kandidaten har en baggrund som bogholder, mens stillingen som Senior Manager kræver omfattende erfaring med e-commerce analytics, ledelse af analytics-teams og strategisk forretningsudvikling.' },
     { sender: 'user', text: 'abrakadabra' },
     { sender: 'bot', text: '🤖 Ordet \'abrakadabra\' er et trylleord og en meningsløs nonsenstekst uden nogen relevans for jobmarkedet, så jeg kan ikke foreslå et fagligt alternativ eller foretage en søgning.' },
     { sender: 'bot', text: 'Ingen job fundet for denne søgning. Skriv et nyt søgeord for at søge igen.' }
