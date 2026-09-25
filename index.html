@@ -11,6 +11,7 @@
     --accent-dark: #60a5fa;
     --accent2: #a855f7;
     --accent3: #22c55e;
+    --accent-emerald: #34d399;
     --text: #e9eaf2;
     --muted: #9aa0b8;
     --bg: #060608;
@@ -111,6 +112,21 @@
     border: 1px solid var(--border);
   }
   .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .ai-highlight { padding: 8px 0 0; }
+  .ai-highlight-box {
+    border-left: 4px solid var(--accent-emerald);
+    background: rgba(52, 211, 153, 0.08);
+    border-radius: 10px;
+    padding: 22px 26px;
+  }
+  .ai-highlight-text {
+    color: var(--accent-emerald);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin: 0;
+  }
 
   section { padding: 56px 0; position: relative; }
   section.alt {
@@ -543,6 +559,20 @@
     </div>
   </div>
 </header>
+
+<section class="ai-highlight">
+  <div class="wrap">
+    <div class="ai-highlight-box">
+      <p class="ai-highlight-text">
+        Jeg arbejder aktivt med agentiske AI-udviklingsværktøjer (Claude Code) til selvstændigt at
+        specificere, bygge og teste komplette, produktionsklare løsninger — uden at skulle mestre
+        traditionelle programmeringssprog som Python eller PHP. Min rolle har hele vejen igennem
+        været at specificere præcist, hvad der skulle bygges, teste output grundigt, og finde
+        konkrete bugs og fejl i AI'ens output og logik, før noget gik i produktion.
+      </p>
+    </div>
+  </div>
+</section>
 
 <section>
   <div class="wrap">
