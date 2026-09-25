@@ -349,20 +349,57 @@
   }
   .footer-mascot svg { width: 26px; height: 26px; }
 
-  .agent-flow {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-top: 8px;
-    align-items: stretch;
-  }
-  .agent-flow .step { padding: 18px; }
-  .agent-flow .arrow {
+  .agent-flow-branch { margin-top: 8px; }
+  .agent-flow-branch .step { padding: 18px; }
+  .agent-flow-branch .step.trigger { max-width: 480px; margin: 0 auto; }
+  .branch-connector {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 2px;
+    padding: 10px 0;
     color: var(--muted);
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+  .branch-connector .line {
+    width: 2px;
+    height: 16px;
+    background: var(--border);
+  }
+  .branch-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    position: relative;
+  }
+  .branch-row::before {
+    content: "eller";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg);
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    z-index: 1;
+  }
+  .branch-tag {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 720px) {
+    .branch-row::before { display: none; }
   }
   .bot-bubble {
     display: flex;
@@ -501,7 +538,7 @@
 
   @media (max-width: 720px) {
     h1 { font-size: 1.9rem; }
-    .steps, .shots, .shots-2, .docs-list, .links-grid { grid-template-columns: 1fr; }
+    .steps, .shots, .shots-2, .docs-list, .links-grid, .branch-row { grid-template-columns: 1fr; }
     .links-grid.links-grid-2 { grid-template-columns: 1fr; }
     .hero-inner { justify-content: center; text-align: center; }
     .hero-mascot { flex-basis: 140px; order: -1; }
@@ -638,21 +675,26 @@
       Ikke en fast liste af synonymer — når en søgning giver 0 resultater, får Gemini adgang
       til et rigtigt søgeværktøj og beslutter selv, om og hvad den vil prøve i stedet.
     </p>
-    <div class="agent-flow">
-      <div class="step">
+    <div class="agent-flow-branch">
+      <div class="step trigger">
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
         <h3>0 resultater</h3>
         <p>Søgeordet findes ikke direkte i nogen jobopslag — botten aktiverer automatisk AI'en i stedet for bare at vise "intet fundet".</p>
       </div>
-      <div class="step">
-        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/></svg></div>
-        <h3>AI'en vælger selv</h3>
-        <p>Gemini foreslår ét bredere eller synonymt dansk ord, kører en rigtig søgning med det, og ser det reelle resultat — højst 2 forsøg, aldrig flere.</p>
-      </div>
-      <div class="step">
-        <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Ærligt afslag på nonsens</h3>
-        <p>Giver søgeordet ingen mening, siger AI'en det ærligt i stedet for at gætte et tilfældigt ord.</p>
+      <div class="branch-connector"><div class="line"></div>↓</div>
+      <div class="branch-row">
+        <div class="step">
+          <span class="branch-tag">hvis ordet ligner et rigtigt ord</span>
+          <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/></svg></div>
+          <h3>AI'en vælger selv</h3>
+          <p>Gemini foreslår ét bredere eller synonymt dansk ord, kører en rigtig søgning med det, og ser det reelle resultat — højst 2 forsøg, aldrig flere.</p>
+        </div>
+        <div class="step">
+          <span class="branch-tag">hvis ordet er nonsens</span>
+          <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Ærligt afslag på nonsens</h3>
+          <p>Giver søgeordet ingen mening, siger AI'en det ærligt i stedet for at gætte et tilfældigt ord.</p>
+        </div>
       </div>
     </div>
     <div class="bot-bubble">
