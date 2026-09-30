@@ -45,6 +45,10 @@ section.block{margin-top:30px}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
 .claims{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media (max-width:520px){.claims{grid-template-columns:minmax(0,1fr)}}
+.claims.three{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px}
+@media (max-width:1000px){.claims.three{grid-template-columns:minmax(0,1fr)}}
+.sub-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:18px 0 0}
+.msg .small{font-size:12.5px;color:var(--muted)}
 .claim{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);transition:border-color .3s,background .3s}
 .claim .tick{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;margin-top:1px;transition:all .3s}
 .claim .tick svg{width:12px;height:12px;opacity:0}
@@ -114,7 +118,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 </head>
 <body>
 
-<div class="demo-bar"><b>DEMO</b> · AI-chatbot til fitnesscentre · NordPuls er et fiktivt center, alle tider og priser er eksempler</div>
+<div class="demo-bar"><b>DEMO</b> · AI-chatbot til fitnesscentre · NordPuls er et fiktivt center, alle tider, priser og produkter er eksempler</div>
 
 <div class="wrap">
   <main>
@@ -138,7 +142,13 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
         <li class="claim" data-claim="booking"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Tager imod bookinger</b><small>Book et hold direkte i chatten, uden telefonopkald.</small></div></li>
         <li class="claim" data-claim="lead"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Fanger leads</b><small>Tilbyder en gratis prøvetime og gemmer kontaktoplysningerne.</small></div></li>
       </ul>
-      <p class="progress" id="progress" aria-live="polite">0 af 6 vist</p>
+      <p class="sub-eyebrow">Og den sælger</p>
+      <ul class="claims three" id="claims-sales">
+        <li class="claim" data-claim="produkt"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Rådgiver om produkter</b><small>Finder det rigtige proteinpulver ud fra mål og allergier.</small></div></li>
+        <li class="claim" data-claim="salg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Sælger i chatten</b><small>Reservér et produkt til afhentning, eller forudbestil en shake.</small></div></li>
+        <li class="claim" data-claim="mersalg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Mersalg på rette tidspunkt</b><small>Efter en booking: "Skal vi have en shake klar efter holdet?"</small></div></li>
+      </ul>
+      <p class="progress" id="progress" aria-live="polite">0 af 9 vist</p>
     </section>
 
     <section class="block" aria-labelledby="try-h">
@@ -151,6 +161,10 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
         <button class="try" type="button">Jeg vil gerne booke spinning</button>
         <button class="try" type="button">Kan jeg prøve at træne gratis?</button>
         <button class="try" type="button">Hvordan opsiger jeg?</button>
+        <button class="try" type="button">Hvilket proteinpulver skal jeg vælge?</button>
+        <button class="try" type="button">Er der laktose i jeres proteinbar?</button>
+        <button class="try" type="button">Bestil en shake til efter træning</button>
+        <button class="try" type="button">Jeg er gravid, må jeg tage kreatin?</button>
       </div>
     </section>
 
@@ -275,7 +289,7 @@ var claimsDone={};
 function claim(k){
   if(claimsDone[k])return; claimsDone[k]=true;
   var el=document.querySelector('[data-claim="'+k+'"]'); if(el)el.classList.add("done");
-  document.getElementById("progress").textContent=Object.keys(claimsDone).length+" af 6 vist";
+  document.getElementById("progress").textContent=Object.keys(claimsDone).length+" af 9 vist";
 }
 var centerChips=["København N","Aarhus C","Odense SØ","Aalborg Øst"];
 
@@ -350,8 +364,11 @@ function bookStep(){
   }
   if(!f.name) return {html:"<p>"+slotLabel(f.slot)+", noteret. Hvilket navn skal pladsen bookes i? (Det er det eneste, jeg skal bruge.)</p>"};
   var done="<div class=\"confirm\"><p><b>Du er booket!</b></p>"+table([["Hold",CLASSES[f.cls].name],["Hvor",CENTERS[f.center].name],["Hvornår",slotLabel(f.slot)],["Navn",esc(f.name)]])+"</div><p>Du får en bekræftelse i NordPuls-appen. Kan du ikke komme, kan du afmelde gratis indtil 2 timer før.</p>";
-  st.center=f.center; st.flow=null; st.lastIntent="classes"; claim("booking");
-  return {html:done,chips:["Har I gratis parkering?","Hvad koster det?"]};
+  st.center=f.center; st.flow=null; st.lastIntent="classes"; st.name=f.name; claim("booking");
+  var end=addTime(f.slot.time,CLASSES[f.cls].len);
+  st.offer={center:f.center,end:end,cls:CLASSES[f.cls].name,name:f.name};
+  done+="<p>Vil du have en <b>recovery-shake</b> klar i baren, når holdet slutter kl. "+end+"? 45 kr.</p>";
+  return {html:done,chips:["Ja tak, en shake","Nej tak","Har I gratis parkering?"]};
 }
 function handleFlow(raw,t){
   var f=st.flow;
@@ -362,9 +379,10 @@ function handleFlow(raw,t){
       st.flow=null; st.lead=(email||phone)[0]; claim("lead");
       return {html:"<p><b>Tak!</b> Vi har modtaget <b>"+esc(st.lead)+"</b>. En træner kontakter dig inden for 24 timer"+(st.center?" om en gratis prøvetime i "+CENTERS[st.center].name:" om en gratis prøvetime")+".</p><p>(I demoen gemmes intet. I den rigtige version lander det direkte i jeres indbakke eller CRM.)</p>",chips:["Hvad skal jeg medbringe?","Åbningstider"]};
     }
-    if(!detect(t)) return {html:"<p>Det ligner ikke en e-mail eller et telefonnummer. Prøv igen, eller skriv \"nej tak\".</p>",chips:["Nej tak"]};
+    if(!detect(t)&&!isShop(t)) return {html:"<p>Det ligner ikke en e-mail eller et telefonnummer. Prøv igen, eller skriv \"nej tak\".</p>",chips:["Nej tak"]};
     st.flow=null; return null; // new question: leave the flow
   }
+  if(f.type==="advice"||f.type==="reserve"||f.type==="shake") return shopFlow(raw,t);
   if(f.type==="book"){
     var cls=findClass(t),c=findCenter(t);
     if(cls&&!f.cls){f.cls=cls}
@@ -385,6 +403,131 @@ function handleFlow(raw,t){
   return null;
 }
 
+// ---------- shop: sports nutrition ----------
+var PRODUCTS={
+  whey:{name:"NordPuls Whey, vanilje eller chokolade",short:"Whey",price:349,size:"1 kg (33 portioner)",info:"24 g protein pr. portion",free:["glutenfri"],allergens:"mælk",use:"efter træning eller som mellemmåltid"},
+  iso:{name:"NordPuls Isolate, laktosefri",short:"Isolate",price:399,size:"900 g (30 portioner)",info:"27 g protein pr. portion",free:["laktosefri","glutenfri"],allergens:"mælk (laktosefri)",use:"efter træning"},
+  plant:{name:"NordPuls Plant Protein, bær",short:"Plant Protein",price:329,size:"750 g (25 portioner)",info:"21 g protein pr. portion",free:["vegansk","laktosefri","glutenfri"],allergens:"soja",use:"efter træning eller som mellemmåltid"},
+  bar:{name:"Proteinbar, karamel",short:"Proteinbar karamel",price:25,size:"55 g",info:"20 g protein",free:["glutenfri"],allergens:"mælk, soja. Kan indeholde spor af nødder",use:"som mellemmåltid"},
+  vbar:{name:"Vegansk proteinbar, kakao",short:"Vegansk proteinbar",price:25,size:"50 g",info:"15 g protein",free:["vegansk","laktosefri"],allergens:"soja, havre (gluten)",use:"som mellemmåltid"},
+  kreatin:{name:"Kreatin monohydrat",short:"Kreatin",price:199,size:"300 g (100 portioner)",info:"3 g kreatin pr. portion",free:["vegansk","laktosefri","glutenfri"],allergens:"ingen",use:"dagligt"},
+  elek:{name:"Elektrolytter, citron",short:"Elektrolytter",price:149,size:"20 brusetabletter",info:"natrium, kalium og magnesium",free:["vegansk","laktosefri","glutenfri"],allergens:"ingen",use:"under og efter lange træningspas"}
+};
+var PROD_WORDS=[["iso",/isolat/],["plant",/plant|plante|vegansk protein ?pulver|vegansk pulver/],["vbar",/vegansk (protein)?bar/],["bar",/proteinbar|\bbar\b|barer/],["kreatin",/kreatin/],["elek",/elektrolyt|salttablet/],["whey",/whey|proteinpulver|pulver/]];
+var SHAKES=["Vanilje","Chokolade","Jordbær (vegansk)"];
+var SHOP_RE=/protein|pulver|whey|isolat|kreatin|elektrolyt|\bbar\b|barer|shake|smoothie|recovery|kosttilskud|tilskud|produkt/;
+function isShop(t){return SHOP_RE.test(t)}
+function findProduct(t){for(var i=0;i<PROD_WORDS.length;i++)if(PROD_WORDS[i][1].test(t))return PROD_WORDS[i][0];return null}
+function pad2(n){return String(n).padStart(2,"0")}
+function addTime(s,m){var mins=parseInt(s.slice(0,2),10)*60+parseInt(s.slice(3),10)+m;mins%=1440;return pad2(Math.floor(mins/60))+":"+pad2(mins%60)}
+function inMin(m){return addTime(hm(now()),m)}
+var DISCLAIMER='<p class="small">Kosttilskud erstatter ikke en varieret kost. Har du spørgsmål om dit helbred, så spørg din læge.</p>';
+function productCard(k,t){
+  var p=PRODUCTS[k],pre="";
+  var ask=/laktose/.test(t)?"laktosefri":/gluten/.test(t)?"glutenfri":/vegan|vegetar/.test(t)?"vegansk":null;
+  if(ask){
+    if(p.free.indexOf(ask)>=0) pre="<p><b>Ja</b>, "+p.name+" er "+ask+".</p>";
+    else{
+      var alt=Object.keys(PRODUCTS).filter(function(x){return x!==k&&PRODUCTS[x].free.indexOf(ask)>=0&&PRODUCTS[x].use.split(" ")[0]===p.use.split(" ")[0]})[0]||Object.keys(PRODUCTS).filter(function(x){return PRODUCTS[x].free.indexOf(ask)>=0&&/protein/.test(PRODUCTS[x].info)})[0];
+      pre="<p><b>Nej</b>, "+p.name+" er ikke "+ask+" (den indeholder "+p.allergens.split(".")[0]+").</p>"+(alt?"<p>Et "+ask+"t alternativ er <b>"+PRODUCTS[alt].name+"</b>, "+PRODUCTS[alt].price+" kr.</p>":"");
+      if(alt){st.lastProduct=alt;claim("produkt");return {html:pre+DISCLAIMER,chips:["Reservér "+PRODUCTS[alt].short+" · hent i receptionen","Hvilket produkt passer til mig?"]}}
+    }
+  }else if(/nød/.test(t)){
+    pre="<p>"+(/nød/.test(p.allergens)?"Ja, "+p.name+" kan indeholde spor af nødder.":"Nej, der er ikke nødder i "+p.name+".")+"</p>";
+  }
+  st.lastProduct=k; claim("produkt");
+  return {html:pre+"<p><b>"+p.name+"</b> · "+p.price+" kr.</p>"+table([["Indhold",p.info],["Størrelse",p.size],["Allergener",p.allergens],["Passer til",p.use]]),
+          chips:["Reservér "+p.short+" · hent i receptionen","Hvilket produkt passer til mig?","Bestil en shake"]};
+}
+function recommend(f){
+  var protein=f.diet==="vegansk"?"plant":f.diet==="laktosefri"?"iso":"whey";
+  var list=[protein];
+  if(f.when==="mellem"){
+    var snack=f.diet==="glutenfri"?"bar":(f.diet==="vegansk"||f.diet==="laktosefri")?"vbar":"bar";
+    if(!(f.diet==="glutenfri"&&snack==="vbar"))list.push(snack);
+  }
+  if(list.length<2){ if(f.goal==="muskel")list.push("kreatin"); else if(f.goal==="udh")list.push("elek"); }
+  var goalTxt={muskel:"muskelopbygning",vaegt:"vægttab",udh:"udholdenhed",alm:"generel træning"}[f.goal];
+  var html="<p>Til "+goalTxt+(f.diet!=="ingen"?", "+f.diet:"")+", "+(f.when==="mellem"?"som mellemmåltid":"efter træning")+", vil jeg foreslå:</p>";
+  list.forEach(function(k){var p=PRODUCTS[k];html+="<p><b>"+p.name+"</b> · "+p.price+" kr.<br>"+p.info+" · "+(p.free.length?p.free.join(", "):"allergener: "+p.allergens)+"</p>"});
+  st.lastProduct=list[0]; st.flow=null; claim("produkt");
+  var chips=list.map(function(k){return "Reservér "+PRODUCTS[k].short+" · hent i receptionen"}); chips.push("Bestil en shake til efter træning");
+  return {html:html+DISCLAIMER,chips:chips};
+}
+function adviceStep(){
+  var f=st.flow;
+  if(!f.goal)return {html:"<p>Det hjælper jeg gerne med. Tre hurtige spørgsmål. Hvad er dit mål?</p>",chips:["Muskelopbygning","Vægttab","Udholdenhed","Ved ikke"]};
+  if(!f.diet)return {html:"<p>Er der noget, du skal undgå?</p>",chips:["Ingen","Laktosefri","Vegansk","Glutenfri"]};
+  if(!f.when)return {html:"<p>Hvornår vil du typisk bruge det?</p>",chips:["Efter træning","Som mellemmåltid"]};
+  return recommend(f);
+}
+function reserveStep(){
+  var f=st.flow,p=PRODUCTS[f.prod];
+  if(!f.center)return needCenter("Hvilken reception skal den ligge klar i?");
+  if(!f.name)return {html:"<p>"+p.name+" i "+CENTERS[f.center].name+". Hvilket navn skal den reserveres i?</p>"};
+  st.flow=null; st.center=f.center; st.name=f.name; claim("salg");
+  return {html:'<div class="confirm"><p><b>Reserveret!</b></p>'+table([["Produkt",p.name],["Pris",p.price+" kr."],["Hent i",CENTERS[f.center].name+", receptionen"],["Navn",esc(f.name)]])+"</div><p>Den ligger klar i 48 timer. Betal ved afhentning eller i NordPuls-appen.</p><p class=\"small\">I demoen gemmes intet. I den rigtige version får receptionen besked med det samme.</p>",
+          chips:["Bestil også en shake","Åbningstider"]};
+}
+function startShake(o){
+  st.flow={type:"shake",center:o?o.center:st.center,when:o?"kl. "+o.end+", når "+o.cls+" slutter":null,name:o?o.name:st.name,fromBooking:!!o};
+  return shakeStep();
+}
+function shakeStep(){
+  var f=st.flow;
+  if(!f.flavor)return {html:"<p>"+(f.fromBooking?"Super! ":"")+"Hvilken recovery-shake? 45 kr., 25 g protein, lavet frisk i baren.</p>",chips:SHAKES.map(function(x){return x+" · 45 kr."})};
+  if(!f.center)return needCenter("I hvilken bar skal den stå klar?");
+  if(!f.when)return {html:"<p>Hvornår skal den være klar?</p>",chips:["Om 30 minutter","Om 1 time","Når jeg kommer"]};
+  if(!f.name)return {html:"<p>Hvilket navn skal stå på koppen?</p>"};
+  st.flow=null; st.center=f.center; st.name=f.name; claim("salg"); if(f.fromBooking)claim("mersalg");
+  return {html:'<div class="confirm"><p><b>Bestilt!</b></p>'+table([["Shake","Recovery, "+f.flavor.toLowerCase()],["Pris","45 kr."],["Hvor","Baren i "+CENTERS[f.center].name],["Klar",f.when],["Navn",esc(f.name)]])+"</div><p>Betal ved afhentning eller i NordPuls-appen.</p>",
+          chips:["Har I gratis parkering?","Proteinpulver-råd"]};
+}
+function shopFlow(raw,t){
+  var f=st.flow;
+  if(/^\s*(annuller|afbryd|nej tak|stop|glem det)\s*$/.test(t)){st.flow=null;return {html:"<p>Helt i orden. Spørg bare løs, hvis der er andet.</p>",chips:["Åbningstider","Book et hold"]}}
+  var c=findCenter(t); if(c&&!f.center)f.center=c;
+  if(f.type==="advice"){
+    if(!f.goal){var g=/muskel|styrke/.test(t)?"muskel":/vægt|tabe|slank|fedt/.test(t)?"vaegt":/udhold|løb|cykel|kondi|spinning/.test(t)?"udh":/ved ikke|andet|generel/.test(t)?"alm":null;if(g){f.goal=g;return adviceStep()}}
+    else if(!f.diet){var d=/vegan/.test(t)?"vegansk":/laktose/.test(t)?"laktosefri":/gluten/.test(t)?"glutenfri":/ingen|intet|nej/.test(t)?"ingen":null;if(d){f.diet=d;return adviceStep()}}
+    else if(!f.when){var w=/efter/.test(t)?"efter":/mellem|snack|sult/.test(t)?"mellem":null;if(w){f.when=w;return adviceStep()}}
+    if(detect(t)||isShop(t)){st.flow=null;return null}
+    return adviceStep();
+  }
+  if(f.type==="reserve"){
+    if(c)return reserveStep();
+    if(f.center&&!f.name){if(detect(t)||isShop(t)){st.flow=null;return null}f.name=raw.trim().slice(0,40);return reserveStep()}
+    if(detect(t)||isShop(t)){st.flow=null;return null}
+    return reserveStep();
+  }
+  if(f.type==="shake"){
+    if(!f.flavor){var fl=/vanil/.test(t)?SHAKES[0]:/chokolade/.test(t)?SHAKES[1]:/jordbær/.test(t)?SHAKES[2]:null;if(fl){f.flavor=fl;return shakeStep()}}
+    else if(c){return shakeStep()}
+    else if(!f.when&&f.center){var m=/30/.test(t)?30:/1 time|time/.test(t)?60:/kommer/.test(t)?-1:null;if(m!==null){f.when=m<0?"når du kommer (vis ordren i baren)":"kl. "+inMin(m);return shakeStep()}}
+    else if(f.when&&f.center&&!f.name){if(detect(t)||isShop(t)){st.flow=null;return null}f.name=raw.trim().slice(0,40);return shakeStep()}
+    if(detect(t)||(isShop(t)&&!/shake/.test(t))){st.flow=null;return null}
+    return shakeStep();
+  }
+  return null;
+}
+function shopReply(raw,t){
+  if(st.offer){var o=st.offer;st.offer=null;if(/^ ja\b/.test(t))return startShake(o)}
+  if(!isShop(t)&&!/reserv|hent i receptionen/.test(t))return null;
+  if(/gravid|ammer|amning|medicin|sygdom|diabetes|nyre|blodtryk|hjerte|læge|\bsyg\b/.test(t))
+    return {html:"<p>Det spørgsmål skal din læge svare på, ikke en chatbot. Jeg kan fortælle, hvad der står på varedeklarationen, men ikke om et produkt passer til din situation.</p><p>Vil du tale med en af vores trænere i stedet?</p>",chips:["Ja, kontakt mig","Nej tak"]};
+  if(/reserv|hent i receptionen|læg.*til side/.test(t)){
+    var k=findProduct(t)||st.lastProduct;
+    if(!k){st.flow={type:"advice"};return adviceStep()}
+    st.flow={type:"reserve",prod:k,center:findCenter(t)||st.center,name:null};
+    return reserveStep();
+  }
+  if(/shake|smoothie|recovery/.test(t))return startShake(null);
+  if(/proteinpulver-råd|passer til mig|vælge|anbefal|rådgiv|skal jeg (tage|købe|drikke|bruge)|kosttilskud|\btilskud/.test(t)&&!/laktose|gluten|nød/.test(t)){st.flow={type:"advice"};return adviceStep()}
+  var pk=findProduct(t); if(pk)return productCard(pk,t);
+  if(/protein/.test(t)){st.flow={type:"advice"};return adviceStep()}
+  return null;
+}
+
 // ---------- main reply ----------
 function reply(raw){
   var t=norm(raw), prevCenter=st.center;
@@ -393,6 +536,7 @@ function reply(raw){
   if(!supportOpen(now()))claim("døgn");
   if(st.flow){var fr=handleFlow(raw,t);if(fr)return fr}
   if(/bare opsig/.test(t))return {html:"<p>Forstået. Gå til <b>Profil → Medlemskab → Opsig</b> i appen, så er det klaret. Du er altid velkommen tilbage.</p>"};
+  var sr=shopReply(raw,t); if(sr)return sr;
   var intent=detect(t), c=findCenter(t), day=findDay(t), cls=findClass(t);
   if(intent==="cancelFlow")return {html:"<p>Okay, det er annulleret. Hvad kan jeg ellers hjælpe med?</p>",chips:["Åbningstider","Priser","Book et hold"]};
   // follow-ups: "og i Odense?", "hvad med søndag?"
@@ -411,7 +555,7 @@ function reply(raw){
 function needCenter(q){return {html:"<p>"+q+" Vi har fire centre. Hvilket tænker du på?</p>",chips:centerChips}}
 function answer(intent,c,day,cls,raw){
   switch(intent){
-  case "greet":return {html:"<p>Hej! Hvad kan jeg hjælpe med?</p>",chips:["Åbningstider","Hvad koster det?","Book et hold","Gratis prøvetime"]};
+  case "greet":return {html:"<p>Hej! Hvad kan jeg hjælpe med?</p>",chips:["Åbningstider","Book et hold","Proteinpulver-råd","Gratis prøvetime"]};
   case "hours":
     if(!c){st.lastIntent="hours";return needCenter("Det afhænger lidt af centret.")}
     return {html:hoursAnswer(c,day),chips:["Har I gratis parkering?","Hvad med weekenden?","Book et hold"]};
@@ -445,7 +589,7 @@ function answer(intent,c,day,cls,raw){
   if(/fortæl om pause/.test(raw.toLowerCase()))return answer("pause",c,day,cls,raw);
   st.misses++;
   if(st.misses>=2){st.misses=0;return startLead("Det spørgsmål vil jeg hellere lade en kollega svare på, så du får et præcist svar.")}
-  return {html:"<p>Det er jeg ikke helt sikker på. Jeg kan hjælpe med åbningstider, priser, hold og booking, parkering, pause og opsigelse.</p>",chips:["Åbningstider","Priser","Book et hold","Tal med en medarbejder"]};
+  return {html:"<p>Det er jeg ikke helt sikker på. Jeg kan hjælpe med åbningstider, priser, hold og booking, parkering, pause og opsigelse, og med proteinpulver og shakes.</p>",chips:["Åbningstider","Priser","Book et hold","Tal med en medarbejder"]};
 }
 
 // ---------- UI ----------
@@ -484,8 +628,8 @@ document.getElementById("copy").addEventListener("click",function(){
 });
 setInterval(renderClock,30000);
 renderClock();
-addMsg("bot","<p>Hej, jeg er NordPuls' assistent. Spørg om åbningstider, priser, hold eller parkering. Du behøver ikke oplyse navn eller e-mail.</p>");
-addChips(["Hvad er åbningstiderne?","Hvad koster det?","Book et hold","Gratis prøvetime"]);
+addMsg("bot","<p>Hej, jeg er NordPuls' assistent. Spørg om åbningstider, priser, hold, parkering eller vores produkter. Du behøver ikke oplyse navn eller e-mail.</p>");
+addChips(["Hvad er åbningstiderne?","Book et hold","Proteinpulver-råd","Gratis prøvetime"]);
 })();
 </script>
 </body>
