@@ -55,7 +55,8 @@ section.block{margin-top:30px}
 .claim b{display:block;font-size:15px}
 .claim small{color:var(--muted);font-size:13.5px;line-height:1.4;display:block}
 .claim{cursor:pointer}
-.claim:hover{border-color:var(--brand)}
+.claim:not(.done):hover{background:var(--brand-soft)}
+.claim.running{outline:2px dashed var(--brand);outline-offset:2px}
 .claim .go{display:block;margin-top:6px;font-size:13px;font-weight:700;color:var(--brand)}
 .claim.done .go{color:var(--ok)}
 .claim.done{border-color:var(--ok);background:var(--ok-soft)}
@@ -633,18 +634,36 @@ document.getElementById("copy").addEventListener("click",function(){
 var DEMOS={tider:["Hvad er åbningstiderne i Aarhus?"],formular:["Hvad koster et medlemskab?"],"døgn":["SUNDAY","Har I åbent nu i Aarhus?"],
   opfolg:["Hvad er åbningstiderne i Aarhus?","Og har I gratis parkering?"],booking:["Jeg vil gerne booke spinning"],lead:["Kan jeg prøve at træne gratis?"],
   produkt:["Hvilket proteinpulver skal jeg vælge?"],salg:["Bestil en shake til efter træning"],mersalg:["Jeg vil gerne booke yoga"]};
+var demoRunning=false;
+function wantsText(){
+  var f=st.flow; if(!f)return null;
+  if(f.type==="lead")return "anna@eksempel.dk";
+  if(f.type==="book"&&f.slot&&!f.name)return "Anna";
+  if(f.type==="reserve"&&f.center&&!f.name)return "Anna";
+  if(f.type==="shake"&&f.flavor&&f.center&&f.when&&!f.name)return "Anna";
+  return null;
+}
 function runDemo(k){
-  var seq=(DEMOS[k]||[]).slice();
+  if(demoRunning)return; demoRunning=true;
+  var card=document.querySelector('[data-claim="'+k+'"]'); card.classList.add("running");
+  var seq=(DEMOS[k]||[]).slice(), steps=0, acceptedOffer=false;
   if(k==="opfolg"&&st.center)seq=["Og har I gratis parkering?"];
-  st.flow=null;
+  st.flow=null; st.offer=null;
   if(window.innerWidth<=860)document.querySelector(".chat").scrollIntoView({block:"start"});
-  (function next(){
-    if(!seq.length)return;
+  function finish(){demoRunning=false;card.classList.remove("running")}
+  function next(){
     if(busy){setTimeout(next,200);return}
-    var q=seq.shift();
-    if(q==="SUNDAY"){setClock(true);next();return}
-    send(q);setTimeout(next,300);
-  })();
+    if(seq.length){var q=seq.shift();if(q==="SUNDAY"){setClock(true);next();return}send(q);setTimeout(next,300);return}
+    if(steps++>8)return finish();
+    if(k==="mersalg"&&st.offer&&!acceptedOffer){acceptedOffer=true;send("Ja tak, en shake");setTimeout(next,300);return}
+    if(!st.flow)return finish();
+    var txt=wantsText();
+    if(txt){send(txt);setTimeout(next,300);return}
+    var chip=document.querySelector(".chips:not(.used) .chip");
+    if(!chip)return finish();
+    setTimeout(function(){chip.click();setTimeout(next,300)},500);
+  }
+  next();
 }
 document.querySelectorAll(".claim").forEach(function(el){
   el.setAttribute("role","button");el.setAttribute("tabindex","0");
