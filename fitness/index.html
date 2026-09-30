@@ -54,6 +54,10 @@ section.block{margin-top:30px}
 .claim .tick svg{width:12px;height:12px;opacity:0}
 .claim b{display:block;font-size:15px}
 .claim small{color:var(--muted);font-size:13.5px;line-height:1.4;display:block}
+.claim{cursor:pointer}
+.claim:hover{border-color:var(--brand)}
+.claim .go{display:block;margin-top:6px;font-size:13px;font-weight:700;color:var(--brand)}
+.claim.done .go{color:var(--ok)}
 .claim.done{border-color:var(--ok);background:var(--ok-soft)}
 .claim.done .tick{background:var(--ok);border-color:var(--ok)}
 .claim.done .tick svg{opacity:1}
@@ -133,20 +137,20 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
     </div>
 
     <section class="block" aria-labelledby="claims-h">
-      <p class="eyebrow" id="claims-h">Det her kan chatbotten. Afprøv det selv.</p>
+      <p class="eyebrow" id="claims-h">Det her kan chatbotten. Klik på et kort, så viser chatten det.</p>
       <ul class="claims" id="claims">
-        <li class="claim" data-claim="tider"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Svarer med de faktiske tider</b><small>For det center, man spørger om. Ikke et link til 128 centre.</small></div></li>
-        <li class="claim" data-claim="formular"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Skriv bare løs</b><small>Intet krav om navn og e-mail for at stille et spørgsmål.</small></div></li>
-        <li class="claim" data-claim="døgn"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Tilgængelig 24/7</b><small>Også søndag kl. 23. Sæt uret nedenfor og prøv.</small></div></li>
-        <li class="claim" data-claim="opfolg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Forstår opfølgende spørgsmål</b><small>"Og har I gratis parkering?" Den husker, hvilket center I taler om.</small></div></li>
-        <li class="claim" data-claim="booking"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Tager imod bookinger</b><small>Book et hold direkte i chatten, uden telefonopkald.</small></div></li>
-        <li class="claim" data-claim="lead"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Fanger leads</b><small>Tilbyder en gratis prøvetime og gemmer kontaktoplysningerne.</small></div></li>
+        <li class="claim" data-claim="tider"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Svarer med de faktiske tider</b><small>For det center, man spørger om. Ikke et link til 128 centre.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="formular"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Skriv bare løs</b><small>Intet krav om navn og e-mail for at stille et spørgsmål.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="døgn"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Tilgængelig 24/7</b><small>Også søndag kl. 23. Sæt uret nedenfor og prøv.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="opfolg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Forstår opfølgende spørgsmål</b><small>"Og har I gratis parkering?" Den husker, hvilket center I taler om.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="booking"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Tager imod bookinger</b><small>Book et hold direkte i chatten, uden telefonopkald.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="lead"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Fanger leads</b><small>Tilbyder en gratis prøvetime og gemmer kontaktoplysningerne.</small><span class="go">Vis mig →</span></div></li>
       </ul>
       <p class="sub-eyebrow">Og den sælger</p>
       <ul class="claims three" id="claims-sales">
-        <li class="claim" data-claim="produkt"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Rådgiver om produkter</b><small>Finder det rigtige proteinpulver ud fra mål og allergier.</small></div></li>
-        <li class="claim" data-claim="salg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Sælger i chatten</b><small>Reservér et produkt til afhentning, eller forudbestil en shake.</small></div></li>
-        <li class="claim" data-claim="mersalg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Mersalg på rette tidspunkt</b><small>Efter en booking: "Skal vi have en shake klar efter holdet?"</small></div></li>
+        <li class="claim" data-claim="produkt"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Rådgiver om produkter</b><small>Finder det rigtige proteinpulver ud fra mål og allergier.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="salg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Sælger i chatten</b><small>Reservér et produkt til afhentning, eller forudbestil en shake.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="mersalg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Mersalg på rette tidspunkt</b><small>Efter en booking: "Skal vi have en shake klar efter holdet?"</small><span class="go">Vis mig →</span></div></li>
       </ul>
       <p class="progress" id="progress" aria-live="polite">0 af 9 vist</p>
     </section>
@@ -625,6 +629,27 @@ document.getElementById("copy").addEventListener("click",function(){
   var btn=this,txt=document.getElementById("mail").textContent;
   function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById("mail"));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Markeret"}
   try{navigator.clipboard.writeText(txt).then(function(){btn.textContent="Kopieret"},sel)}catch(e){sel()}
+});
+var DEMOS={tider:["Hvad er åbningstiderne i Aarhus?"],formular:["Hvad koster et medlemskab?"],"døgn":["SUNDAY","Har I åbent nu i Aarhus?"],
+  opfolg:["Hvad er åbningstiderne i Aarhus?","Og har I gratis parkering?"],booking:["Jeg vil gerne booke spinning"],lead:["Kan jeg prøve at træne gratis?"],
+  produkt:["Hvilket proteinpulver skal jeg vælge?"],salg:["Bestil en shake til efter træning"],mersalg:["Jeg vil gerne booke yoga"]};
+function runDemo(k){
+  var seq=(DEMOS[k]||[]).slice();
+  if(k==="opfolg"&&st.center)seq=["Og har I gratis parkering?"];
+  st.flow=null;
+  if(window.innerWidth<=860)document.querySelector(".chat").scrollIntoView({block:"start"});
+  (function next(){
+    if(!seq.length)return;
+    if(busy){setTimeout(next,200);return}
+    var q=seq.shift();
+    if(q==="SUNDAY"){setClock(true);next();return}
+    send(q);setTimeout(next,300);
+  })();
+}
+document.querySelectorAll(".claim").forEach(function(el){
+  el.setAttribute("role","button");el.setAttribute("tabindex","0");
+  el.addEventListener("click",function(){runDemo(el.getAttribute("data-claim"))});
+  el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();runDemo(el.getAttribute("data-claim"))}});
 });
 setInterval(renderClock,30000);
 renderClock();
