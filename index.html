@@ -794,6 +794,17 @@
         <span>Jobopslaget på dansk med automatisk udtrukne kontaktoplysninger — navn, telefon og e-mail — så du har alt samlet ét sted.</span>
       </li>
     </ul>
+    <p class="lead" style="margin-top: 32px;">Bagefter kan ansøgningen tjekkes og rettes med to knapper:</p>
+    <ul class="docs-list">
+      <li>
+        <strong>❓ Verify: tjek for opfundne fakta</strong>
+        <span>En ny, uafhængig AI-gennemgang sammenligner ansøgningen med det rigtige CV og markerer hver påstand, der ikke står i CV'et. Samtidig tjekkes, om ansøgningen helt overser et vigtigt krav fra jobopslaget, hverken som erfaring eller som et ærligt nævnt hul.</span>
+      </li>
+      <li>
+        <strong>🔧 Ret baseret på Verify</strong>
+        <span>Har Verify fundet noget, retter botten ansøgningen målrettet, kun de markerede steder, og anbefaler at køre Verify igen på den rettede version.</span>
+      </li>
+    </ul>
     <div class="note">
       Botten sender ikke noget selv. Den udarbejder kun udkast — det sidste skridt (gennemgå, rette til, sende) er altid personens eget.
     </div>
@@ -839,6 +850,14 @@
       <li>
         <strong>Forklaringen skiftede sprog uden varsel</strong>
         <span>Instruktionen til AI'en var selv skrevet på et andet sprog end det, den skulle svare på — hvilket i sjældne tilfælde "lækkede" ind i selve svaret. Rettet ved at gøre instruktionssproget konsekvent.</span>
+      </li>
+      <li>
+        <strong>Verify slog falsk alarm</strong>
+        <span>Et ærligt nævnt hul i ansøgningen ("ingen erfaring med X endnu, men lærer hurtigt") blev markeret som en opfundet påstand. Rettet: et ærligt hul er ikke en faktafejl, kun påstande uden dækning i CV'et er.</span>
+      </li>
+      <li>
+        <strong>Verify forklarede på engelsk</strong>
+        <span>Når CV'et eller jobopslaget var på engelsk, kom Verify's forklaringer også på engelsk, selvom resten af botten er på dansk. Rettet: forklaringerne er nu altid på dansk.</span>
       </li>
       <li>
         <strong>Kontaktoplysninger, der stod lige der, blev overset</strong>
