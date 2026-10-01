@@ -51,7 +51,9 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
 .hero .lede{margin-top:20px}
 .hero .lede h1{color:#fff}
 .hero .lede p{color:rgba(255,255,255,.88)}
-@media (max-width:860px){.hero-photos{display:none}.hero-fade{background:#1c1810}}
+.hero-strip{display:none;gap:7px;margin-top:18px;flex-wrap:wrap}
+.hero-strip img{width:64px;height:64px;object-fit:cover;border-radius:4px;border:3px solid #fff;box-shadow:0 4px 10px -4px rgba(0,0,0,.5)}
+@media (max-width:860px){.hero-photos{display:none}.hero-fade{background:#1c1810}.hero-strip{display:flex}}
 @media (max-width:640px){.hero-inner{padding:30px 16px 36px}}
 section.block{margin-top:30px}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
@@ -156,6 +158,15 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
     <div class="lede">
       <h1>Spørg om varerne. Få et rigtigt svar.</h1>
       <p>Chatten til højre er en rigtig, kørende chatbot. Spørg om allergener, glutenfrit, veganske varer eller lagerstatus, som en kunde ville gøre. Ingen formular, ingen ventetid.</p>
+    </div>
+    <div class="hero-strip" aria-hidden="true">
+      <img src="assets/card-veg.jpg" alt="" loading="lazy">
+      <img src="assets/card-tea.jpg" alt="" loading="lazy">
+      <img src="assets/card-nuts-final.jpg" alt="" loading="lazy">
+      <img src="assets/card-flour.jpg" alt="" loading="lazy">
+      <img src="assets/card-driedfruit-final2.jpg" alt="" loading="lazy">
+      <img src="assets/card-muesli.jpg" alt="" loading="lazy">
+      <img src="assets/card-vitamins.jpg" alt="" loading="lazy">
     </div>
   </div>
 </div>
