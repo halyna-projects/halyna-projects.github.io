@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="da">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kornkammeret chatbot-demo</title>
+<script data-goatcounter="https://halyna-demo-dk-jobbot.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#f6f4ee; --surface:#ffffff; --ink:#2a2416; --muted:#716a56; --line:#e3ddcc;
+  --brand:#5a7247; --brand-soft:#e9f0e3; --accent:#c75c2e; --accent-ink:#ffffff;
+  --user:#5a7247; --user-ink:#ffffff; --bot:#f1efe4;
+  --ok:#3f7d3a; --ok-soft:#e7f3e3; --warn:#b3261e; --warn-soft:#fcecea;
+  --display:"Fraunces","Georgia",serif;
+  --body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171511; --surface:#211e18; --ink:#ece7d9; --muted:#a39d89; --line:#39352a;
+  --brand:#8fb076; --brand-soft:#273323; --accent:#e08455; --accent-ink:#201006;
+  --user:#6b8a56; --user-ink:#ffffff; --bot:#2a2621;
+  --ok:#7fc479; --ok-soft:#1f3320; --warn:#f08a80; --warn-soft:#3a1d1b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171511; --surface:#211e18; --ink:#ece7d9; --muted:#a39d89; --line:#39352a;
+  --brand:#8fb076; --brand-soft:#273323; --accent:#e08455; --accent-ink:#201006;
+  --user:#6b8a56; --user-ink:#ffffff; --bot:#2a2621;
+  --ok:#7fc479; --ok-soft:#1f3320; --warn:#f08a80; --warn-soft:#3a1d1b; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body);margin:0}
+.demo-bar{background:var(--ink);color:var(--bg);font-size:13px;padding:8px 16px;text-align:center;letter-spacing:.02em}
+.demo-bar b{font-weight:700;letter-spacing:.08em}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:28px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px;align-items:start}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr);gap:28px}.chat{order:-1}}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:10px;background:var(--brand);display:grid;place-items:center;flex:none}
+.logo svg{width:24px;height:24px}
+.brand-name{font-family:var(--display);font-weight:700;font-size:25px;letter-spacing:.01em}
+.brand-name span{color:var(--accent)}
+.lede{display:grid;gap:10px;margin-top:22px}
+.lede h1{font-size:clamp(32px,4.6vw,46px);font-weight:700}
+.lede p{margin:0;color:var(--muted);max-width:60ch}
+section.block{margin-top:30px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.claims{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.claims{grid-template-columns:minmax(0,1fr)}}
+.claims.three{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:10px}
+@media (max-width:1000px){.claims.three{grid-template-columns:minmax(0,1fr)}}
+.sub-eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:18px 0 0}
+.claim{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);transition:border-color .3s,background .3s;cursor:pointer}
+.claim .tick{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;margin-top:1px;transition:all .3s}
+.claim .tick svg{width:12px;height:12px;opacity:0}
+.claim b{display:block;font-size:15px}
+.claim small{color:var(--muted);font-size:13.5px;line-height:1.4;display:block}
+.claim:not(.done):hover{background:var(--brand-soft)}
+.claim.running{outline:2px dashed var(--brand);outline-offset:2px}
+.claim .go{display:block;margin-top:6px;font-size:13px;font-weight:700;color:var(--brand)}
+.claim.done .go{color:var(--ok)}
+.claim.done{border-color:var(--ok);background:var(--ok-soft)}
+.claim.done .tick{background:var(--ok);border-color:var(--ok)}
+.claim.done .tick svg{opacity:1}
+.progress{font-size:13px;color:var(--muted);margin-top:8px;font-variant-numeric:tabular-nums}
+.tries{display:flex;flex-wrap:wrap;gap:8px}
+.try{font:inherit;font-size:14.5px;border:1px dashed var(--brand);color:var(--brand);background:transparent;border-radius:999px;padding:6px 12px;cursor:pointer}
+.try:hover{background:var(--brand-soft)}
+.clock{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{font:inherit;font-size:14px;border:0;background:transparent;color:var(--ink);padding:7px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.clock-note{font-size:13.5px;color:var(--muted);min-width:0}
+.clock-note.closed{color:var(--warn)}
+.contact{margin-top:34px;padding:18px;border-radius:12px;background:var(--brand-soft);display:grid;gap:8px}
+.contact h3{font-size:23px;font-weight:700}
+.contact p{margin:0;color:var(--muted);font-size:15px}
+.mailrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.mail{font-weight:700;color:var(--brand);font-size:17px;user-select:all;word-break:break-all}
+.pdf{color:var(--brand);font-weight:600}
+.copy{font:inherit;font-size:13px;border:1px solid var(--brand);background:var(--surface);color:var(--brand);border-radius:6px;padding:4px 10px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.chat{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px -20px rgba(40,30,10,.3);display:flex;flex-direction:column;height:min(640px,calc(100vh - 48px));min-height:480px;overflow:hidden}
+@media (max-width:860px){.chat{position:relative;top:0;height:560px}}
+.chat-head{background:var(--brand);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:16px;flex:none}
+.chat-head .who{min-width:0;flex:1}
+.chat-head b{display:block;font-size:16px}
+.chat-head small{display:flex;align-items:center;gap:6px;font-size:13px;opacity:.9}
+.dot{width:8px;height:8px;border-radius:50%;background:#9fe0a0;flex:none}
+.chat-clock{font-size:12.5px;background:rgba(0,0,0,.18);padding:3px 8px;border-radius:6px;font-variant-numeric:tabular-nums;white-space:nowrap}
+:root[data-theme="dark"] .chat-head{color:#171511}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chat-head{color:#171511}}
+.log{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.msg{max-width:86%;padding:9px 13px;border-radius:14px;font-size:15px;line-height:1.45;word-wrap:break-word;min-width:0}
+.msg.bot{background:var(--bot);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:var(--user);color:var(--user-ink);align-self:flex-end;border-bottom-right-radius:4px}
+.msg p{margin:0}
+.msg p+p,.msg p+table,.msg table+p{margin-top:6px}
+.msg table{border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.msg td{padding:1px 12px 1px 0;vertical-align:top}
+.msg td:first-child{color:var(--muted)}
+.msg .small{font-size:12.5px;color:var(--muted)}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:1px}
+.pill.open{background:var(--ok-soft);color:var(--ok)}
+.pill.shut{background:var(--warn-soft);color:var(--warn)}
+.confirm{border-left:3px solid var(--ok);padding-left:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start;max-width:100%}
+.chip{font:inherit;font-size:14px;border:1px solid var(--brand);background:var(--surface);color:var(--brand);border-radius:999px;padding:5px 12px;cursor:pointer}
+.chip:hover{background:var(--brand-soft)}
+.chips.used .chip{opacity:.45;pointer-events:none}
+.typing{align-self:flex-start;background:var(--bot);border-radius:14px;padding:12px 14px;display:flex;gap:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:b 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+@media (prefers-reduced-motion:reduce){.typing i{animation:none}.log{scroll-behavior:auto}}
+.compose{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.compose input{flex:1;min-width:0;font:inherit;font-size:15.5px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:9px 14px}
+.compose button{font:inherit;font-weight:700;border:0;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 16px;cursor:pointer}
+.fine{font-size:12px;color:var(--muted);text-align:center;padding:0 10px 8px}
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><b>DEMO</b> · AI-chatbot til helsekost- og øko-butikker · Kornkammeret er en fiktiv butik, alle varer, priser og lagerstatus er eksempler</div>
+
+<div class="wrap">
+  <main>
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3c-4 2-6 6-6 10 0 5 3 9 6 9s6-4 6-9c0-4-2-8-6-10Z"/><path d="M13 3v19"/></svg></div>
+      <div class="brand-name">Korn<span>kammeret</span></div>
+    </div>
+
+    <div class="lede">
+      <h1>Spørg om varerne. Få et rigtigt svar.</h1>
+      <p>Chatten til højre er en rigtig, kørende chatbot. Spørg om allergener, glutenfrit, veganske varer eller lagerstatus, som en kunde ville gøre. Ingen formular, ingen ventetid.</p>
+    </div>
+
+    <section class="block" aria-labelledby="claims-h">
+      <p class="eyebrow" id="claims-h">Det her kan chatbotten. Klik på et kort, så viser chatten det.</p>
+      <ul class="claims" id="claims">
+        <li class="claim" data-claim="tider"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Svarer med de faktiske åbningstider</b><small>Direkte svar, ikke en henvisning til en anden side.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="formular"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Skriv bare løs</b><small>Intet krav om navn og e-mail for at stille et spørgsmål.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="døgn"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Tilgængelig 24/7</b><small>Også søndag kl. 23. Sæt uret nedenfor og prøv.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="opfolg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Forstår opfølgende spørgsmål</b><small>"Og er den også laktosefri?" Den husker, hvad I taler om.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="afhent"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Reserverer til afhentning</b><small>Varen ligger klar i butikken, uden telefonopkald.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="lead"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Fanger leads</b><small>Giver besked, når en udsolgt vare er hjemme igen.</small><span class="go">Vis mig →</span></div></li>
+      </ul>
+      <p class="sub-eyebrow">Og den rådgiver</p>
+      <ul class="claims three" id="claims-sales">
+        <li class="claim" data-claim="allergen"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Svarer præcist på allergener</b><small>Gluten, laktose, nødder — ud fra varedeklarationen, ikke gætteri.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="alternativ"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Foreslår alternativer</b><small>Passer varen ikke, peger den på en, der gør.</small><span class="go">Vis mig →</span></div></li>
+        <li class="claim" data-claim="mersalg"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2"><path d="M2 6.5 5 9l5-6"/></svg></span><div><b>Mersalg på rette tidspunkt</b><small>Efter en reservation: "Skal jeg lægge glutenfrit brød ved siden af?"</small><span class="go">Vis mig →</span></div></li>
+      </ul>
+      <p class="progress" id="progress" aria-live="polite">0 af 9 vist</p>
+    </section>
+
+    <section class="block" aria-labelledby="try-h">
+      <p class="eyebrow" id="try-h">Prøv fx at skrive</p>
+      <div class="tries" id="tries">
+        <button class="try" type="button">Hvad er jeres åbningstider?</button>
+        <button class="try" type="button">Har I glutenfrit brød?</button>
+        <button class="try" type="button">Er det også laktosefrit?</button>
+        <button class="try" type="button">Hvad koster mandler?</button>
+        <button class="try" type="button">Jeg er veganer, hvad kan I anbefale?</button>
+        <button class="try" type="button">Kan I lægge daddelkonfekt til side?</button>
+        <button class="try" type="button">Har I D-vitamin på lager?</button>
+        <button class="try" type="button">Er der nødder i jeres proteinbar?</button>
+        <button class="try" type="button">Giv mig besked, når den er hjemme</button>
+        <button class="try" type="button">Kan jeg betale med MobilePay?</button>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="clock-h">
+      <p class="eyebrow" id="clock-h">Hvad er klokken?</p>
+      <div class="clock">
+        <div class="seg" role="group" aria-label="Tidspunkt for demoen">
+          <button type="button" id="t-now" aria-pressed="true">Lige nu</button>
+          <button type="button" id="t-sun" aria-pressed="false">Søndag kl. 23:04</button>
+        </div>
+        <span class="clock-note" id="clock-note"></span>
+      </div>
+    </section>
+
+    <div class="contact">
+      <h3>Vil du have sådan en til din butik?</h3>
+      <p>Bygget på dage, ikke uger. Tilpasset jeres eget sortiment, priser og åbningstider. Fungerer også til fitness, webshops og andre små virksomheder.</p>
+      <div class="mailrow"><span class="mail" id="mail">hl22111770@gmail.com</span><button class="copy" type="button" id="copy">Kopiér</button></div>
+      <p><a class="pdf" href="chatbot-til-helsekostbutikker.pdf" target="_blank" rel="noopener">Sådan fungerer det: data, GDPR og forløb (PDF, 2 sider)</a></p>
+    </div>
+  </main>
+
+  <aside class="chat" aria-label="Kornkammeret chat">
+    <div class="chat-head">
+      <div class="avatar" aria-hidden="true">KK</div>
+      <div class="who"><b>Kornkammeret assistent</b><small><span class="dot"></span>Online · svarer med det samme</small></div>
+      <span class="chat-clock" id="chat-clock"></span>
+    </div>
+    <div class="log" id="log" aria-live="polite"></div>
+    <form class="compose" id="compose" autocomplete="off">
+      <input id="q" type="text" placeholder="Skriv dit spørgsmål her …" aria-label="Skriv en besked" maxlength="300">
+      <button type="submit">Send</button>
+    </form>
+    <div class="fine">Demo-chatbot · svarene er eksempler</div>
+  </aside>
+</div>
+
+<script>
+(function(){
+"use strict";
+var DAYS=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+var DAYS_SHORT=["Man","Tir","Ons","Tor","Fre","Lør","Søn"];
+var HOURS=[["09:30","18:00"],["09:30","18:00"],["09:30","18:00"],["09:30","18:00"],["09:30","18:00"],["09:30","14:00"],null];
+var ADDRESS="Klostergade 2, 8000 Aarhus C";
+
+var PRODUCTS={
+  brod:{name:"Glutenfrit surdejsbrød",short:"Glutenfrit brød",price:49,size:"500 g, bagt i eget bageri",info:"Frisk bagt dagligt",free:["glutenfri"],allergens:"kan indeholde spor af nødder og sesam",use:"holder sig 3 dage, kan fryses",stock:"på lager"},
+  boller:{name:"Glutenfrie boller, 4 stk",short:"Glutenfrie boller",price:39,size:"4 stk",info:"Bagt uden hvede, med boghvede og ris",free:["glutenfri","laktosefri"],allergens:"kan indeholde spor af nødder",use:"bedst friske, kan fryses",stock:"på lager"},
+  mandler:{name:"Mandler, økologiske",short:"Mandler",price:89,size:"500 g",info:"Spanske mandler, naturelle",free:["vegansk","glutenfri","laktosefri"],allergens:"nødder (mandler)",use:"snack eller i bagværk",stock:"på lager"},
+  cashew:{name:"Cashewnødder, økologiske",short:"Cashewnødder",price:99,size:"500 g",info:"Mild smag, fra Vietnam",free:["vegansk","glutenfri","laktosefri"],allergens:"nødder (cashew)",use:"snack eller i vegansk madlavning",stock:"på lager"},
+  dadler:{name:"Daddelkonfekt, mørk chokolade",short:"Daddelkonfekt",price:59,size:"150 g, 8 stk",info:"Dadler, nødder og mørk chokolade",free:["glutenfri"],allergens:"nødder, kan indeholde spor af mælk og soja",use:"som slik eller energiboost",stock:"på lager"},
+  plant:{name:"Plantebaseret proteinpulver, vanilje",short:"Plantprotein",price:249,size:"500 g (16 portioner)",info:"20 g protein pr. portion, af ærteprotein",free:["vegansk","glutenfri","laktosefri"],allergens:"ingen af de 14 almindelige allergener",use:"i smoothie eller havregrød",stock:"på lager"},
+  bar:{name:"Proteinbar, peanut-karamel",short:"Proteinbar",price:22,size:"50 g",info:"15 g protein",free:[],allergens:"jordnødder, mælk, soja. Kan indeholde spor af andre nødder",use:"som mellemmåltid",stock:"på lager"},
+  dvit:{name:"D-vitamin, 50 µg",short:"D-vitamin",price:79,size:"120 kapsler",info:"Et års forbrug ved 1 kapsel dagligt",free:["vegansk","glutenfri","laktosefri"],allergens:"ingen",use:"dagligt, især i vinterhalvåret",stock:"udsolgt, hjemme igen i uge 42"},
+  kokosolie:{name:"Kokosolie, koldpresset",short:"Kokosolie",price:69,size:"500 ml",info:"Økologisk, uraffineret",free:["vegansk","glutenfri","laktosefri"],allergens:"ingen af de 14 almindelige allergener",use:"madlavning og bagning",stock:"på lager"}
+};
+var PROD_WORDS=[["brod",/\bbrød\b|surdej/],["boller",/boller|bolle\b/],["mandler",/mandler|mandel/],["cashew",/cashew/],["dadler",/dad+elkonfekt|dadler|dad+el\b/],["plant",/plantebaseret|planteprotein|vegansk protein|proteinpulver|protein ?pulver/],["bar",/proteinbar|\bbar\b|barer/],["dvit",/d-vitamin|d vitamin|vitamin d/],["kokosolie",/kokosolie|kokosfedt/]];
+var SHOP_RE=/brød|boller|mandler|cashew|nødder|dad+el|dadler|protein|pulver|vitamin|kokosolie|glutenfri|laktosefri|vegansk|vegan|allergen|gluten|laktose/;
+function isShop(t){return SHOP_RE.test(t)}
+function findProduct(t){for(var i=0;i<PROD_WORDS.length;i++)if(PROD_WORDS[i][1].test(t))return PROD_WORDS[i][0];return null}
+
+var simSunday=false;
+function now(){
+  var d=new Date();
+  if(!simSunday) return d;
+  var s=new Date(d); s.setDate(d.getDate()+((7-d.getDay())%7)); s.setHours(23,4,0,0); return s;
+}
+function dayIdx(d){return (d.getDay()+6)%7}
+function hm(d){return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")}
+function inRange(t,r){return t>=r[0]&&t<r[1]}
+function supportOpen(d){var i=dayIdx(d);return i<5&&inRange(hm(d),["09:00","16:00"])}
+function renderClock(){
+  var d=now();
+  document.getElementById("chat-clock").textContent=DAYS_SHORT[dayIdx(d)]+" "+hm(d);
+  var note=document.getElementById("clock-note");
+  if(supportOpen(d)){note.textContent="En typisk support-chat (man–fre 09–16) ville også være åben nu.";note.className="clock-note"}
+  else{note.textContent="En typisk support-chat (man–fre 09–16) ville være lukket nu. Denne svarer stadig.";note.className="clock-note closed"}
+}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function norm(s){return " "+s.toLowerCase().replace(/[?!.,;:()"]/g," ").replace(/\s+/g," ").trim()+" "}
+function exact(r){return r[0]+"–"+r[1]}
+function groupRows(arr){
+  var out=[],s=0;
+  for(var i=1;i<=7;i++){
+    var ai=arr[i===7?6:i],as=arr[s];
+    var same=(i<7)&&((ai===null&&as===null)||(ai&&as&&ai[0]===as[0]&&ai[1]===as[1]));
+    if(i===7||!same){
+      out.push([s===i-1?DAYS_SHORT[s]:DAYS_SHORT[s]+"–"+DAYS_SHORT[i-1].toLowerCase(),as?exact(as):"Lukket"]);s=i;
+    }
+  }
+  return out;
+}
+function table(rows){return "<table>"+rows.map(function(r){return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td></tr>"}).join("")+"</table>"}
+function isOpenNow(d){var r=HOURS[dayIdx(d)];return r?inRange(hm(d),r):false}
+
+var st={lastIntent:null,flow:null,turns:0,misses:0,lead:null,lastProduct:null,offer:null};
+var claimsDone={};
+function claim(k){
+  if(claimsDone[k])return; claimsDone[k]=true;
+  var el=document.querySelector('[data-claim="'+k+'"]'); if(el)el.classList.add("done");
+  document.getElementById("progress").textContent=Object.keys(claimsDone).length+" af 9 vist";
+}
+
+function hoursAnswer(day){
+  claim("tider");
+  var d=now();
+  if(day!==null&&day!==undefined){
+    var r=HOURS[day];
+    return "<p>"+DAYS[day].charAt(0).toUpperCase()+DAYS[day].slice(1)+": "+(r?"åbent "+exact(r):"lukket")+". Adressen er "+ADDRESS+".</p>";
+  }
+  var open=isOpenNow(d);
+  var status=open?'<span class="pill open">Åbent nu</span>':'<span class="pill shut">Lukket nu</span>';
+  return "<p><b>Kornkammeret</b> "+status+"</p>"+table(groupRows(HOURS))+"<p>"+ADDRESS+"</p>";
+}
+function findDay(t){
+  if(/i morgen/.test(t))return (dayIdx(now())+1)%7;
+  if(/ i dag | lige nu | nu /.test(t))return dayIdx(now());
+  if(/weekend/.test(t))return 5;
+  for(var i=0;i<7;i++)if(t.indexOf(DAYS[i])>=0)return i;
+  return null;
+}
+
+var DISCLAIMER='<p class="small">Information om allergener og indhold er vejledende. Har du en alvorlig allergi, så tjek altid varedeklarationen på varen selv.</p>';
+function productCard(k,t,isFollow){
+  if(isFollow)claim("opfolg");
+  var p=PRODUCTS[k],pre="";
+  var ask=/laktose/.test(t)?"laktosefri":/gluten/.test(t)?"glutenfri":/vegan|vegetar/.test(t)?"vegansk":null;
+  if(ask){
+    claim("allergen");
+    if(p.free.indexOf(ask)>=0) pre="<p><b>Ja</b>, "+p.name+" er "+ask+".</p>";
+    else{
+      var alt=Object.keys(PRODUCTS).filter(function(x){return x!==k&&PRODUCTS[x].free.indexOf(ask)>=0})[0];
+      pre="<p><b>Nej</b>, "+p.name+" er ikke "+ask+" (allergener: "+p.allergens.split(".")[0]+").</p>"+(alt?"<p>Et "+ask+"t alternativ er <b>"+PRODUCTS[alt].name+"</b>, "+PRODUCTS[alt].price+" kr.</p>":"");
+      if(alt){st.lastProduct=alt;claim("alternativ");return {html:pre+DISCLAIMER,chips:["Læg "+PRODUCTS[alt].short+" til side til afhentning","Hvad kan I ellers anbefale?"]}}
+    }
+  }else if(/nød/.test(t)){
+    pre="<p>"+(/nødder/.test(p.allergens)?"Ja, "+p.name+" indeholder eller kan indeholde nødder.":"Nej, der er ikke nødder i "+p.name+".")+"</p>";
+  }
+  st.lastProduct=k;
+  var stockLine=p.stock==="på lager"?'<span class="pill open">På lager</span>':'<span class="pill shut">Udsolgt</span>';
+  var body="<p><b>"+p.name+"</b> "+stockLine+" · "+p.price+" kr.</p>"+table([["Mængde",p.size],["Info",p.info],["Allergener",p.allergens],["Bruges til",p.use]]);
+  var chips=p.stock==="på lager"?["Læg "+p.short+" til side til afhentning","Er den glutenfri?","Er den vegansk?"]:["Giv mig besked, når den er hjemme","Hvad kan I anbefale i stedet?"];
+  return {html:pre+body,chips:chips};
+}
+
+function startLead(reason){
+  st.flow={type:"lead"};
+  return {html:"<p>"+reason+"</p><p>Skriv din e-mail, så giver vi besked, så snart varen er hjemme igen.</p>",chips:["Nej tak"]};
+}
+function reserveStep(){
+  var f=st.flow,p=PRODUCTS[f.prod];
+  if(!f.name)return {html:"<p>"+p.name+" lagt til side. Hvilket navn skal den ligge under?</p>"};
+  st.flow=null; st.name=f.name; claim("afhent");
+  var done='<div class="confirm"><p><b>Reserveret!</b></p>'+table([["Vare",p.name],["Pris",p.price+" kr."],["Hentes hos",ADDRESS],["Navn",esc(f.name)]])+"</div><p>Varen ligger klar i 3 dage. Betal ved afhentning, også med MobilePay.</p>";
+  if(f.prod==="dadler"||f.prod==="mandler"||f.prod==="cashew"){
+    st.offer={suggest:"brod"};
+    done+="<p>Skal jeg lægge et glutenfrit surdejsbrød ved siden af? 49 kr.</p>";
+    return {html:done,chips:["Ja tak","Nej tak","Hvad er jeres åbningstider?"]};
+  }
+  return {html:done,chips:["Hvad er jeres åbningstider?","Noget andet, jeg kan hjælpe med?"]};
+}
+
+var INTENTS=[
+  ["cancelFlow",/^\s*(annuller|afbryd|glem det|stop)\s*$/],
+  ["hours",/åben|åbent|åbning|lukke|lukket|hvornår|døgn|nat\b|sent|tidlig|kl\s?\d|\btider\b/],
+  ["payment",/mobilepay|betal|kontant|kort\b/],
+  ["human",/medarbejder|menneske|ringe|ring |kontakt|telefon|snakke med/],
+  ["thanks",/\btak\b|super|perfekt|fedt|dejligt/],
+  ["greet",/^\s*(hej|hejsa|hallo|goddag|godaften|godmorgen|hi|hello)\b/]
+];
+function detect(t){for(var i=0;i<INTENTS.length;i++)if(INTENTS[i][1].test(t))return INTENTS[i][0];return null}
+
+function handleFlow(raw,t){
+  var f=st.flow;
+  if(f.type==="lead"){
+    if(/^\s*(nej|nej tak|ellers tak)\s*$/.test(t)){st.flow=null;return {html:"<p>Helt i orden. Spørg bare løs, hvis der er andet.</p>",chips:["Åbningstider","Har I glutenfrit brød?"]}}
+    var email=raw.match(/[^\s@]+@[^\s@]+\.[a-z]{2,}/i);
+    if(email){
+      st.flow=null; st.lead=email[0]; claim("lead");
+      return {html:"<p><b>Tak!</b> Vi skriver til <b>"+esc(st.lead)+"</b>, så snart varen er hjemme igen.</p><p>(I demoen gemmes intet. I den rigtige version lander det direkte i jeres system.)</p>",chips:["Har I glutenfrit brød?","Åbningstider"]};
+    }
+    if(!detect(t)&&!isShop(t)) return {html:"<p>Det ligner ikke en e-mail. Prøv igen, eller skriv \"nej tak\".</p>",chips:["Nej tak"]};
+    st.flow=null; return null;
+  }
+  if(f.type==="reserve"){
+    if(!f.name){
+      var nm=raw.trim();
+      if(!nm||!/^[a-zæøåA-ZÆØÅ' -]{2,30}$/.test(nm)) return {html:"<p>Jeg fangede ikke navnet. Hvilket navn skal varen ligge under?</p>"};
+      f.name=nm;
+    }
+    return reserveStep();
+  }
+  return null;
+}
+
+function shopReply(raw,t){
+  if(st.offer){
+    var o=st.offer; st.offer=null;
+    if(/^ ja\b/.test(t)){
+      st.flow={type:"reserve",prod:o.suggest,name:st.name||null};
+      claim("mersalg");
+      if(st.name)return reserveStep();
+      return {html:"<p>Godt valg. Hvilket navn skal det ligge under?</p>"};
+    }
+  }
+  var wantsRestock=/giv.*besked|besked.*hjemme|restock/.test(t);
+  if(!isShop(t)&&!/til side|reserv/.test(t)&&!wantsRestock)return null;
+  if(wantsRestock){
+    var kk=findProduct(t)||st.lastProduct;
+    return startLead(kk?PRODUCTS[kk].name+" er udsolgt, men kommer snart hjem igen.":"Den vare er udsolgt lige nu.");
+  }
+  if(/til side|reserv|læg.*til side/.test(t)){
+    var k=findProduct(t)||st.lastProduct;
+    if(!k)return {html:"<p>Hvilken vare vil du gerne have lagt til side?</p>"};
+    if(PRODUCTS[k].stock!=="på lager")return startLead(PRODUCTS[k].name+" er desværre udsolgt lige nu.");
+    st.flow={type:"reserve",prod:k,name:st.name||null};
+    if(st.name)return reserveStep();
+    return {html:"<p>"+PRODUCTS[k].name+" lagt til side. Hvilket navn skal den ligge under?</p>"};
+  }
+  if(/udsolgt/.test(t)){
+    var ku=findProduct(t)||st.lastProduct;
+    return startLead(ku?PRODUCTS[ku].name+" er udsolgt, men kommer snart hjem igen.":"Den vare er udsolgt lige nu.");
+  }
+  var pk=findProduct(t); if(pk)return productCard(pk,t);
+  if(/gluten|laktose|vegan|allergen|nødder/.test(t)&&st.lastProduct)return productCard(st.lastProduct,t,true);
+  if(/anbefal|kan i anbefale|hvad kan i foresl/.test(t)){
+    claim("alternativ");
+    return {html:"<p>Det afhænger af, hvad du leder efter — glutenfrit bagværk, nødder, kosttilskud eller noget sødt?</p>",chips:["Glutenfrit brød","Mandler","D-vitamin","Daddelkonfekt"]};
+  }
+  return null;
+}
+
+function reply(raw){
+  var t=norm(raw);
+  st.turns++;
+  if(st.turns===1)claim("formular");
+  if(!supportOpen(now()))claim("døgn");
+  if(st.flow){var fr=handleFlow(raw,t);if(fr)return fr}
+  var sr=shopReply(raw,t); if(sr)return sr;
+  var intent=detect(t), day=findDay(t);
+  if(intent==="cancelFlow")return {html:"<p>Okay, det er annulleret. Hvad kan jeg ellers hjælpe med?</p>",chips:["Åbningstider","Har I glutenfrit brød?"]};
+  var followUp=false;
+  if(!intent&&day!==null&&st.lastIntent==="hours"){intent="hours";followUp=true}
+  if(followUp&&st.turns>1)claim("opfolg");
+  var r=answer(intent,day,raw,t);
+  if(intent)st.lastIntent=intent;
+  if(intent)st.misses=0;
+  return r;
+}
+function answer(intent,day,raw,t){
+  switch(intent){
+  case "greet":return {html:"<p>Hej! Spørg endelig om åbningstider, varer, allergener eller priser.</p>",chips:["Åbningstider","Har I glutenfrit brød?","Jeg er veganer, hvad kan I anbefale?"]};
+  case "hours":return {html:hoursAnswer(day),chips:["Har I glutenfrit brød?","Kan jeg betale med MobilePay?"]};
+  case "payment":return {html:"<p>Du kan betale med MobilePay, alle almindelige betalingskort og kontant i butikken.</p>",chips:["Åbningstider","Har I glutenfrit brød?"]};
+  case "human":return startLead("Selvfølgelig. Skriv din e-mail, så kontakter vi dig.");
+  case "thanks":return {html:"<p>Så lidt! Spørg endelig igen, også midt om natten.</p>"};
+  }
+  if(st.lastIntent==="hours"&&day!==null)return {html:hoursAnswer(day),chips:["Har I glutenfrit brød?"]};
+  st.misses++;
+  if(st.misses>=2){st.misses=0;return startLead("Det spørgsmål vil jeg hellere lade personalet svare på.")}
+  return {html:"<p>Det er jeg ikke helt sikker på. Jeg kan hjælpe med åbningstider, varer, allergener, priser og at lægge en vare til side.</p>",chips:["Åbningstider","Har I glutenfrit brød?","Jeg er veganer, hvad kan I anbefale?"]};
+}
+
+var log=document.getElementById("log"),input=document.getElementById("q"),busy=false;
+function addMsg(who,html){var m=document.createElement("div");m.className="msg "+who;m.innerHTML=html;log.appendChild(m);log.scrollTop=log.scrollHeight;return m}
+function addChips(list){
+  if(!list||!list.length)return;
+  var w=document.createElement("div");w.className="chips";
+  list.forEach(function(l){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=l;b.onclick=function(){w.classList.add("used");send(l.split(" · ")[0])};w.appendChild(b)});
+  log.appendChild(w);log.scrollTop=log.scrollHeight;
+}
+function send(text){
+  text=String(text||"").trim(); if(!text||busy)return;
+  busy=true;
+  document.querySelectorAll(".chips:not(.used)").forEach(function(c){c.classList.add("used")});
+  addMsg("user","<p>"+esc(text)+"</p>");
+  var r=reply(text);
+  var ty=document.createElement("div");ty.className="typing";ty.innerHTML="<i></i><i></i><i></i>";log.appendChild(ty);log.scrollTop=log.scrollHeight;
+  var delay=window.matchMedia("(prefers-reduced-motion: reduce)").matches?150:550+Math.min(r.html.length,600);
+  setTimeout(function(){ty.remove();addMsg("bot",r.html);addChips(r.chips);busy=false},delay);
+}
+document.getElementById("compose").addEventListener("submit",function(e){e.preventDefault();var v=input.value;input.value="";send(v)});
+document.querySelectorAll(".try").forEach(function(b){b.addEventListener("click",function(){send(b.textContent);if(window.innerWidth<=860)document.querySelector(".chat").scrollIntoView({block:"start"})})});
+function setClock(sun){
+  simSunday=sun;
+  document.getElementById("t-now").setAttribute("aria-pressed",String(!sun));
+  document.getElementById("t-sun").setAttribute("aria-pressed",String(sun));
+  renderClock();
+}
+document.getElementById("t-now").onclick=function(){setClock(false)};
+document.getElementById("t-sun").onclick=function(){setClock(true)};
+document.getElementById("copy").addEventListener("click",function(){
+  var btn=this,txt=document.getElementById("mail").textContent;
+  function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById("mail"));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Markeret"}
+  try{navigator.clipboard.writeText(txt).then(function(){btn.textContent="Kopieret"},sel)}catch(e){sel()}
+});
+var DEMOS={
+  tider:["Hvad er jeres åbningstider?"],
+  formular:["Har I glutenfrit brød?"],
+  "døgn":["SUNDAY","Har I åbent nu?"],
+  opfolg:["Har I glutenfrit brød?","Er den også laktosefri?"],
+  afhent:["Kan I lægge daddelkonfekt til side?"],
+  lead:["Har I D-vitamin på lager?","Giv mig besked, når den er hjemme"],
+  allergen:["Har I glutenfrit brød?"],
+  alternativ:["Har I proteinbar?","Er den glutenfri?"],
+  mersalg:["Kan I lægge daddelkonfekt til side?"]
+};
+var demoRunning=false;
+function wantsText(){
+  var f=st.flow; if(!f)return null;
+  if(f.type==="lead")return "anna@eksempel.dk";
+  if(f.type==="reserve"&&!f.name)return "Anna";
+  return null;
+}
+function runDemo(k){
+  if(demoRunning)return; demoRunning=true;
+  var card=document.querySelector('[data-claim="'+k+'"]'); card.classList.add("running");
+  var seq=(DEMOS[k]||[]).slice(), steps=0, acceptedOffer=false;
+  st.flow=null; st.offer=null;
+  if(window.innerWidth<=860)document.querySelector(".chat").scrollIntoView({block:"start"});
+  function finish(){demoRunning=false;card.classList.remove("running")}
+  function next(){
+    if(busy){setTimeout(next,200);return}
+    if(seq.length){var q=seq.shift();if(q==="SUNDAY"){setClock(true);next();return}send(q);setTimeout(next,300);return}
+    if(steps++>8)return finish();
+    if(k==="mersalg"&&st.offer&&!acceptedOffer){acceptedOffer=true;send("Ja tak");setTimeout(next,300);return}
+    if(!st.flow)return finish();
+    var txt=wantsText();
+    if(txt){send(txt);setTimeout(next,300);return}
+    var chip=document.querySelector(".chips:not(.used) .chip");
+    if(!chip)return finish();
+    setTimeout(function(){chip.click();setTimeout(next,300)},500);
+  }
+  next();
+}
+document.querySelectorAll(".claim").forEach(function(el){
+  el.setAttribute("role","button");el.setAttribute("tabindex","0");
+  el.addEventListener("click",function(){runDemo(el.getAttribute("data-claim"))});
+  el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();runDemo(el.getAttribute("data-claim"))}});
+});
+setInterval(renderClock,30000);
+renderClock();
+addMsg("bot","<p>Hej, jeg er Kornkammerets assistent. Spørg om åbningstider, varer, allergener eller priser. Du behøver ikke oplyse navn eller e-mail.</p>");
+addChips(["Hvad er jeres åbningstider?","Har I glutenfrit brød?","Jeg er veganer, hvad kan I anbefale?"]);
+})();
+</script>
+</body>
+</html>
