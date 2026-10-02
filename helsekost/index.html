@@ -51,7 +51,8 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
 .hero .lede{margin-top:20px;max-width:560px}
 .hero .lede h1{color:#fff}
 .hero .lede p{color:rgba(255,255,255,.88);max-width:50ch}
-.hero-strip{display:none;gap:7px;margin-top:18px;flex-wrap:wrap;justify-content:center}
+.hero-strip{display:none;flex-direction:column;gap:7px;margin-top:18px}
+.hero-strip .strip-row{display:flex;gap:7px;justify-content:center}
 .hero-strip img{width:82px;height:82px;object-fit:cover;border-radius:4px;border:3px solid #fff;box-shadow:0 4px 10px -4px rgba(0,0,0,.5)}
 @media (max-width:860px){.hero-photos{display:none}.hero-fade{background:#1c1810}.hero-strip{display:flex}}
 @media (max-width:640px){.hero-inner{padding:30px 16px 36px}}
@@ -160,13 +161,19 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
       <p>Chatten til højre er en rigtig, kørende chatbot. Spørg om allergener, glutenfrit, veganske varer eller lagerstatus, som en kunde ville gøre. Ingen formular, ingen ventetid.</p>
     </div>
     <div class="hero-strip" aria-hidden="true">
-      <img src="assets/card-veg.jpg" alt="" loading="lazy">
-      <img src="assets/card-tea.jpg" alt="" loading="lazy">
-      <img src="assets/card-nuts-final.jpg" alt="" loading="lazy">
-      <img src="assets/card-flour.jpg" alt="" loading="lazy">
-      <img src="assets/card-driedfruit-final2.jpg" alt="" loading="lazy">
-      <img src="assets/card-muesli.jpg" alt="" loading="lazy">
-      <img src="assets/card-vitamins.jpg" alt="" loading="lazy">
+      <div class="strip-row">
+        <img src="assets/card-veg.jpg" alt="" loading="lazy">
+        <img src="assets/card-tea.jpg" alt="" loading="lazy">
+      </div>
+      <div class="strip-row">
+        <img src="assets/card-nuts-final.jpg" alt="" loading="lazy">
+        <img src="assets/card-driedfruit-final2.jpg" alt="" loading="lazy">
+        <img src="assets/card-flour.jpg" alt="" loading="lazy">
+      </div>
+      <div class="strip-row">
+        <img src="assets/card-muesli.jpg" alt="" loading="lazy">
+        <img src="assets/card-vitamins.jpg" alt="" loading="lazy">
+      </div>
     </div>
   </div>
 </div>

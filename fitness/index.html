@@ -52,7 +52,8 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.05}
 .hero .lede{margin-top:20px;max-width:500px}
 .hero .lede h1{color:#fff}
 .hero .lede p{color:rgba(255,255,255,.88);max-width:50ch}
-.hero-strip{display:none;gap:8px;margin-top:18px;flex-wrap:wrap;justify-content:center}
+.hero-strip{display:none;flex-direction:column;gap:8px;margin-top:18px}
+.hero-strip .strip-row{display:flex;gap:8px;justify-content:center}
 .hero-strip img{width:108px;height:108px;object-fit:cover;border-radius:4px;border:3px solid #fff;box-shadow:0 4px 10px -4px rgba(0,0,0,.5)}
 @media (max-width:860px){.hero-photos{display:none}.hero-fade{background:#0e2023}.hero-strip{display:flex}}
 @media (max-width:640px){.hero-inner{padding:30px 16px 36px}}
@@ -161,11 +162,15 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
       <p>Chatten til højre er en rigtig, kørende chatbot. Stil dine spørgsmål, som et medlem ville gøre, og se hvordan den svarer. Ingen formular, ingen ventetid, ingen "Your conversation has ended".</p>
     </div>
     <div class="hero-strip" aria-hidden="true">
-      <img src="assets/card-stretch.jpg" alt="" loading="lazy">
-      <img src="assets/card-bench.jpg" alt="" loading="lazy">
-      <img src="assets/card-machine.jpg" alt="" loading="lazy">
-      <img src="assets/card-pullup.jpg" alt="" loading="lazy">
-      <img src="assets/card-shake.jpg" alt="" loading="lazy">
+      <div class="strip-row">
+        <img src="assets/card-stretch.jpg" alt="" loading="lazy">
+        <img src="assets/card-bench.jpg" alt="" loading="lazy">
+        <img src="assets/card-machine.jpg" alt="" loading="lazy">
+      </div>
+      <div class="strip-row">
+        <img src="assets/card-pullup.jpg" alt="" loading="lazy">
+        <img src="assets/card-shake.jpg" alt="" loading="lazy">
+      </div>
     </div>
   </div>
 </div>
