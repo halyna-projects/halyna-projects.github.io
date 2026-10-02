@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="da">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Spirekilden chatbot-demo</title>
+<title>Sundt Liv chatbot-demo</title>
 <script data-goatcounter="https://halyna-demo-dk-jobbot.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,7 +136,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 </head>
 <body>
 
-<div class="demo-bar"><b>DEMO</b> · AI-chatbot til helsekost- og øko-butikker · Spirekilden er en fiktiv butik, alle varer, priser og lagerstatus er eksempler</div>
+<div class="demo-bar"><b>DEMO</b> · AI-chatbot til helsekost- og øko-butikker · Sundt Liv er en fiktiv butik, alle varer, priser og lagerstatus er eksempler</div>
 
 <div class="hero">
   <div class="hero-photos" aria-hidden="true">
@@ -152,7 +152,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
   <div class="hero-inner">
     <div class="brand">
       <div class="logo" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3c-4 2-6 6-6 10 0 5 3 9 6 9s6-4 6-9c0-4-2-8-6-10Z"/><path d="M13 3v19"/></svg></div>
-      <div class="brand-name">Spire<span>kilden</span></div>
+      <div class="brand-name">Sundt <span>Liv</span></div>
     </div>
 
     <div class="lede">
@@ -228,10 +228,10 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
     </div>
   </main>
 
-  <aside class="chat" aria-label="Spirekilden chat">
+  <aside class="chat" aria-label="Sundt Liv chat">
     <div class="chat-head">
-      <div class="avatar" aria-hidden="true">SK</div>
-      <div class="who"><b>Spirekilden assistent</b><small><span class="dot"></span>Online · svarer med det samme</small></div>
+      <div class="avatar" aria-hidden="true">SL</div>
+      <div class="who"><b>Sundt Liv assistent</b><small><span class="dot"></span>Online · svarer med det samme</small></div>
       <span class="chat-clock" id="chat-clock"></span>
     </div>
     <div class="log" id="log" aria-live="polite"></div>
@@ -318,7 +318,7 @@ function hoursAnswer(day){
   }
   var open=isOpenNow(d);
   var status=open?'<span class="pill open">Åbent nu</span>':'<span class="pill shut">Lukket nu</span>';
-  return "<p><b>Spirekilden</b> "+status+"</p>"+table(groupRows(HOURS))+"<p>"+ADDRESS+"</p>";
+  return "<p><b>Sundt Liv</b> "+status+"</p>"+table(groupRows(HOURS))+"<p>"+ADDRESS+"</p>";
 }
 function findDay(t){
   if(/i morgen/.test(t))return (dayIdx(now())+1)%7;
@@ -548,7 +548,7 @@ document.querySelectorAll(".claim").forEach(function(el){
 });
 setInterval(renderClock,30000);
 renderClock();
-addMsg("bot","<p>Hej, jeg er Spirekildens assistent. Spørg om åbningstider, varer, allergener eller priser. Du behøver ikke oplyse navn eller e-mail.</p>");
+addMsg("bot","<p>Hej, jeg er Sundt Livs assistent. Spørg om åbningstider, varer, allergener eller priser. Du behøver ikke oplyse navn eller e-mail.</p>");
 addChips(["Hvad er jeres åbningstider?","Har I glutenfrit brød?","Jeg er veganer, hvad kan I anbefale?"]);
 })();
 </script>
