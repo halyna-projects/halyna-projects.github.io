@@ -546,6 +546,31 @@
   .chat-demo .file-name { font-size: 0.8rem; font-weight: 600; color: var(--text); }
   .chat-demo .file-caption { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 
+  .chat-demo .quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: msgIn 0.35s ease forwards;
+  }
+  .chat-demo .quick-btn {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    color: var(--accent-dark);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.12s ease, transform 0.08s ease;
+  }
+  .chat-demo .quick-btn:hover { background: rgba(59,130,246,0.14); transform: translateY(-1px); }
+  .chat-demo .quick-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+  .chat-demo .quick-btn.restart { border-color: var(--border); color: var(--muted); }
+
   @media (max-width: 720px) {
     h1 { font-size: 1.9rem; }
     .steps, .shots, .shots-2, .docs-list, .links-grid, .branch-row { grid-template-columns: 1fr; }
@@ -639,14 +664,14 @@
 
 <section>
   <div class="wrap">
-    <h2>Se botten i aktion</h2>
+    <h2>Prøv botten i aktion</h2>
     <p class="lead">
-      Ingen Telegram nødvendig — en animeret gengivelse af rigtige samtaler: et godt match med
-      en færdig ansøgning som PDF, et ærligt 0%, en vakance tilføjet manuelt fra et link, og
-      et ærligt afslag på et nonsens-søgeord.
+      Ingen Telegram nødvendig — klik dig selv igennem rigtige samtaler: et godt match med
+      en færdig ansøgning som PDF, et ærligt 0%, en vakance tilføjet manuelt fra et link,
+      et ærligt afslag på et nonsens-søgeord, og Verify-tjekket, der fanger ubekræftede påstande.
     </p>
     <div class="chat-demo" id="chatDemo"></div>
-    <p class="chat-demo-caption">Baseret på et virkeligt testforløb fra botten (samme data som i skærmbillederne længere nede).</p>
+    <p class="chat-demo-caption">Rigtige samtaler fra botten — klik på en knap for at se, hvad der sker (samme data som i skærmbillederne længere nede).</p>
   </div>
 </section>
 
@@ -980,30 +1005,72 @@
   var demo = document.getElementById('chatDemo');
   if (!demo) return;
 
-  var script = [
-    { sender: 'user', text: 'bogholder' },
-    { sender: 'bot', text: 'Fandt 20. 1. Erfaren bogholder – PwC\nPwC | Vejle | Jobindex\nSøgeord: bogholder\nMatch: 85% — Kandidaten har stærk erfaring med bogføring og digitalisering for mindre og mellemstore virksomheder, hvilket matcher PwC\'s profil.' },
-    { sender: 'user', text: '1' },
-    { sender: 'bot', text: 'Skriver ansøgning til nr. 1 «Erfaren bogholder»...\n\nKære PwC,\n\nMed 6 års erfaring som bogholder hos Nordisk Regnskabsservice ApS og Byggefirma Holm A/S, hvor jeg dagligt arbejder med fuld bogføring, moms og afstemninger, fangede jeres stillingsopslag i Vejle straks min interesse...' },
-    { sender: 'bot', files: [
-      { name: 'ansøgning_Erfaren_bogholder.pdf', caption: 'Ansøgning som PDF — kan gemmes og printes.' },
-      { name: 'job_Erfaren_bogholder.pdf', caption: 'Jobopslag som PDF — med kontaktoplysninger øverst.' }
-    ] },
-    { sender: 'user', text: 'maler' },
-    { sender: 'bot', text: '1. Bygningsmaler\nTKP BYG A/S | Brabrand / Aarhus | Jobnet\nSøgeord: maler\nMatch: 0% — Stillingen kræver en uddannet bygningsmaler, hvilket slet ikke matcher kandidatens bogholderiprofil.' },
-    { sender: 'user', text: '+ Tilføj job manuelt' },
-    { sender: 'bot', text: 'Send et link til jobopslaget, en PDF-fil, eller et foto/skærmbillede af det.' },
-    { sender: 'user', text: 'careers.pandoragroup.com/.../senior-manager-global-ecommerce-analytics' },
-    { sender: 'bot', text: 'Henter jobopslaget...' },
-    { sender: 'bot', text: '21. Senior Manager, Global eCommerce Analytics\nPandora | Manuelt tilføjet\nMatch: 0% — Kandidaten har en baggrund som bogholder, mens stillingen som Senior Manager kræver omfattende erfaring med e-commerce analytics, ledelse af analytics-teams og strategisk forretningsudvikling.' },
-    { sender: 'user', text: 'abrakadabra' },
-    { sender: 'bot', text: '🤖 Ordet \'abrakadabra\' er et trylleord og en meningsløs nonsenstekst uden nogen relevans for jobmarkedet, så jeg kan ikke foreslå et fagligt alternativ eller foretage en søgning.' },
-    { sender: 'bot', text: 'Ingen job fundet for denne søgning. Skriv et nyt søgeord for at søge igen.' }
-  ];
+  // Hvert scenarie er en rigtig, uændret samtale fra botten — samme tekst
+  // som i skærmbillederne længere nede på siden. Besøgende vælger selv,
+  // hvilket scenarie de vil se, i stedet for at det bare spiller automatisk.
+  var scenarios = {
+    search: {
+      label: '🔍 Søg "bogholder"',
+      unlocks: ['verify'],
+      messages: [
+        { sender: 'user', text: 'bogholder' },
+        { sender: 'bot', text: 'Fandt 20. 1. Erfaren bogholder – PwC\nPwC | Vejle | Jobindex\nSøgeord: bogholder\nMatch: 85% — Kandidaten har stærk erfaring med bogføring og digitalisering for mindre og mellemstore virksomheder, hvilket matcher PwC\'s profil.' },
+        { sender: 'user', text: '1' },
+        { sender: 'bot', text: 'Skriver ansøgning til nr. 1 «Erfaren bogholder»...\n\nKære PwC,\n\nMed 6 års erfaring som bogholder hos Nordisk Regnskabsservice ApS og Byggefirma Holm A/S, hvor jeg dagligt arbejder med fuld bogføring, moms og afstemninger, fangede jeres stillingsopslag i Vejle straks min interesse...' },
+        { sender: 'bot', files: [
+          { name: 'ansøgning_Erfaren_bogholder.pdf', caption: 'Ansøgning som PDF — kan gemmes og printes.' },
+          { name: 'job_Erfaren_bogholder.pdf', caption: 'Jobopslag som PDF — med kontaktoplysninger øverst.' }
+        ] }
+      ]
+    },
+    nomatch: {
+      label: '🖌️ Søg "maler"',
+      messages: [
+        { sender: 'user', text: 'maler' },
+        { sender: 'bot', text: '1. Bygningsmaler\nTKP BYG A/S | Brabrand / Aarhus | Jobnet\nSøgeord: maler\nMatch: 0% — Stillingen kræver en uddannet bygningsmaler, hvilket slet ikke matcher kandidatens bogholderiprofil.' }
+      ]
+    },
+    manual: {
+      label: '➕ Tilføj job manuelt',
+      messages: [
+        { sender: 'user', text: '+ Tilføj job manuelt' },
+        { sender: 'bot', text: 'Send et link til jobopslaget, en PDF-fil, eller et foto/skærmbillede af det.' },
+        { sender: 'user', text: 'careers.pandoragroup.com/.../senior-manager-global-ecommerce-analytics' },
+        { sender: 'bot', text: 'Henter jobopslaget...' },
+        { sender: 'bot', text: '21. Senior Manager, Global eCommerce Analytics\nPandora | Manuelt tilføjet\nMatch: 0% — Kandidaten har en baggrund som bogholder, mens stillingen som Senior Manager kræver omfattende erfaring med e-commerce analytics, ledelse af analytics-teams og strategisk forretningsudvikling.' }
+      ]
+    },
+    nonsense: {
+      label: '🤖 Søg "abrakadabra"',
+      messages: [
+        { sender: 'user', text: 'abrakadabra' },
+        { sender: 'bot', text: '🤖 Ordet \'abrakadabra\' er et trylleord og en meningsløs nonsenstekst uden nogen relevans for jobmarkedet, så jeg kan ikke foreslå et fagligt alternativ eller foretage en søgning.' },
+        { sender: 'bot', text: 'Ingen job fundet for denne søgning. Skriv et nyt søgeord for at søge igen.' }
+      ]
+    },
+    verify: {
+      label: '❓ Verify ansøgningen',
+      requires: 'search',
+      messages: [
+        { sender: 'user', text: '❓ Verify' },
+        { sender: 'bot', text: 'Tjekker ansøgningen mod CV\'et og selve jobopslaget...' },
+        { sender: 'bot', text: 'Verify-resultat: fundet en påstand, der ikke bekræftes af CV\'et, og et krav fra opslaget, der ikke er berørt.' },
+        { sender: 'user', text: '🔧 Ret baseret på Verify' },
+        { sender: 'bot', text: 'Retter kun de markerede punkter — resten af ansøgningen røres ikke.' },
+        { sender: 'bot', files: [
+          { name: 'ansøgning_Erfaren_bogholder_rettet.pdf', caption: 'Rettet ansøgning — kun de fundne punkter ændret.' }
+        ] },
+        { sender: 'user', text: '❓ Verify' },
+        { sender: 'bot', text: '✅ Rent tjek — alt bekræftet af CV\'et, alle krav fra opslaget berørt.' }
+      ]
+    }
+  };
+
+  var menuOrder = ['search', 'nomatch', 'manual', 'nonsense', 'verify'];
+  var unlocked = { search: true, nomatch: true, manual: true, nonsense: true, verify: false };
 
   var TYPING_MS = 900;
   var PAUSE_AFTER_USER_MS = 500;
-  var LOOP_PAUSE_MS = 3600;
 
   function makeRow(sender, html, extraClass) {
     var row = document.createElement('div');
@@ -1038,60 +1105,74 @@
     return msg.files ? fileCardsHtml(msg.files) : esc(msg.text);
   }
 
-  // Longer bot messages (the application excerpt) need more time on
-  // screen to actually read, so the pause scales with content length
-  // instead of being one fixed value for every message.
-  function pauseFor(msg) {
-    var len = msg.files
-      ? msg.files.reduce(function (n, f) { return n + f.name.length + f.caption.length; }, 0)
-      : msg.text.length;
-    return Math.min(1300 + len * 20, 4800);
+  function removeMenu() {
+    var old = demo.querySelector('.quick-replies');
+    if (old) old.remove();
   }
 
-  var cancelled = false;
-  var timer = null;
+  function showMenu() {
+    removeMenu();
+    var menu = document.createElement('div');
+    menu.className = 'quick-replies';
+    menuOrder.forEach(function (key) {
+      if (!unlocked[key]) return;
+      var sc = scenarios[key];
+      var btn = document.createElement('button');
+      btn.className = 'quick-btn';
+      btn.type = 'button';
+      btn.textContent = sc.label;
+      btn.addEventListener('click', function () { runScenario(key); });
+      menu.appendChild(btn);
+    });
+    if (demo.childElementCount > 0) {
+      var restart = document.createElement('button');
+      restart.className = 'quick-btn restart';
+      restart.type = 'button';
+      restart.textContent = '↺ Ryd samtalen';
+      restart.addEventListener('click', function () {
+        demo.innerHTML = '';
+        showMenu();
+      });
+      menu.appendChild(restart);
+    }
+    demo.appendChild(menu);
+    demo.scrollTop = demo.scrollHeight;
+  }
 
-  function play() {
-    demo.innerHTML = '';
+  function runScenario(key) {
+    removeMenu();
+    var sc = scenarios[key];
+    var messages = sc.messages;
     var i = 0;
     function step() {
-      if (cancelled) return;
-      if (i >= script.length) {
-        timer = setTimeout(play, LOOP_PAUSE_MS);
+      if (i >= messages.length) {
+        if (sc.unlocks) sc.unlocks.forEach(function (k) { unlocked[k] = true; });
+        showMenu();
         return;
       }
-      var msg = script[i];
+      var msg = messages[i];
       if (msg.sender === 'user') {
         demo.appendChild(makeRow('user', esc(msg.text)));
         demo.scrollTop = demo.scrollHeight;
         i++;
-        timer = setTimeout(step, PAUSE_AFTER_USER_MS);
+        setTimeout(step, PAUSE_AFTER_USER_MS);
       } else {
         var typingRow = makeRow('bot', '<div class="dot"></div><div class="dot"></div><div class="dot"></div>', 'typing');
         demo.appendChild(typingRow);
         demo.scrollTop = demo.scrollHeight;
-        timer = setTimeout(function () {
+        setTimeout(function () {
           demo.removeChild(typingRow);
           demo.appendChild(makeRow('bot', bubbleHtml(msg)));
           demo.scrollTop = demo.scrollHeight;
           i++;
-          timer = setTimeout(step, pauseFor(msg));
+          step();
         }, TYPING_MS);
       }
     }
     step();
   }
 
-  var started = false;
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting && !started) {
-        started = true;
-        play();
-      }
-    });
-  }, { threshold: 0.3 });
-  observer.observe(demo);
+  showMenu();
 })();
 </script>
 
