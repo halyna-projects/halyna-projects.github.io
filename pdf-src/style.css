@@ -1,0 +1,47 @@
+/* Shared print styles for the English PDFs (rendered with Chromium page.pdf, A4). */
+@page { size: A4; margin: 16mm 17mm 14mm; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "DejaVu Sans", Arial, sans-serif;
+  font-size: 9.6pt;
+  line-height: 1.5;
+  color: #222;
+}
+h1, h2, h3 { color: #2563eb; margin: 0; line-height: 1.25; }
+h2 { font-size: 15pt; margin: 0 0 5pt; }
+h3 { font-size: 11pt; margin: 12pt 0 4pt; }
+p { margin: 0 0 7pt; text-align: justify; }
+ul { margin: 4pt 0 8pt; padding-left: 12pt; }
+li { margin: 0 0 3pt; text-align: justify; }
+.page { break-after: page; }
+.page:last-child { break-after: auto; }
+
+figure { margin: 8pt auto 6pt; text-align: center; break-inside: avoid; position: relative; }
+figure img { display: block; margin: 0 auto; border-radius: 3pt; }
+figcaption { font-size: 7.6pt; color: #777; margin-top: 4pt; text-align: center; line-height: 1.4; }
+.row { display: flex; gap: 10pt; justify-content: center; align-items: flex-start; }
+.row figure { flex: 1 1 0; margin-top: 4pt; }
+
+.shot-s img { height: 55mm; }
+.shot-m img { height: 80mm; }
+.shot-l img { height: 112mm; }
+.shot-xl img { height: 215mm; max-width: 100%; object-fit: contain; }
+
+.example-label { font-size: 7pt; color: #777; letter-spacing: 0.04em; text-transform: uppercase; margin: 8pt 0 2pt; }
+.example { background: #f4f6fb; border: 1px solid #d8dde8; padding: 5pt 7pt; margin: 0 0 8pt; }
+.example p { margin: 0; text-align: left; }
+
+.warn { color: #dc2626; font-weight: bold; text-align: center; }
+.foot-note { font-size: 7.6pt; color: #777; text-align: center; }
+
+/* Draft marker on every screenshot that is still the Danish original.
+   Remove class="draft" from <body> once English screenshots are in. */
+.draft figure[data-shot]::before {
+  content: attr(data-shot) " · Danish placeholder — replace with English screenshot";
+  position: absolute; top: -2pt; left: 50%; transform: translateX(-50%);
+  z-index: 2; white-space: nowrap;
+  background: #f97316; color: #fff; font-size: 6.6pt; font-weight: bold;
+  padding: 1.5pt 5pt; border-radius: 3pt;
+}
+.draft .row figure[data-shot]::before { white-space: normal; width: 90%; }

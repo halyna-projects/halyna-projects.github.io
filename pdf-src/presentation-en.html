@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Job Search Bot — presentation</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: space-between; text-align: center; }
+  .cover-title { margin-top: 70mm; }
+  .cover h1 { font-size: 26pt; margin-bottom: 4pt; }
+  .cover .sub { font-size: 12pt; color: #666; margin: 0 0 12pt; text-align: center; }
+  .cover .tag { font-size: 10pt; text-align: center; }
+  .cover .warn { margin-bottom: 30mm; }
+</style>
+</head>
+<body class="draft">
+
+<section class="page cover">
+  <div class="cover-title">
+    <h1>Job Search Bot</h1>
+    <p class="sub">A Telegram bot for job hunting in Denmark</p>
+    <p class="tag">Job search + AI comparison with your CV + ready-to-use application documents</p>
+  </div>
+  <p class="warn">Do not enter sensitive information — never send your CPR number<br>(Danish personal ID) or similar data to the bot.</p>
+</section>
+
+<section class="page">
+  <h2>What it is</h2>
+  <p>A Telegram bot that searches for jobs in Denmark, compares them with your CV using AI, and drafts ready-to-use application documents — so you don't have to do it by hand every time.</p>
+
+  <h3>How it searches for jobs</h3>
+  <p>The bot fetches jobs directly from Jobindex.dk and Jobnet.dk (Denmark's official public job portal) based on your search terms, with an option to filter by city. Results from several sources are merged, and duplicates are removed automatically.</p>
+
+  <h3>How it compares with your CV</h3>
+  <p>It isn't just a search for matching words. The bot sends both your CV and each job posting to an AI model (Google Gemini) and asks it to assess the substance, not just formal overlap:</p>
+  <ul>
+    <li>Whether your experience really matches the core tasks of the role</li>
+    <li>Whether there is a genuine professional overlap, or only a superficial technical similarity</li>
+    <li>What specifically matches, and what is missing</li>
+  </ul>
+  <p>The result is a match percentage (0–100%) with a short explanation. If the CV has no relevant experience for the role, the bot honestly shows 0% — no "consolation percentages". The job still stays on the list — whether to apply is always the person's own choice.</p>
+</section>
+
+<section class="page">
+  <h2>Getting started</h2>
+  <p>No setup beyond what the bot asks for itself: search terms, an optional city and a CV (PDF or Word). The bot guides you step by step with buttons, so you don't need to remember any commands.</p>
+  <figure class="shot-l" data-shot="P01"><img src="img/P01-da.png" alt="">
+    <figcaption>Welcome message with the most important disclaimers, plus the menu with the fixed buttons.</figcaption></figure>
+</section>
+
+<section class="page">
+  <figure class="shot-l" data-shot="P02"><img src="img/P02-da.png" alt="">
+    <figcaption>Search terms saved and CV uploaded — the bot confirms each step straight away.</figcaption></figure>
+  <h3>Typos in city names are corrected automatically</h3>
+  <p>No AI guesswork here — a reliable lookup against the official list of Danish municipalities. A small typo ("Arhus") is quietly corrected to "Aarhus".</p>
+</section>
+
+<section class="page">
+  <figure class="shot-l" data-shot="P03"><img src="img/P03-da.png" alt="">
+    <figcaption>"Arhus" is automatically recognised as Aarhus, and the search is filtered to that city.</figcaption></figure>
+</section>
+
+<section class="page">
+  <h2>Honest match assessment in practice</h2>
+  <p>The same CV (an experienced bookkeeper), tested against three different positions — to show that the assessment really changes with the substance and doesn't just repeat a fixed number.</p>
+  <div class="row">
+    <figure class="shot-m" data-shot="P04"><img src="img/P04-da.png" alt="">
+      <figcaption>Searching for two words at once ("boghlder, regnskab" — bookkeeper with a typo, and accounting) — the typo is corrected automatically, and «Search term:» shows which word actually matches each position.</figcaption></figure>
+    <figure class="shot-m" data-shot="P05"><img src="img/P05-da.png" alt="">
+      <figcaption>Some positions match both search terms ("regnskab, bogholder"), others only one — the bot shows exactly which, instead of just assuming it.</figcaption></figure>
+  </div>
+  <figure class="shot-m" data-shot="P06"><img src="img/P06-da.png" alt="">
+    <figcaption>Example of a positive match: bookkeeper CV against bookkeeper positions — 90% and 85%</figcaption></figure>
+</section>
+
+<section class="page">
+  <figure class="shot-m" data-shot="P07"><img src="img/P07-da.png" alt="">
+    <figcaption>Example of a partial match: bookkeeper CV against «Advokatbogholder» (legal bookkeeper) — 85% and 25%, with an explanation of the difference</figcaption></figure>
+  <figure class="shot-l" data-shot="P08"><img src="img/P08-da.png" alt="">
+    <figcaption>Example of no match: the same bookkeeper CV against «Bygningsmaler» (painter and decorator) — 0%</figcaption></figure>
+</section>
+
+<section class="page">
+  <h2>Agentic search: the AI thinks for itself</h2>
+  <p>Not a fixed list of synonyms programmed in advance. When a search returns 0 results, Google Gemini gets access to a real search tool (function calling) and decides for itself whether — and which — broader or synonymous word to try instead.</p>
+  <h3>How it works</h3>
+  <ul>
+    <li>0 results — the search term doesn't appear directly in any job posting, and the AI is brought in automatically instead of just showing "nothing found".</li>
+    <li>The AI suggests an alternative itself — at most 2 attempts with a real, new search term, and it looks at the actual result before possibly trying again.</li>
+    <li>Honest refusal of nonsense — if the search term makes no sense, the AI says so honestly instead of guessing a random word.</li>
+  </ul>
+  <p class="example-label">Real example — search term with a typo: "boghlder"</p>
+  <div class="example"><p>The word 'boghlder' is a typical misspelling of the Danish job title bogholder (bookkeeper), so I'll try searching with the correct spelling instead.<br>→ Tried «bogholder»: 61 jobs found.</p></div>
+  <figure class="shot-s" data-shot="P09" style="margin-top: 12pt;"><img src="img/P09-da.png" alt="" style="height: 62mm;">
+    <figcaption>Screenshot: the search term "boghlder" is automatically corrected to "bogholder" — 61 jobs found.</figcaption></figure>
+  <p class="example-label">Real example — meaningless search term: "abrakadabra"</p>
+  <div class="example"><p>"abrakadabra" is a magic word and meaningless text in a job context, and so it cannot be interpreted as a real field or a job title.</p></div>
+</section>
+
+<section class="page">
+  <p>This feature was tested with real data during development, and a real weakness was found and fixed: at first, the AI guessed a plausible but wrong word ("pædagog" — teaching assistant) for the meaningless search term "abrakadabra", instead of rejecting it. The solution was to give the AI explicit permission to refuse unreasonable input.</p>
+  <div class="row">
+    <figure class="shot-m" data-shot="P10"><img src="img/P10-da.png" alt="">
+      <figcaption>You can type a new search term directly instead of pressing «Show the list again».</figcaption></figure>
+    <figure class="shot-m" data-shot="P11"><img src="img/P11-da.png" alt="">
+      <figcaption>The bot honestly refuses instead of searching for a random word.</figcaption></figure>
+  </div>
+</section>
+
+<section class="page">
+  <h2>From search result to finished application</h2>
+  <p>The whole flow in practice, with two different jobs from the same list — the bot writes a new, personal application every time, not a template with filled-in fields.</p>
+  <figure class="shot-xl" data-shot="P12"><img src="img/P12-da.png" alt="" style="height: 200mm;">
+    <figcaption>You send the job's number (here: 1) — the bot starts writing straight away.</figcaption></figure>
+</section>
+
+<section class="page">
+  <figure class="shot-xl" data-shot="P13"><img src="img/P13-da.png" alt="">
+    <figcaption>Finished application + the job posting, both as PDFs, and a reminder that you can carry on searching right away.</figcaption></figure>
+</section>
+
+<section class="page">
+  <figure class="shot-xl" data-shot="P14"><img src="img/P14-da.png" alt="">
+    <figcaption>«Show the list again» — the whole list of 20 jobs is still there, no new search needed.</figcaption></figure>
+</section>
+
+<section class="page">
+  <figure class="shot-xl" data-shot="P15"><img src="img/P15-da.png" alt="">
+    <figcaption>The same flow for job no. 2 from the list — a different company, a different application.</figcaption></figure>
+</section>
+
+<section class="page">
+  <figure class="shot-xl" data-shot="P16"><img src="img/P16-da.png" alt="">
+    <figcaption>Again: two new PDF files, tailored to this exact position.</figcaption></figure>
+</section>
+
+<section class="page">
+  <h2>What it generates for each job</h2>
+  <p>When you pick a specific job, the bot drafts 2 documents:</p>
+  <ul>
+    <li><strong>An application in Danish</strong> — based on real facts from the CV, with no invented experience. If something is missing, it is mentioned honestly but tactfully, as a willingness to learn it quickly.</li>
+    <li><strong>The job posting in Danish as a PDF</strong>, with the contact details extracted (name, phone, email).</li>
+  </ul>
+
+  <h3>Check and fix the application: Verify</h3>
+  <p>Afterwards, the application can be checked and corrected with two buttons:</p>
+  <ul>
+    <li><strong>Verify (check for invented facts)</strong> — a new, independent AI review compares the application with the real CV and flags every claim that isn't in the CV. At the same time, it checks whether the application completely misses an important requirement from the job posting, either as experience or as an honestly mentioned gap.</li>
+    <li><strong>Fix based on Verify</strong> — if Verify has found something, the bot corrects the application in a targeted way, only in the flagged places, and recommends running Verify again on the corrected version.</li>
+  </ul>
+  <p>An honestly mentioned gap ("no experience with X yet, but a fast learner") is not an error. Verify only flags claims with no support in the CV.</p>
+
+  <h3>The bot never sends anything by itself</h3>
+  <p>The bot only drafts — it never sends an application on its own. The final step (review, adjust, send) is always the person's own.</p>
+
+  <h3>Try it yourself</h3>
+  <p>The bot is live on Telegram: <span style="background:#ffedd5; padding: 0 3pt;">[English bot username — to be added]</span><br>
+  Portfolio page with an interactive demo (no Telegram needed to see the bot in action): halyna-projects.github.io/en/</p>
+
+  <p class="warn" style="margin-top: 14pt;">Do not enter sensitive information — never send your CPR number (Danish personal ID) or similar data to the bot.</p>
+</section>
+
+</body>
+</html>
