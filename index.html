@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Job Search Bot — Telegram-bot til jobsøgning i Danmark</title>
 <meta name="description" content="En Telegram-bot der søger job i Danmark, sammenligner dem med dit CV via kunstig intelligens, og udarbejder færdige ansøgningsdokumenter.">
+<link rel="alternate" hreflang="da" href="https://halyna-projects.github.io/">
+<link rel="alternate" hreflang="en" href="https://halyna-projects.github.io/en/">
 <script data-goatcounter="https://halyna-demo-dk-jobbot.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
   :root {
@@ -581,11 +583,37 @@
     .subtitle { margin-left: auto; margin-right: auto; }
     .cta-row { justify-content: center; }
   }
+  .lang-switch {
+    position: absolute;
+    top: 14px; right: 20px;
+    z-index: 2;
+    display: flex;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .lang-switch a, .lang-switch span {
+    padding: 4px 11px;
+    border-radius: 999px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .lang-switch a:hover { color: var(--text); }
+  .lang-switch [aria-current="page"] { background: var(--accent); color: #fff; }
+  @media (max-width: 720px) { header.hero { padding-top: 52px; } }
 </style>
 </head>
 <body>
 
 <header class="hero">
+  <nav class="lang-switch" aria-label="Sprog">
+    <span aria-current="page">DA</span>
+    <a href="en/" hreflang="en" lang="en">EN</a>
+  </nav>
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
@@ -993,9 +1021,9 @@
       </svg>
       <span>Job Search Bot</span>
     </div>
-    <p>Bygget af Halyna — produktidé, AI-kvalitetssikring og løbende drift.</p>
+    <p>Bygget af Halina Lukashenko — produktidé, AI-kvalitetssikring og løbende drift.</p>
     <p>Koden er udviklet med hjælp fra agentiske AI-udviklingsværktøjer.</p>
-    <p><a href="mailto:hl22111770@gmail.com">hl22111770@gmail.com</a></p>
+    <p><a href="mailto:hl22111770@gmail.com">HL22111770@GMAIL.COM</a></p>
     <p>© 2026 HL</p>
   </div>
 </footer>
