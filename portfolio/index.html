@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halina Lukashenko — AI Projects Portfolio</title>
+<meta name="description" content="AI products by Halina Lukashenko: Telegram bots, website chat assistants and dashboards, from idea to working prototype.">
+<meta property="og:title" content="Halina Lukashenko — AI Projects Portfolio">
+<meta property="og:description" content="Telegram bots, website chat assistants and dashboards, from idea to working prototype.">
+<meta property="og:image" content="https://halyna-projects.github.io/portfolio/assets/thumb-job-bot.jpg">
+<script data-goatcounter="https://halyna-demo-dk-jobbot.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  :root {
+    --accent: #3b82f6;
+    --accent2: #a855f7;
+    --accent3: #22c55e;
+    --amber: #f59e0b;
+    --text: #e9eaf2;
+    --muted: #9aa0b8;
+    --bg: #060608;
+    --bg-alt: #0e0e16;
+    --border: #24242f;
+    --surface: #121219;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  header.hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 0 44px;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4; pointer-events: none; }
+  .blob-1 { width: 420px; height: 420px; top: -180px; right: -120px; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); }
+  .blob-2 { width: 320px; height: 320px; bottom: -160px; left: -100px; background: radial-gradient(circle, var(--accent2) 0%, transparent 70%); }
+  .hero .wrap { position: relative; z-index: 1; }
+  .eyebrow { color: var(--accent); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 10px; }
+  h1 { font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.15; margin: 0 0 14px; }
+  .lead { font-size: 1.12rem; color: var(--muted); max-width: 680px; margin: 0 0 22px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; padding: 0; list-style: none; }
+  .tags li { font-size: 0.82rem; padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text); }
+  .contact-line { font-size: 0.95rem; color: var(--muted); }
+  .contact-line a { color: var(--text); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  .contact-line a:hover { color: var(--accent); }
+
+  section { padding: 48px 0 8px; }
+  .section-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 22px; }
+  h2 { font-size: 1.6rem; margin: 0; }
+  .section-note { color: var(--muted); font-size: 0.95rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.featured { grid-column: 1 / -1; flex-direction: row; }
+  .card.featured .thumb { flex: 0 0 48%; aspect-ratio: auto; min-height: 280px; }
+  .thumb { display: block; aspect-ratio: 16 / 9; background: var(--bg-alt); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .card.featured .thumb { border-bottom: 0; border-right: 1px solid var(--border); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
+  .body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .status { align-self: flex-start; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .status.live { color: var(--accent3); background: rgba(34, 197, 94, 0.12); }
+  .status.local { color: var(--accent); background: rgba(59, 130, 246, 0.14); }
+  .status.concept { color: var(--amber); background: rgba(245, 158, 11, 0.13); }
+  h3 { font-size: 1.2rem; margin: 0 0 8px; line-height: 1.3; }
+  .body p { color: var(--muted); margin: 0 0 14px; font-size: 0.97rem; }
+  .tech { font-size: 0.82rem; color: var(--text); opacity: 0.85; margin: 0 0 16px; }
+  .tech span { color: var(--muted); }
+  .buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  .btn {
+    display: inline-block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: var(--bg-alt);
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #2563eb; color: #fff; }
+
+  footer { margin-top: 56px; border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--muted); font-size: 0.95rem; }
+  footer .name { color: var(--text); font-weight: 700; font-size: 1.05rem; margin: 0 0 4px; }
+  footer p { margin: 0 0 4px; }
+  footer a { color: var(--text); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  .code-note { margin-top: 14px; font-style: italic; }
+
+  @media (max-width: 760px) {
+    header.hero { padding: 40px 0 32px; }
+    .card.featured { flex-direction: column; }
+    .card.featured .thumb { flex: none; aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="wrap">
+    <p class="eyebrow">Portfolio</p>
+    <h1>Halina Lukashenko<br>AI products, from idea to working prototype</h1>
+    <p class="lead">I design and build practical AI tools: Telegram bots, website chat assistants and dashboards, using LLMs (Gemini) and Claude Code. Below are working products and concepts I have created.</p>
+    <ul class="tags">
+      <li>Python</li>
+      <li>Gemini API</li>
+      <li>Telegram bots</li>
+      <li>Claude Code</li>
+      <li>Railway</li>
+      <li>Dashboards</li>
+    </ul>
+    <p class="contact-line"><a href="mailto:HL22111770@GMAIL.COM">HL22111770@GMAIL.COM</a> &nbsp;·&nbsp; <a href="tel:+4522111770">Tlf. +45 22 11 17 70</a></p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="products">
+    <div class="section-head">
+      <h2>Working products</h2>
+      <span class="section-note">Built and running, with real screenshots</span>
+    </div>
+    <div class="grid">
+
+      <article class="card featured">
+        <a class="thumb" href="../en/"><img src="assets/thumb-job-bot.jpg" alt="Verify checking an application letter in the job search bot" loading="lazy"></a>
+        <div class="body">
+          <span class="status live">Live · try it in Telegram</span>
+          <h3>AI Job Search Assistant with Verify</h3>
+          <p>A Telegram bot that helps people find jobs in Denmark: it scores vacancies against your CV, writes tailored applications as PDF, and checks every letter with <em>Verify</em>, a built-in fact-checker that catches claims not supported by your CV.</p>
+          <p class="tech"><span>Tech:</span> Python · Gemini API · Telegram · Railway</p>
+          <div class="buttons">
+            <a class="btn primary" href="https://t.me/demo_job_search_english_bot">Try the bot</a>
+            <a class="btn" href="../en/">English page</a>
+            <a class="btn" href="../">Danish page</a>
+            <a class="btn" href="../assets/job-search-bot-presentation-EN.pdf">Presentation PDF</a>
+            <a class="btn" href="../assets/verify-documentation-EN.pdf">Verify PDF</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card featured">
+        <a class="thumb" href="assets/ai-real-estate-bot-EN.pdf"><img src="assets/thumb-real-estate.jpg" alt="Agent dashboard of the AI Real Estate Bot: all clients in one table" loading="lazy"></a>
+        <div class="body">
+          <span class="status local">Working prototype · PDF demo</span>
+          <h3>AI Real Estate Bot + Agent Dashboard</h3>
+          <p>A Telegram bot that guides clients through buying, renting or selling in Toronto and Calgary and sends matching listings. Every inquiry lands in an agent dashboard with lead status, hot / warm / cold temperature and next action.</p>
+          <p class="tech"><span>Tech:</span> Python · Gemini API · Telegram · web dashboard</p>
+          <div class="buttons">
+            <a class="btn primary" href="assets/ai-real-estate-bot-EN.pdf">Open PDF</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="concepts">
+    <div class="section-head">
+      <h2>Prototypes &amp; concepts</h2>
+      <span class="section-note">Ideas and clickable demos</span>
+    </div>
+    <div class="grid">
+
+      <article class="card">
+        <a class="thumb" href="assets/family-receipt-tracker-concept-EN.pdf"><img src="assets/thumb-receipts.jpg" alt="Family Receipt Tracker concept slide" loading="lazy"></a>
+        <div class="body">
+          <span class="status concept">Concept</span>
+          <h3>Family Receipt Tracker</h3>
+          <p>Photograph any receipt, and AI reads the store, items and total and sorts them into categories. Adds what a bank can't: a shared family budget, warranty and return reminders, and your personal inflation based on your own purchases.</p>
+          <p class="tech"><span>Planned tech:</span> Python · Gemini API (image reading) · Telegram</p>
+          <div class="buttons">
+            <a class="btn primary" href="assets/family-receipt-tracker-concept-EN.pdf">Open PDF</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="../fitness/"><img src="assets/thumb-nordpuls.jpg" alt="NordPuls fitness chatbot demo page" loading="lazy"></a>
+        <div class="body">
+          <span class="status concept">Clickable demo · in Danish</span>
+          <h3>NordPuls: chatbot for fitness centres</h3>
+          <p>Interactive demo of a website chat assistant: answers opening hours and prices for the right centre, books classes and sells shakes, 24/7. The demo runs on prepared answers; the full version would use an LLM.</p>
+          <p class="tech"><span>Tech:</span> HTML · JavaScript</p>
+          <div class="buttons">
+            <a class="btn primary" href="../fitness/">Live demo</a>
+            <a class="btn" href="../fitness/chatbot-til-fitnesscentre.pdf">Open PDF</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="../helsekost/"><img src="assets/thumb-sundt-liv.jpg" alt="Sundt Liv health food store chatbot demo page" loading="lazy"></a>
+        <div class="body">
+          <span class="status concept">Clickable demo · in Danish</span>
+          <h3>Sundt Liv: chatbot for health food stores</h3>
+          <p>Interactive demo of a website chat assistant: answers questions about allergens, gluten-free and vegan products and stock. The demo runs on prepared answers; the full version would use an LLM.</p>
+          <p class="tech"><span>Tech:</span> HTML · JavaScript</p>
+          <div class="buttons">
+            <a class="btn primary" href="../helsekost/">Live demo</a>
+            <a class="btn" href="../helsekost/chatbot-til-helsekostbutikker.pdf">Open PDF</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="name">Halina Lukashenko</p>
+    <p><a href="mailto:HL22111770@GMAIL.COM">HL22111770@GMAIL.COM</a></p>
+    <p><a href="tel:+4522111770">Tlf. +45 22 11 17 70</a></p>
+    <p class="code-note">Source code available on request.</p>
+  </div>
+</footer>
+
+</body>
+</html>
