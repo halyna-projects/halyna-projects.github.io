@@ -35,3 +35,7 @@ orange label (P01–P16, V1–V4). When the English bot is running:
 | V2 | Verify: requirements not addressed |
 | V3 | Corrected application as PDF |
 | V4 | Verify: check passed |
+
+## To do for the Danish PDFs
+Add the same "fixing is optional" paragraph (in Danish) to the Danish presentation and Verify PDF,
+as in the English versions.
