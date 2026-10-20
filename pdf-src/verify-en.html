@@ -14,42 +14,38 @@
   figure { margin: 6pt auto 4pt; }
   .v-wide img { width: 79mm; }
   .v-tall img { height: 85mm; }
+  .v-shot img { width: 135mm; max-width: 100%; }
   .closing { border-top: 1px solid #ccc; margin-top: 10pt; padding-top: 8pt; text-align: center; }
   .closing strong { color: #9333ea; font-size: 11pt; display: block; margin-bottom: 4pt; }
 </style>
 </head>
-<body class="draft">
+<body>
 
 <section class="page">
   <h1>How Verify works</h1>
-  <p class="intro">AI that doesn't just write the application — it checks it itself before you see it. A real example: an application for a bookkeeper position at Nordisk Regnskabsservice.</p>
+  <p class="intro">AI that doesn't just write the application — with one click, it also checks it. A real example: an application for a part-time bookkeeper position at CMD Facility Services in Copenhagen — written for a test CV of a bookkeeper based in Aarhus.</p>
 
   <p class="kicker">1 · FACT CHECK</p>
   <h2>No invented experience</h2>
-  <p>Before anything is shown, the AI compares every single claim in the application with your real CV. Here it caught two claims that were not in the CV under the current position.</p>
-  <figure class="v-wide" data-shot="V1"><img src="img/V1-da.png" alt="">
-    <figcaption>Real Verify result: «bank reconciliations» and «as well as payroll administration» not confirmed by the CV</figcaption></figure>
-
+  <p>With the Verify button, a separate AI review compares every single claim in the application with your real CV. Here it caught a claim that is not in the CV: the letter promised a fixed office day every Friday in central Copenhagen, while the CV only says the candidate lives in Aarhus.</p>
   <p class="kicker">2 · COVERAGE CHECK</p>
   <h2>Finds what's missing</h2>
-  <p>At the same time, the AI compares the application with the job posting itself and flags every important requirement that is neither mentioned as experience nor honestly acknowledged as a gap. Same real result, same message — two requirements from the posting were not addressed in the letter at all.</p>
-  <figure class="v-wide" data-shot="V2"><img src="img/V2-da.png" alt="">
-    <figcaption>Same real Verify result: "Budgets" and "Light reporting" not addressed in the application</figcaption></figure>
+  <p>At the same time, the AI compares the application with the job posting itself and flags every important requirement that is neither mentioned as experience nor honestly acknowledged as a gap. Same real result, same message — the posting asks for familiarity with Pleo, and the letter only mentioned a general lack of experience instead of naming the tool.</p>
+  <figure class="v-shot" data-shot="V1"><img src="img/V1-en.png" alt="">
+    <figcaption>Real Verify result: one claim not confirmed by the CV, and one requirement from the posting (Pleo) not clearly addressed</figcaption></figure>
 </section>
 
 <section class="page">
   <p class="kicker">3 · FIX BASED ON VERIFY</p>
   <h2>Only what is actually wrong</h2>
-  <p>A single click fixes exactly the points Verify found — nothing else is rewritten. The bot immediately generates an updated application as a PDF. In this case it took two rounds: the first fix solved most of the points, but a new Verify check still found one requirement ("Payroll administration and HR-related tasks"), which was fixed in another round.</p>
-  <figure class="v-tall" data-shot="V3"><img src="img/V3-da.png" alt="">
-    <figcaption>Real result: corrected application delivered as a PDF, ready for a new Verify check</figcaption></figure>
+  <p>A single click fixes exactly the points Verify found — nothing else is rewritten. The bot immediately generates an updated application as a PDF. In this case one round was enough. Sometimes it takes two or three rounds — each new check looks at the corrected version from scratch.</p>
   <p><strong>You decide.</strong> "Fix based on Verify" is a suggestion, not a requirement. A mismatch between the job and your CV is normal — sometimes the right answer is to leave the application as it is, or not to apply at all.</p>
 
   <p class="kicker">4 · FINAL CHECK</p>
   <h2>Submit with confidence</h2>
-  <p>After the second fix, Verify runs again — now on the updated version. Only when everything is confirmed by your CV and all requirements in the job posting are addressed do you get a clean "passed".</p>
-  <figure class="v-tall" data-shot="V4"><img src="img/V4-da.png" alt="">
-    <figcaption>Real result: "Check passed" — everything confirmed, all requirements addressed</figcaption></figure>
+  <p>After the fix, Verify runs again — now on the updated version. Only when everything is confirmed by your CV and all requirements in the job posting are addressed do you get a clean "passed".</p>
+  <figure class="v-shot" data-shot="V3"><img src="img/V3-en.png" alt="">
+    <figcaption>Real result: corrected cover letter as a PDF, then a new Verify check — "Check passed"</figcaption></figure>
 
   <div class="closing">
     <strong>The goal is not to trust AI. The goal is to verify AI.</strong>

@@ -26,6 +26,7 @@ figcaption { font-size: 7.6pt; color: #777; margin-top: 4pt; text-align: center;
 .shot-s img { height: 55mm; }
 .shot-m img { height: 80mm; }
 .shot-l img { height: 112mm; }
+.shot-w img { width: 125mm; max-width: 100%; }
 .shot-xl img { height: 215mm; max-width: 100%; object-fit: contain; }
 
 .example-label { font-size: 7pt; color: #777; letter-spacing: 0.04em; text-transform: uppercase; margin: 8pt 0 2pt; }

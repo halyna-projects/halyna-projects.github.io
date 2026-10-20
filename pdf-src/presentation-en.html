@@ -13,7 +13,7 @@
   .cover .warn { margin-bottom: 30mm; }
 </style>
 </head>
-<body class="draft">
+<body>
 
 <section class="page cover">
   <div class="cover-title">
@@ -43,103 +43,66 @@
 
 <section class="page">
   <h2>Getting started</h2>
-  <p>No setup beyond what the bot asks for itself: search terms, an optional city and a CV (PDF or Word). The bot guides you step by step with buttons, so you don't need to remember any commands.</p>
-  <figure class="shot-l" data-shot="P01"><img src="img/P01-da.png" alt="">
+  <p>No setup beyond what the bot asks for itself: search terms (in English or Danish), an optional city and a CV (PDF or Word). The bot guides you step by step with buttons, so you don't need to remember any commands.</p>
+  <figure class="shot-w" data-shot="P01"><img src="img/P01-en.png" alt="">
     <figcaption>Welcome message with the most important disclaimers, plus the menu with the fixed buttons.</figcaption></figure>
-</section>
-
-<section class="page">
-  <figure class="shot-l" data-shot="P02"><img src="img/P02-da.png" alt="">
-    <figcaption>Search terms saved and CV uploaded — the bot confirms each step straight away.</figcaption></figure>
-  <h3>Typos in city names are corrected automatically</h3>
-  <p>No AI guesswork here — a reliable lookup against the official list of Danish municipalities. A small typo ("Arhus") is quietly corrected to "Aarhus".</p>
-</section>
-
-<section class="page">
-  <figure class="shot-l" data-shot="P03"><img src="img/P03-da.png" alt="">
-    <figcaption>"Arhus" is automatically recognised as Aarhus, and the search is filtered to that city.</figcaption></figure>
+  <h3>City names: English names and typos are understood</h3>
+  <p>No AI guesswork here — a reliable lookup against the official list of Denmark's 99 municipalities, plus the English names people are likely to type. Even a typo in an English name ("copnhagen") is recognised as København.</p>
+  <figure class="shot-w" data-shot="P02"><img src="img/P02-en.png" alt="">
+    <figcaption>Search term saved, "copnhagen" understood as København, CV uploaded — the bot confirms each step straight away.</figcaption></figure>
 </section>
 
 <section class="page">
   <h2>Honest match assessment in practice</h2>
-  <p>The same CV (an experienced bookkeeper), tested against three different positions — to show that the assessment really changes with the substance and doesn't just repeat a fixed number.</p>
-  <div class="row">
-    <figure class="shot-m" data-shot="P04"><img src="img/P04-da.png" alt="">
-      <figcaption>Searching for two words at once ("boghlder, regnskab" — bookkeeper with a typo, and accounting) — the typo is corrected automatically, and «Search term:» shows which word actually matches each position.</figcaption></figure>
-    <figure class="shot-m" data-shot="P05"><img src="img/P05-da.png" alt="">
-      <figcaption>Some positions match both search terms ("regnskab, bogholder"), others only one — the bot shows exactly which, instead of just assuming it.</figcaption></figure>
-  </div>
-  <figure class="shot-m" data-shot="P06"><img src="img/P06-da.png" alt="">
-    <figcaption>Example of a positive match: bookkeeper CV against bookkeeper positions — 90% and 85%</figcaption></figure>
-</section>
-
-<section class="page">
-  <figure class="shot-m" data-shot="P07"><img src="img/P07-da.png" alt="">
-    <figcaption>Example of a partial match: bookkeeper CV against «Advokatbogholder» (legal bookkeeper) — 85% and 25%, with an explanation of the difference</figcaption></figure>
-  <figure class="shot-l" data-shot="P08"><img src="img/P08-da.png" alt="">
-    <figcaption>Example of no match: the same bookkeeper CV against «Bygningsmaler» (painter and decorator) — 0%</figcaption></figure>
+  <p>The same CV (an experienced bookkeeper), tested against different positions — to show that the assessment really changes with the substance and doesn't just repeat a fixed number.</p>
+  <figure class="shot-w" data-shot="P04"><img src="img/P04-en.png" alt="">
+    <figcaption>Positive match: bookkeeper CV against bookkeeper positions — 90% and 85%, each with a short explanation. «Keyword:» shows which search word found each job.</figcaption></figure>
+  <figure class="shot-w" data-shot="P08"><img src="img/P08-en.png" alt="">
+    <figcaption>No match: the same bookkeeper CV against painter positions — an honest 0%, with the reason.</figcaption></figure>
 </section>
 
 <section class="page">
   <h2>Agentic search: the AI thinks for itself</h2>
-  <p>Not a fixed list of synonyms programmed in advance. When a search returns 0 results, Google Gemini gets access to a real search tool (function calling) and decides for itself whether — and which — broader or synonymous word to try instead.</p>
+  <p>Not a fixed list of synonyms programmed in advance. When a search term finds fewer than 3 jobs in the chosen city, Google Gemini gets access to a real search tool (function calling) and decides for itself whether — and which — other word to try instead. Most Danish job postings are written in Danish, so an English search term is often translated into the Danish job title.</p>
   <h3>How it works</h3>
   <ul>
-    <li>0 results — the search term doesn't appear directly in any job posting, and the AI is brought in automatically instead of just showing "nothing found".</li>
+    <li>Too few results — instead of just showing "nothing found", the AI is brought in automatically.</li>
     <li>The AI suggests an alternative itself — at most 2 attempts with a real, new search term, and it looks at the actual result before possibly trying again.</li>
     <li>Honest refusal of nonsense — if the search term makes no sense, the AI says so honestly instead of guessing a random word.</li>
   </ul>
-  <p class="example-label">Real example — search term with a typo: "boghlder"</p>
-  <div class="example"><p>The word 'boghlder' is a typical misspelling of the Danish job title bogholder (bookkeeper), so I'll try searching with the correct spelling instead.<br>→ Tried «bogholder»: 61 jobs found.</p></div>
-  <figure class="shot-s" data-shot="P09" style="margin-top: 12pt;"><img src="img/P09-da.png" alt="" style="height: 62mm;">
-    <figcaption>Screenshot: the search term "boghlder" is automatically corrected to "bogholder" — 61 jobs found.</figcaption></figure>
+  <p class="example-label">Real examples — English search terms</p>
+  <div class="example"><p>bookkeeper → Tried «bogholder»: 3 jobs found in København.<br>painter → Tried «maler»: 3 jobs found in København.</p></div>
+  <p>Both can be seen in the screenshots on the previous page.</p>
   <p class="example-label">Real example — meaningless search term: "abrakadabra"</p>
-  <div class="example"><p>"abrakadabra" is a magic word and meaningless text in a job context, and so it cannot be interpreted as a real field or a job title.</p></div>
-</section>
-
-<section class="page">
-  <p>This feature was tested with real data during development, and a real weakness was found and fixed: at first, the AI guessed a plausible but wrong word ("pædagog" — teaching assistant) for the meaningless search term "abrakadabra", instead of rejecting it. The solution was to give the AI explicit permission to refuse unreasonable input.</p>
-  <div class="row">
-    <figure class="shot-m" data-shot="P10"><img src="img/P10-da.png" alt="">
-      <figcaption>You can type a new search term directly instead of pressing «Show the list again».</figcaption></figure>
-    <figure class="shot-m" data-shot="P11"><img src="img/P11-da.png" alt="">
-      <figcaption>The bot honestly refuses instead of searching for a random word.</figcaption></figure>
-  </div>
+  <div class="example"><p>The term 'abrakadabra' is a nonsense word and a magical incantation with no relation to any job title or field, so I cannot suggest a search term for it.</p></div>
+  <p>This feature was tested with real data during development, and a real weakness was found and fixed: at first, the AI guessed a plausible but wrong word ("pædagog" — teaching assistant) for "abrakadabra", instead of rejecting it. The solution was to give the AI explicit permission to refuse unreasonable input.</p>
+  <figure class="shot-w" data-shot="P10"><img src="img/P10-en.png" alt="">
+    <figcaption>A new search term can be typed at any time — here the bot honestly refuses instead of searching for a random word.</figcaption></figure>
 </section>
 
 <section class="page">
   <h2>From search result to finished application</h2>
   <p>The whole flow in practice, with two different jobs from the same list — the bot writes a new, personal application every time, not a template with filled-in fields.</p>
-  <figure class="shot-xl" data-shot="P12"><img src="img/P12-da.png" alt="" style="height: 200mm;">
-    <figcaption>You send the job's number (here: 1) — the bot starts writing straight away.</figcaption></figure>
+  <figure class="shot-w" data-shot="P12"><img src="img/P12-en.png" alt="">
+    <figcaption>You send the job's number (here: 2) — the bot starts writing straight away, with today's date already filled in.</figcaption></figure>
+  <figure class="shot-w" data-shot="P13"><img src="img/P13-en.png" alt="">
+    <figcaption>Finished: cover letter, tailored CV and the job posting, all as PDFs — plus the Verify button and «Show the list again».</figcaption></figure>
 </section>
 
 <section class="page">
-  <figure class="shot-xl" data-shot="P13"><img src="img/P13-da.png" alt="">
-    <figcaption>Finished application + the job posting, both as PDFs, and a reminder that you can carry on searching right away.</figcaption></figure>
-</section>
-
-<section class="page">
-  <figure class="shot-xl" data-shot="P14"><img src="img/P14-da.png" alt="">
-    <figcaption>«Show the list again» — the whole list of 20 jobs is still there, no new search needed.</figcaption></figure>
-</section>
-
-<section class="page">
-  <figure class="shot-xl" data-shot="P15"><img src="img/P15-da.png" alt="">
-    <figcaption>The same flow for job no. 2 from the list — a different company, a different application.</figcaption></figure>
-</section>
-
-<section class="page">
-  <figure class="shot-xl" data-shot="P16"><img src="img/P16-da.png" alt="">
-    <figcaption>Again: two new PDF files, tailored to this exact position.</figcaption></figure>
+  <figure class="shot-w" data-shot="P14"><img src="img/P14-en.png" alt="">
+    <figcaption>«Show the list again» — the whole list is still there, no new search needed.</figcaption></figure>
+  <figure class="shot-w" data-shot="P15"><img src="img/P15-en.png" alt="">
+    <figcaption>The same flow for job no. 3 — a different company, a different application. The contact person found in the job posting is addressed by name.</figcaption></figure>
 </section>
 
 <section class="page">
   <h2>What it generates for each job</h2>
-  <p>When you pick a specific job, the bot drafts 2 documents:</p>
+  <p>When you pick a specific job, the bot drafts 3 documents:</p>
   <ul>
-    <li><strong>An application in Danish</strong> — based on real facts from the CV, with no invented experience. If something is missing, it is mentioned honestly but tactfully, as a willingness to learn it quickly.</li>
-    <li><strong>The job posting in Danish as a PDF</strong>, with the contact details extracted (name, phone, email).</li>
+    <li><strong>A cover letter in English</strong> — based on real facts from the CV, with no invented experience. If something is missing, it is mentioned honestly but tactfully, as a willingness to learn it quickly.</li>
+    <li><strong>A tailored CV</strong> — your own CV with a new Profile paragraph written for this exact position.</li>
+    <li><strong>The job posting as a PDF</strong> — contact details at the top (name, phone, email), then an English translation and the original Danish text.</li>
   </ul>
 
   <h3>Check and fix the application: Verify</h3>
@@ -155,7 +118,7 @@
   <p>The bot only drafts — it never sends an application on its own. The final step (review, adjust, send) is always the person's own.</p>
 
   <h3>Try it yourself</h3>
-  <p>The bot is live on Telegram: <span style="background:#ffedd5; padding: 0 3pt;">[English bot username — to be added]</span><br>
+  <p>The bot is live on Telegram: <strong>@demo_job_search_english_bot</strong> — t.me/demo_job_search_english_bot<br>
   Portfolio page with an interactive demo (no Telegram needed to see the bot in action): halyna-projects.github.io/en/</p>
 
   <p class="warn" style="margin-top: 14pt;">Do not enter sensitive information — never send your CPR number (Danish personal ID) or similar data to the bot.</p>
