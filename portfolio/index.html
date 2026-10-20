@@ -97,6 +97,16 @@
   .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .btn.primary:hover { background: #2563eb; color: #fff; }
 
+  .hero-inner { display: flex; align-items: center; gap: 40px; }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero-photo { flex: none; width: 190px; height: auto; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); }
+  .hero-buttons { margin: 0 0 18px; }
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-bottom: 14px; }
+  blockquote { margin: 0; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px; padding: 20px 22px; }
+  blockquote p { margin: 0 0 12px; font-style: italic; }
+  blockquote footer { margin: 0; padding: 0; border: 0; font-size: 0.88rem; color: var(--muted); }
+  blockquote footer b { color: var(--text); }
+
   footer { margin-top: 56px; border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--muted); font-size: 0.95rem; }
   footer .name { color: var(--text); font-weight: 700; font-size: 1.05rem; margin: 0 0 4px; }
   footer p { margin: 0 0 4px; }
@@ -109,6 +119,8 @@
     .card.featured { flex-direction: column; }
     .card.featured .thumb { flex: none; aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
     .grid { grid-template-columns: 1fr; }
+    .hero-inner { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
+    .hero-photo { width: 120px; }
   }
 </style>
 </head>
@@ -117,7 +129,8 @@
 <header class="hero">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-  <div class="wrap">
+  <div class="wrap hero-inner">
+    <div class="hero-text">
     <p class="eyebrow">Portfolio</p>
     <h1>Halina Lukashenko<br>AI products, from idea to working prototype</h1>
     <p class="lead">I design and build practical AI tools: Telegram bots, website chat assistants and dashboards, using LLMs (Gemini) and Claude Code. Below are working products and concepts I have created.</p>
@@ -129,7 +142,13 @@
       <li>Railway</li>
       <li>Dashboards</li>
     </ul>
-    <p class="contact-line"><a href="mailto:HL22111770@GMAIL.COM">HL22111770@GMAIL.COM</a> &nbsp;·&nbsp; <a href="tel:+4522111770">Tlf. +45 22 11 17 70</a></p>
+    <div class="buttons hero-buttons">
+      <a class="btn primary" href="assets/CV-Halina-Lukashenko-EN.pdf">Download CV (PDF)</a>
+      <a class="btn" href="#references">References</a>
+    </div>
+    <p class="contact-line"><a href="mailto:HL22111770@GMAIL.COM">HL22111770@GMAIL.COM</a> &nbsp;·&nbsp; <a href="tel:+4522111770">Tlf. +45 22 11 17 70</a> &nbsp;·&nbsp; <a href="https://linkedin.com/in/halina-lukashenko">LinkedIn</a></p>
+    </div>
+    <img class="hero-photo" src="assets/halina.jpg" alt="Halina Lukashenko" width="230" height="275">
   </div>
 </header>
 
@@ -224,6 +243,27 @@
       </article>
 
     </div>
+  </section>
+
+  <section id="references">
+    <div class="section-head">
+      <h2>References</h2>
+      <span class="section-note">Translated from Danish</span>
+    </div>
+    <div class="quotes">
+      <blockquote>
+        <p>"We have benefited greatly from Halyna's experience with Oracle and SQL development, data analysis and system architecture. Halyna works in a structured and efficient way, with a solid understanding of relational models and periodic datasets. [&hellip;] I therefore give Halyna my warmest recommendation."</p>
+        <footer><b>Head of Department</b>, Breeding &amp; Genetics, Landbrug &amp; F&oslash;devarer &middot; 2026</footer>
+      </blockquote>
+      <blockquote>
+        <p>"Halyna is quick to grasp the technical aspects of a task and has solved tasks that were part of our production deliveries. Halyna will be able to contribute heavy SQL expertise in organisations with high technical demands for rigour and quality."</p>
+        <footer><b>Head of Section</b>, Digital Foundations, Aarhus Municipality &middot; 2024</footer>
+      </blockquote>
+    </div>
+    <div class="buttons">
+      <a class="btn primary" href="assets/References-Halina-Lukashenko-EN.pdf">Full letters in English (PDF)</a>
+    </div>
+    <p class="section-note">Danish originals and referee contact details available on request.</p>
   </section>
 
 </main>

@@ -2,6 +2,8 @@
 
 `presentation-en.html` → `assets/job-search-bot-presentation-EN.pdf`
 `verify-en.html` → `assets/verify-documentation-EN.pdf`
+`cv/cv-en.html` → `portfolio/assets/CV-Halina-Lukashenko-EN.pdf` (English CV, photo in `cv/photo.jpg`)
+`cv/references-en.html` → `portfolio/assets/References-Halina-Lukashenko-EN.pdf` (translated letters, no names or contact details)
 
 Build: `node pdf-src/build.js` (Playwright + Chromium).
 
