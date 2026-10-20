@@ -386,7 +386,7 @@
     position: relative;
   }
   .branch-row::before {
-    content: "eller";
+    content: "or";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -627,7 +627,8 @@
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#demo">See an example →</a>
-        <a class="btn btn-pdf" href="../assets/job-search-bot-presentation.pdf" target="_blank" rel="noopener">Download presentation (PDF, Danish)</a>
+        <a class="btn btn-pdf" href="../assets/job-search-bot-presentation-EN.pdf" target="_blank" rel="noopener">Download presentation (PDF)</a>
+        <a class="btn btn-pdf" href="https://t.me/demo_job_search_english_bot" target="_blank" rel="noopener">Try the bot on Telegram</a>
       </div>
       <p style="margin-top: 10px; font-size: 0.88rem; color: #f87171; font-weight: 600;">Do not enter sensitive information — never send your CPR number (Danish personal ID) or similar data to the bot.</p>
     </div>
@@ -695,11 +696,12 @@
     <h2>See the bot in action</h2>
     <p class="lead">
       No Telegram needed — click through real conversations: a good match with a finished
-      application as a PDF, an honest 0%, a vacancy added manually from a link, an honest
+      application as PDFs, an honest 0%, a vacancy added manually from a link, an honest
       refusal of a nonsense search term, and the Verify check catching unsupported claims.
+      Or try the real bot yourself: <a href="https://t.me/demo_job_search_english_bot" target="_blank" rel="noopener" style="color: #7dd3fc;">@demo_job_search_english_bot</a>.
     </p>
     <div class="chat-demo" id="chatDemo"></div>
-    <p class="chat-demo-caption">Real conversations from the bot, translated from Danish (the bot itself works in Danish) — click a button to see what happens (same data as in the screenshots further down).</p>
+    <p class="chat-demo-caption">Real conversations from the English version of the bot — click a button to see what happens (same data as in the screenshots further down). The manual-add example comes from the Danish version.</p>
   </div>
 </section>
 
@@ -721,28 +723,29 @@
       <div class="step">
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
         <h3>Get finished documents</h3>
-        <p>Pick a job, and the bot drafts an application in Danish plus the job posting as a PDF with the contact details extracted. You review and send it yourself.</p>
+        <p>Pick a job, and the bot drafts a cover letter in English, a CV tailored to the position, and the job posting as a PDF with the contact details extracted and an English translation. You review and send it yourself.</p>
       </div>
     </div>
-    <figure style="max-width: 420px; margin: 28px auto 0;">
-      <img src="../assets/city-typo-example.png" alt="Screenshot: the misspelled city name 'Arhus' is automatically recognised as Aarhus">
-      <figcaption>A misspelled city name is recognised automatically against the official list of Danish municipalities — a reliable lookup, not AI guesswork.</figcaption>
+    <figure style="max-width: 640px; margin: 28px auto 0;">
+      <img src="../assets/en-city-typo.png" alt="Screenshot: the misspelled city name 'copnhagen' is automatically recognised as København">
+      <figcaption>City names in English or Danish, even with a typo ("copnhagen"), are recognised automatically against the official list of Danish municipalities — a reliable lookup, not AI guesswork.</figcaption>
     </figure>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>Agentic search: the AI thinks for itself when a search comes back empty</h2>
+    <h2>Agentic search: the AI thinks for itself when a search finds too little</h2>
     <p class="lead">
       The bot has no fixed, predefined list of synonyms. Instead, the AI decides for itself
-      which similar word to try when a search returns 0 results.
+      which word to try when a search finds fewer than 3 jobs in the chosen city. Most job postings
+      in Denmark are written in Danish, so an English search term is often translated into the Danish job title.
     </p>
     <div class="agent-flow-branch">
       <div class="step trigger">
         <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-        <h3>0 results</h3>
-        <p>The search term doesn't appear directly in any job posting — the bot automatically brings in the AI instead of just showing "nothing found".</p>
+        <h3>Fewer than 3 results</h3>
+        <p>The search term finds (almost) nothing — the bot automatically brings in the AI instead of just showing "nothing found".</p>
       </div>
       <div class="branch-connector"><div class="line"></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v13"/><path d="M6 12l6 6 6-6"/></svg></div>
       <div class="branch-row">
@@ -750,7 +753,7 @@
           <span class="branch-tag">if the word resembles a real word</span>
           <div class="num"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/></svg></div>
           <h3>The AI chooses for itself</h3>
-          <p>Gemini suggests one broader or synonymous Danish word, runs a real search with it, and looks at the actual result — at most 2 attempts, never more.</p>
+          <p>Gemini suggests one translated, broader or synonymous Danish word, runs a real search with it, and looks at the actual result — at most 2 attempts, never more.</p>
         </div>
         <div class="step">
           <span class="branch-tag">if the word is nonsense</span>
@@ -763,33 +766,26 @@
     <div class="bot-bubble">
       <div class="avatar">🤖</div>
       <p>
-        <span class="label">Real example — search term with a typo: "boghlder" (Danish for bookkeeper is "bogholder")</span>
-        The word 'boghlder' is a typical misspelling of the Danish job title bogholder (bookkeeper), so I'll
-        try searching with the correct spelling instead. → Tried «bogholder»: 61 jobs found.
+        <span class="label">Real example — English search term: "bookkeeper" (Danish: "bogholder")</span>
+        → Tried «bogholder»: 3 jobs found in København.
       </p>
     </div>
-    <figure style="max-width: 420px; margin: 24px auto 0;">
-      <img src="../assets/agentic-typo-example.png" alt="Screenshot: the search term 'boghlder' is automatically corrected to 'bogholder' by the AI, 61 jobs found">
-      <figcaption>A typo in the search term ("boghlder") is corrected by the AI to the right Danish word — 61 jobs found straight away.</figcaption>
+    <figure style="max-width: 640px; margin: 24px auto 0;">
+      <img src="../assets/en-agentic-bogholder.png" alt="Screenshot: the search term 'bookkeeper' finds too little, so the AI tries the Danish word 'bogholder' and finds more jobs">
+      <figcaption>"bookkeeper" alone finds too little in København — the AI tries the Danish word "bogholder", and the list shows which word found each job.</figcaption>
     </figure>
     <div class="bot-bubble">
       <div class="avatar">🤖</div>
       <p>
         <span class="label">Real example — search term: "abrakadabra"</span>
-        "abrakadabra" is a magic word and meaningless text in a job context, and so it cannot
-        be interpreted as a real field or a job title.
+        The term 'abrakadabra' is a nonsense word and a magical incantation with no relation to any
+        job title or field, so I cannot suggest a search term for it.
       </p>
     </div>
-    <div class="shots-2">
-      <figure>
-        <img src="../assets/agentic-sq-example-1.png" alt="Screenshot: the search term 'abrakadabra' is typed directly after «What now?» instead of pressing Show the list again">
-        <figcaption>You can type a new search term directly instead of pressing «Show the list again».</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/agentic-sq-example-2.png" alt="Screenshot: the bot honestly rejects 'abrakadabra' instead of guessing a random word">
-        <figcaption>The bot honestly refuses instead of searching for a random word.</figcaption>
-      </figure>
-    </div>
+    <figure style="max-width: 640px; margin: 24px auto 0;">
+      <img src="../assets/en-abrakadabra.png" alt="Screenshot: the bot honestly rejects 'abrakadabra' instead of guessing a random word">
+      <figcaption>The bot honestly refuses instead of searching for a random word.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -803,7 +799,7 @@
     </p>
     <figure style="max-width: 420px; margin: 0 auto;">
       <img src="../assets/manual-vacancy-example.png" alt="Screenshot: a link to a Pandora position added manually, rated 0% match with an explanation about missing management experience">
-      <figcaption>A link to a Pandora position, pasted straight into the chat — the bot fetches the posting, assesses it (here an honest 0%, since the role requires management experience the CV doesn't have) and adds it as no. 21 on the running list.</figcaption>
+      <figcaption>(Screenshot from the Danish version.) A link to a Pandora position, pasted straight into the chat — the bot fetches the posting, assesses it (here an honest 0%, since the role requires management experience the CV doesn't have) and adds it as no. 21 on the running list.</figcaption>
     </figure>
   </div>
 </section>
@@ -822,18 +818,14 @@
       superficial overlap of words? If something real is missing, the bot says so honestly —
       instead of showing a nice but misleading percentage.
     </p>
-    <div class="shots">
+    <div class="shots-2" style="max-width: 1000px; margin-top: 32px;">
       <figure>
-        <img src="../assets/match-positive-v2.png" alt="Example of a positive match: bookkeeper CV against a Financial Bookkeeper position, 90%">
-        <figcaption><strong>Good match</strong> — bookkeeper CV against "Finansbogholder" (Financial Bookkeeper): 90%</figcaption>
+        <img src="../assets/en-match-positive.png" alt="Example of a positive match: bookkeeper CV against bookkeeper positions, 90%">
+        <figcaption><strong>Good match</strong> — bookkeeper CV against "Bookkeeper/Accounting officer": 90%, with a short explanation</figcaption>
       </figure>
       <figure>
-        <img src="../assets/match-partial-v2.png" alt="Example of a partial match: bookkeeper CV against a Controller position, 25%">
-        <figcaption><strong>Partial match</strong> — bookkeeper CV against "Controller til CISU": 25%, with an explanation of why the role requires more than accounting experience</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/match-zero-v2.png" alt="Example of no match: bookkeeper CV against a painter and decorator position, 0%">
-        <figcaption><strong>No match</strong> — the same bookkeeper CV against "Bygningsmaler" (Painter and decorator): 0%, no consolation percentages</figcaption>
+        <img src="../assets/en-match-zero.png" alt="Example of no match: bookkeeper CV against painter positions, 0%">
+        <figcaption><strong>No match</strong> — the same bookkeeper CV against painter positions ("painter" → Danish "maler"): 0%, no consolation percentages</figcaption>
       </figure>
     </div>
   </div>
@@ -842,15 +834,19 @@
 <section>
   <div class="wrap">
     <h2>What it generates for each job</h2>
-    <p class="lead">When you pick a specific job, the bot drafts 2 documents in under a minute:</p>
+    <p class="lead">When you pick a specific job, the bot drafts 3 documents in about a minute:</p>
     <ul class="docs-list">
       <li>
-        <strong>Application in Danish</strong>
+        <strong>Cover letter in English</strong>
         <span>Based on real facts from the CV, with no invented experience. If something is missing, it is mentioned honestly but tactfully, as a willingness to learn it quickly.</span>
       </li>
       <li>
         <strong>The job posting as a PDF</strong>
-        <span>The job posting in Danish with automatically extracted contact details — name, phone and email — so you have everything in one place.</span>
+        <span>Automatically extracted contact details at the top — name, phone and email — then an English translation and the original Danish text, so you have everything in one place.</span>
+      </li>
+      <li>
+        <strong>A tailored CV</strong>
+        <span>Your own CV with a new Profile paragraph written for this exact position — ready to send as it is.</span>
       </li>
     </ul>
     <p class="lead" style="margin-top: 32px;">Afterwards, the application can be checked and corrected with two buttons:</p>
@@ -864,6 +860,13 @@
         <span>If Verify has found something, the bot corrects the application in a targeted way, only in the flagged places, and recommends running Verify again on the corrected version.</span>
       </li>
     </ul>
+    <figure style="max-width: 640px; margin: 28px auto 0;">
+      <img src="../assets/en-letter-pdfs.png" alt="Screenshot: cover letter, tailored CV and job posting delivered as three PDF files">
+      <figcaption>Three PDF files for one job: cover letter, tailored CV and the job posting.</figcaption>
+    </figure>
+    <div class="note" style="margin-top: 24px;">
+      <strong>Fixing is optional.</strong> Verify gives advice — the decision is always yours. If a job simply doesn't match your CV, a list of missing requirements is a normal, honest result, not something to "fix". You can keep the application as it is, adjust it yourself, or skip the job.
+    </div>
     <div class="note">
       The bot never sends anything by itself. It only drafts — the final step (review, adjust, send) is always the person's own.
     </div>
@@ -879,22 +882,18 @@
       that isn't addressed at all, you can fix it with one click ("🔧 Fix based on Verify") and check
       again until everything is green.
     </p>
-    <div class="shots">
+    <div class="shots-2" style="max-width: 1000px; margin-top: 32px;">
       <figure>
-        <img src="../assets/verify-issues-found.png" alt="Verify result: found a claim not supported by the CV, and a requirement that isn't addressed">
-        <figcaption><strong>Verify finds something</strong> — a claim with no support in the CV, and a requirement from the posting that isn't mentioned</figcaption>
+        <img src="../assets/en-verify-issues.png" alt="Verify result: a claim not supported by the CV, and a requirement that isn't clearly addressed">
+        <figcaption><strong>Verify finds something</strong> — the letter promised a weekly office day in Copenhagen, which the CV (Aarhus) doesn't support, and the posting's Pleo requirement wasn't clearly addressed</figcaption>
       </figure>
       <figure>
-        <img src="../assets/verify-fixed.png" alt="Corrected application delivered as a PDF after pressing Fix based on Verify">
-        <figcaption><strong>Fixed with one click</strong> — only the points found are changed, the rest of the application is left untouched</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/verify-clean-pass.png" alt="New Verify check: everything confirmed, check passed">
-        <figcaption><strong>Clean check</strong> — everything confirmed by the CV, all requirements addressed</figcaption>
+        <img src="../assets/en-verify-pass.png" alt="Corrected cover letter as a PDF, then a new Verify check: check passed">
+        <figcaption><strong>Fixed with one click, then a clean check</strong> — only the flagged points were changed; everything is now confirmed by the CV</figcaption>
       </figure>
     </div>
     <div class="cta-row" style="margin-top: 24px;">
-      <a class="btn btn-pdf" href="../assets/verify-dokumentation-DA.pdf" target="_blank" rel="noopener">Download Verify documentation (PDF, Danish)</a>
+      <a class="btn btn-pdf" href="../assets/verify-documentation-EN.pdf" target="_blank" rel="noopener">Download Verify documentation (PDF)</a>
     </div>
   </div>
 </section>
@@ -944,12 +943,16 @@
         <span>An honestly mentioned gap in the application ("no experience with X yet, but a fast learner") was flagged as an invented claim. Fixed: an honest gap is not a factual error — only claims with no support in the CV are.</span>
       </li>
       <li>
-        <strong>Verify explained in English</strong>
-        <span>When the CV or the job posting was in English, Verify's explanations also came in English, even though the rest of the bot is in Danish. Fixed: the explanations are now always in Danish.</span>
+        <strong>Verify switched language</strong>
+        <span>In the Danish version, when the CV or the job posting was in English, Verify's explanations also came in English, even though the rest of the bot is in Danish. Fixed: the explanations now always follow the bot's language.</span>
       </li>
       <li>
         <strong>Contact details that were right there got missed</strong>
         <span>A job ad clearly named a contact person with phone and email near the bottom of the text — but the extraction returned "not stated" for all three fields. Not a character limit, just the AI not reading the posting carefully enough to the end. Fixed with a clearer instruction to read the whole text.</span>
+      </li>
+      <li>
+        <strong>A placeholder instead of a date</strong>
+        <span>Cover letters sometimes started with the literal text "[Current Date]" — the AI left a blank for the date instead of filling it in. Fixed in all three language versions: the real date is now inserted automatically.</span>
       </li>
     </ul>
   </div>
@@ -1032,29 +1035,35 @@
   var demo = document.getElementById('chatDemo');
   if (!demo) return;
 
-  // Each scenario is a real conversation from the bot, translated from
-  // Danish — the same content as in the screenshots further down the page.
+  // Each scenario is a real conversation from the English version of the
+  // bot — the same content as in the screenshots further down the page
+  // (the manual-add example comes from the Danish version, translated).
   // Visitors choose which scenario to see instead of it autoplaying.
   var scenarios = {
     search: {
-      label: '🔍 Search "bogholder" (bookkeeper)',
+      label: '🔍 Search "bookkeeper"',
       unlocks: ['verify'],
       messages: [
-        { sender: 'user', text: 'bogholder' },
-        { sender: 'bot', text: 'Found 20. 1. Experienced bookkeeper – PwC\nPwC | Vejle | Jobindex\nSearch term: bogholder\nMatch: 85% — The candidate has strong experience with bookkeeping and digitalisation for small and medium-sized companies, which matches PwC\'s profile.' },
-        { sender: 'user', text: '1' },
-        { sender: 'bot', text: 'Writing an application for no. 1 «Experienced bookkeeper»...\n\nDear PwC,\n\nWith 6 years of experience as a bookkeeper at Nordisk Regnskabsservice ApS and Byggefirma Holm A/S, where I work daily with full bookkeeping, VAT and reconciliations, your job posting in Vejle immediately caught my interest...' },
+        { sender: 'user', text: 'bookkeeper' },
+        { sender: 'bot', text: 'Searching for: bookkeeper in København ...' },
+        { sender: 'bot', text: '🤖 → Tried «bogholder»: 3 jobs found in København.' },
+        { sender: 'bot', text: 'Found 4.\n\n2. BOGHOLDER SØGES TIL CMD FACILITY SERVICES – 5-10 TIMER OM UGEN\nCMD Facility Services ApS | København K | Jobnet\nKeyword: bogholder\nMatch: 85% — The candidate\'s core bookkeeping, invoicing, and payroll experience directly aligns with the requirements of this part-time position.' },
+        { sender: 'user', text: '2' },
+        { sender: 'bot', text: 'Writing an application for no. 2 «BOGHOLDER SØGES TIL CMD FACILITY SERVICES – 5-10 TIMER OM UGEN»...\n\n20 October 2026\n\nApplication for Bogholder – deltid\n\nDear Hiring Manager, ...' },
         { sender: 'bot', files: [
-          { name: 'ansøgning_Erfaren_bogholder.pdf', caption: 'Application as a PDF — can be saved and printed.' },
-          { name: 'job_Erfaren_bogholder.pdf', caption: 'Job posting as a PDF — with contact details at the top.' }
+          { name: 'cover_letter_BOGHOLDER_SØGES_TIL_CMD_FACILITY_SERVICES.pdf', caption: 'Cover letter as a PDF — can be saved and printed.' },
+          { name: 'fake_cv_bookkeeper_EN_BOGHOLDER_SØGES_TIL_CMD_FACILITY_SERVICES.pdf', caption: 'Tailored CV with a targeted Profile paragraph for this position — ready to send as it is.' },
+          { name: 'job_BOGHOLDER_SØGES_TIL_CMD_FACILITY_SERVICES.pdf', caption: 'Job posting as a PDF — contact details at the top, then an English translation and the original text.' }
         ] }
       ]
     },
     nomatch: {
-      label: '🖌️ Search "maler" (painter)',
+      label: '🖌️ Search "painter"',
       messages: [
-        { sender: 'user', text: 'maler' },
-        { sender: 'bot', text: '1. Bygningsmaler (Painter and decorator)\nTKP BYG A/S | Brabrand / Aarhus | Jobnet\nSearch term: maler\nMatch: 0% — The position requires a qualified painter and decorator, which does not match the candidate\'s bookkeeping profile at all.' }
+        { sender: 'user', text: 'painter' },
+        { sender: 'bot', text: 'Searching for: painter in København ...' },
+        { sender: 'bot', text: '🤖 → Tried «maler»: 3 jobs found in København.' },
+        { sender: 'bot', text: '1. Maler søges til København\nJob Team Vestsjælland v/ Bo Bødker | København N | Jobnet\nKeyword: maler\nMatch: 0% — The candidate has a bookkeeping background and lacks the professional qualifications and experience required for a building painter role.' }
       ]
     },
     manual: {
@@ -1071,24 +1080,25 @@
       label: '🤖 Search "abrakadabra"',
       messages: [
         { sender: 'user', text: 'abrakadabra' },
-        { sender: 'bot', text: '🤖 The word \'abrakadabra\' is a magic word and meaningless nonsense with no relevance to the job market, so I cannot suggest a professional alternative or run a search.' },
-        { sender: 'bot', text: 'No jobs found for this search. Type a new search term to search again.' }
+        { sender: 'bot', text: 'Searching for: abrakadabra in København ...' },
+        { sender: 'bot', text: '🤖 The term \'abrakadabra\' is a nonsense word and a magical incantation with no relation to any job title or field, so I cannot suggest a search term for it.' },
+        { sender: 'bot', text: 'No jobs found for this search in København. Try another keyword, or press 📍 City → «🌍 All of Denmark» to search all of Denmark.' }
       ]
     },
     verify: {
       label: '❓ Verify the application',
       requires: 'search',
       messages: [
-        { sender: 'user', text: '❓ Verify' },
-        { sender: 'bot', text: 'Checking the application against the CV and the job posting itself...' },
-        { sender: 'bot', text: 'Verify result: found a claim that is not supported by the CV, and a requirement from the posting that is not addressed.' },
+        { sender: 'user', text: '❓ Verify (check for invented facts)' },
+        { sender: 'bot', text: '❓ Comparing the application with your original CV and the job posting...' },
+        { sender: 'bot', text: '⚠️ Found claims that are not confirmed by the original CV:\n\n• «While I am based in Aarhus, I am fully prepared to ensure a fixed office day each Friday at your location on Hauser Plads in central Copenhagen»\nThe original CV states the candidate is located in Aarhus, but does not state any willingness or preparation to commute to Copenhagen every Friday as claimed.\n\n📋 Not addressed in the application:\n\n• Pleo software\nThe vacancy explicitly requests familiarity with Pleo.' },
         { sender: 'user', text: '🔧 Fix based on Verify' },
-        { sender: 'bot', text: 'Fixing only the flagged points — the rest of the application is left untouched.' },
         { sender: 'bot', files: [
-          { name: 'ansøgning_Erfaren_bogholder_rettet.pdf', caption: 'Corrected application — only the points found were changed.' }
+          { name: 'cover_letter_BOGHOLDER_SØGES_TIL_CMD_FACILITY_SERVICES.pdf', caption: 'Corrected cover letter as a PDF.' }
         ] },
-        { sender: 'user', text: '❓ Verify' },
-        { sender: 'bot', text: '✅ Clean check — everything confirmed by the CV, all requirements from the posting addressed.' }
+        { sender: 'bot', text: 'Done. It\'s a good idea to run ❓ Verify again to check the corrected version.' },
+        { sender: 'user', text: '❓ Verify (check for invented facts)' },
+        { sender: 'bot', text: '✅ Check passed: everything in the application is confirmed by your original CV, and all key requirements in the job posting are addressed in some way.' }
       ]
     }
   };
