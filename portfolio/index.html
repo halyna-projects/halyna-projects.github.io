@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Halina Lukashenko — AI Projects Portfolio</title>
-<meta name="description" content="AI products by Halina Lukashenko: Telegram bots, website chat assistants and dashboards, from idea to working prototype.">
-<meta property="og:title" content="Halina Lukashenko — AI Projects Portfolio">
-<meta property="og:description" content="Telegram bots, website chat assistants and dashboards, from idea to working prototype.">
+<title>Halina Lukashenko — SQL and AI Portfolio</title>
+<meta name="description" content="Halina Lukashenko: SQL developer with 20+ years in databases, reporting and data quality, and builder of AI chatbots and Telegram bots.">
+<meta property="og:title" content="Halina Lukashenko — SQL and AI Portfolio">
+<meta property="og:description" content="SQL developer with 20+ years in databases and data quality, building AI chatbots with Claude Code and Gemini.">
 <meta property="og:image" content="https://halyna-projects.github.io/portfolio/assets/thumb-job-bot.jpg">
 <script data-goatcounter="https://halyna-demo-dk-jobbot.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
@@ -112,6 +112,13 @@
   blockquote footer { margin: 0; padding: 0; border: 0; font-size: 0.88rem; color: var(--muted); }
   blockquote footer b { color: var(--text); }
 
+  .facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+  .fact { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+  .fact-num { font-size: 1.7rem; font-weight: 700; color: var(--accent); margin: 0 0 4px; line-height: 1.2; }
+  .fact p { color: var(--muted); margin: 0 0 10px; font-size: 0.97rem; }
+  .fact .fact-num { color: var(--accent); font-size: 1.7rem; margin-bottom: 4px; }
+  .fact-where { font-size: 0.82rem !important; color: var(--text) !important; opacity: 0.85; margin: 0 !important; }
+
   footer { margin-top: 56px; border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--muted); font-size: 0.95rem; }
   footer .name { color: var(--text); font-weight: 700; font-size: 1.05rem; margin: 0 0 4px; }
   footer p { margin: 0 0 4px; }
@@ -138,15 +145,18 @@
   <div class="wrap hero-inner">
     <div class="hero-text">
     <p class="eyebrow">Portfolio</p>
-    <h1>Halina Lukashenko<br>AI products, from idea to working prototype</h1>
-    <p class="lead">I design and build practical AI tools: Telegram bots, website chat assistants and dashboards, using LLMs (Gemini) and Claude Code. Below are working products and concepts I have created.</p>
+    <h1>Halina Lukashenko<br>SQL developer and AI product builder</h1>
+    <p class="lead">20+ years of SQL, databases, regulatory reporting and data quality, from a Ukrainian bank to the Danish agricultural sector. Today I also build and test AI tools: Telegram bots, website chat assistants and dashboards, using Gemini and Claude Code.</p>
     <ul class="tags">
-      <li>Python</li>
+      <li>SQL</li>
+      <li>Oracle</li>
+      <li>PL/SQL</li>
+      <li>T-SQL</li>
+      <li>MS SQL Server</li>
+      <li>Data quality &amp; QA</li>
       <li>Gemini API</li>
-      <li>Telegram bots</li>
       <li>Claude Code</li>
-      <li>Railway</li>
-      <li>Dashboards</li>
+      <li>Telegram bots</li>
     </ul>
     <div class="buttons hero-buttons">
       <a class="btn primary" href="assets/CV-Halina-Lukashenko-EN.pdf">Download CV (PDF)</a>
@@ -160,9 +170,48 @@
 
 <main class="wrap">
 
+  <section id="sql">
+    <div class="section-head">
+      <h2>SQL &amp; data experience</h2>
+      <span class="section-note">Work for employers; code is not public, details in the CV and references</span>
+    </div>
+    <div class="facts">
+      <div class="fact">
+        <p class="fact-num">20%</p>
+        <h3>Data quality fix in a live register</h3>
+        <p>Found and fixed an error affecting about 20% of the rows in a central register, while it was in daily use. Built a unified periodic JOIN algorithm (overlapping intervals) that is now an internal standard in the IT team.</p>
+        <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">2 min &rarr; 1 s</p>
+        <h3>Query performance</h3>
+        <p>Diagnosed and solved performance problems across SQL, PHP and the front end; one query went from 2 minutes to 1 second.</p>
+        <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">~100</p>
+        <h3>Database objects for research</h3>
+        <p>Developed and adapted about 100 Oracle database objects. Central developer in the OVERLEVELSE (Survival) research project: two complete model variants, described as "brilliant" by the chief scientist.</p>
+        <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle, PL/SQL</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">22 years</p>
+        <h3>Regulatory reporting in banking</h3>
+        <p>Mandatory reporting to the National Bank of Ukraine and the Deposit Guarantee Fund. Built the first tables and procedures that all later reporting grew from; advanced to head of the Statistical Reporting Department.</p>
+        <p class="fact-where">Prominvestbank, Kyiv · Oracle, MS SQL, Sybase, Borland C</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">30,000</p>
+        <h3>Users in a municipal course portal</h3>
+        <p>T-SQL procedures and reports, data loads and changes in the user database of the Eloomi course portal, and migration of PowerShell scripts to Python.</p>
+        <p class="fact-where">Aarhus Municipality · MS SQL, T-SQL</p>
+      </div>
+    </div>
+  </section>
+
   <section id="products">
     <div class="section-head">
-      <h2>Working products</h2>
+      <h2>AI products</h2>
       <span class="section-note">Built and running, with real screenshots</span>
     </div>
     <div class="grid">
