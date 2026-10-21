@@ -67,8 +67,13 @@
     display: flex;
     flex-direction: column;
   }
-  .card.featured { grid-column: 1 / -1; flex-direction: row; }
-  .card.featured .thumb { flex: 0 0 48%; aspect-ratio: auto; min-height: 280px; }
+  .card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 48% 1fr; }
+  .card.featured .thumb { aspect-ratio: auto; min-height: 280px; }
+  .gallery { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 22px 20px; border-top: 1px solid var(--border); }
+  .gallery a { display: block; text-decoration: none; color: var(--muted); font-size: 0.8rem; }
+  .gallery img { width: 100%; height: 120px; object-fit: cover; object-position: left top; border-radius: 8px; border: 1px solid var(--border); display: block; margin-bottom: 6px; background: #fff; }
+  .gallery a:hover img { border-color: var(--accent); }
+  .gallery a:hover { color: var(--accent); }
   .thumb { display: block; aspect-ratio: 16 / 9; background: var(--bg-alt); border-bottom: 1px solid var(--border); overflow: hidden; }
   .card.featured .thumb { border-bottom: 0; border-right: 1px solid var(--border); }
   .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
@@ -116,8 +121,9 @@
 
   @media (max-width: 760px) {
     header.hero { padding: 40px 0 32px; }
-    .card.featured { flex-direction: column; }
-    .card.featured .thumb { flex: none; aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
+    .card.featured { grid-template-columns: 1fr; }
+    .card.featured .thumb { aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
+    .gallery { grid-template-columns: repeat(2, 1fr); padding: 14px 16px 18px; }
     .grid { grid-template-columns: 1fr; }
     .hero-inner { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
     .hero-photo { width: 120px; }
@@ -176,10 +182,16 @@
             <a class="btn" href="../assets/verify-documentation-EN.pdf">Verify PDF</a>
           </div>
         </div>
+        <div class="gallery">
+          <a href="../assets/en-match-positive.png" target="_blank" rel="noopener"><img src="../assets/en-match-positive.png" alt="CV match score" loading="lazy"><span>CV match score</span></a>
+          <a href="../assets/en-letter-pdfs.png" target="_blank" rel="noopener"><img src="../assets/en-letter-pdfs.png" alt="Application as PDF" loading="lazy"><span>Application as PDF</span></a>
+          <a href="../assets/en-verify-issues.png" target="_blank" rel="noopener"><img src="../assets/en-verify-issues.png" alt="Verify finds issues" loading="lazy"><span>Verify finds issues</span></a>
+          <a href="../assets/en-verify-pass.png" target="_blank" rel="noopener"><img src="../assets/en-verify-pass.png" alt="Verify passes" loading="lazy"><span>Verify passes</span></a>
+        </div>
       </article>
 
       <article class="card featured">
-        <a class="thumb" href="assets/ai-real-estate-bot-EN.pdf"><img src="assets/thumb-real-estate.jpg" alt="Agent dashboard of the AI Real Estate Bot: all clients in one table" loading="lazy"></a>
+        <a class="thumb" href="assets/ai-real-estate-bot-EN.pdf"><img style="object-position: center" src="assets/thumb-real-estate-title.jpg" alt="AI Real Estate Bot for Telegram: Canada, Toronto and Calgary" loading="lazy"></a>
         <div class="body">
           <span class="status local">Working prototype · PDF demo</span>
           <h3>AI Real Estate Bot + Agent Dashboard</h3>
@@ -188,6 +200,12 @@
           <div class="buttons">
             <a class="btn primary" href="assets/ai-real-estate-bot-EN.pdf">Open PDF</a>
           </div>
+        </div>
+        <div class="gallery">
+          <a href="assets/re-chat-buttons.jpg" target="_blank" rel="noopener"><img src="assets/re-chat-buttons.jpg" alt="Client picks via buttons" loading="lazy"><span>Client picks via buttons</span></a>
+          <a href="assets/re-listings.jpg" target="_blank" rel="noopener"><img src="assets/re-listings.jpg" alt="Matching listings" loading="lazy"><span>Matching listings</span></a>
+          <a href="assets/re-pipeline.jpg" target="_blank" rel="noopener"><img src="assets/re-pipeline.jpg" alt="Agent pipeline" loading="lazy"><span>Agent pipeline</span></a>
+          <a href="assets/re-clients.jpg" target="_blank" rel="noopener"><img src="assets/re-clients.jpg" alt="All clients in one table" loading="lazy"><span>All clients in one table</span></a>
         </div>
       </article>
 
