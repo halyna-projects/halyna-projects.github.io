@@ -20,13 +20,13 @@
 ### Что где лежит
 - `/` — датская страница job-бота, `/en/` — английская (скриншоты бота @demo_job_search_english_bot).
 - `/fitness/` (NordPuls) и `/helsekost/` (Sundt Liv) — демо чатботов на заготовленных ответах, без ИИ; датские PDF рядом.
-- `/portfolio/` — английское портфолио: Working products (job-бот с Verify, real estate бот), Prototypes & concepts (трекер чеков, NordPuls, Sundt Liv), фото, CV, рекомендации.
+- `/portfolio/` — английское портфолио: SQL & data experience (факты из CV), AI products (job-бот с Verify, real estate бот, Family Receipt Tracker — большие карточки с лентой скриншотов), Prototypes & concepts (NordPuls, Sundt Liv), фото, CV, рекомендации.
 - `portfolio/assets/` — PDF real estate, трекера чеков, CV, переводов рекомендаций, картинки карточек.
 - `pdf-src/` — исходники английских PDF; `pdf-src/cv/` — CV и переводы рекомендаций. Сборка: `node pdf-src/build.js`.
 - Рекомендации на сайте — только должность и компания, без имён, телефонов, почт и адресов («referee contact details available on request»).
 
 ### Что осталось
-1. AI Planner (@ai_daily_planner_english_bot): добавить большую карточку в Working products, когда Halina пришлёт новый PDF после переноса на Railway. Замечания к старому PDF: обрезать адресную строку браузера на скриншотах кабинета, «live working build» → «working build», названия задач по-английски («Go for a walk»), защита входа в веб-кабинет по ID.
+1. AI Planner (@ai_daily_planner_english_bot): добавить большую карточку в AI products, когда Halina переснимет скрины с Railway и пришлёт новый PDF. В старом PDF (стр. 5, 11, 12) видны адресная строка localhost:8011, «Докажите, что это вы», аватарка и русское окно браузера; задачи «to go walk»/«to buy bread» → «Go for a walk»/«Buy bread». Защита входа в веб-кабинет по ID.
 2. Английский скриншот «Add a job manually» на `/en/` вместо датского.
 3. Датские PDF job-бота: абзац «исправлять после Verify необязательно» (см. `pdf-src/README.md`).
 4. Видео про датского бота с подписями на украинском, потом такое же видео про английского бота с английскими подписями (скрины пришлёт Halina).
