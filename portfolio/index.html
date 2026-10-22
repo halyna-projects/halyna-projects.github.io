@@ -130,6 +130,7 @@
   footer p { margin: 0 0 4px; }
   footer a { color: var(--text); text-decoration: none; }
   footer a:hover { color: var(--accent); }
+  .fact pre { margin: 0 0 10px; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow-x: auto; font-size: 0.72rem; color: var(--text); }
   .code-note { margin-top: 14px; font-style: italic; }
 
   @media (max-width: 760px) {
@@ -185,7 +186,12 @@
       <div class="fact">
         <p class="fact-num">20%</p>
         <h3>Data quality fix in a live register</h3>
-        <p>Found and fixed an error affecting about 20% of the rows in a central register, while it was in daily use. Built a unified periodic JOIN algorithm (overlapping intervals) that is now an internal standard in the IT team.</p>
+        <p>Joining two history tables on ID alone multiplied rows in historical data &mdash; a cross-join between periods. About 20% of the rows (1,300+) were false. I added a period-overlap condition:</p>
+<pre>AND o.start_dt &lt;=
+  NVL(h.end_dt, DATE '9999-01-01')
+AND h.start_dt &lt;=
+  NVL(o.end_dt, DATE '9999-01-01')</pre>
+        <p>After the fix, views and SELECTs returned clean data. The condition is now an internal standard: colleagues use it in the team's procedures and views and have applied it to other tables.</p>
         <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle</p>
       </div>
       <div class="fact">
@@ -197,7 +203,7 @@
       <div class="fact">
         <p class="fact-num">~100</p>
         <h3>Database objects for research</h3>
-        <p>Developed and adapted about 100 Oracle database objects. Central developer in the OVERLEVELSE (Survival) research project: two complete model variants; the chief scientist called the work "brilliant" and "excellent tables", and the tables and reports were used in two research presentations.</p>
+        <p>Developed and adapted about 100 Oracle database objects. Central developer in the OVERLEVELSE (Survival) research project: two complete model variants; the chief scientist called the work "brilliant" and "excellent tables" and thanked me for my "extensive work"; the tables and reports were used in two research presentations.</p>
         <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle, PL/SQL</p>
       </div>
       <div class="fact">
