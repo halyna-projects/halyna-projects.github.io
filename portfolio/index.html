@@ -186,7 +186,7 @@
       <div class="fact">
         <p class="fact-num">20%</p>
         <h3>Data quality fix in a live register</h3>
-        <p>Joining two history tables on ID alone multiplied rows in historical data &mdash; a cross-join between periods. About 20% of the rows (1,300+) were false. I added a period-overlap condition:</p>
+        <p>Joining two history tables on ID alone multiplied rows in historical data &mdash; a cross-join between periods. About 20% of the rows (1,500+) were false. I added a period-overlap condition:</p>
 <pre>AND o.start_dt &lt;=
   NVL(h.end_dt, DATE '9999-01-01')
 AND h.start_dt &lt;=
