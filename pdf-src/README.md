@@ -2,7 +2,7 @@
 
 `presentation-en.html` → `assets/job-search-bot-presentation-EN.pdf`
 `verify-en.html` → `assets/verify-documentation-EN.pdf`
-`cv/cv-en.html` → `portfolio/assets/CV-Halina-Lukashenko-EN.pdf` (full English CV for /projects/, photo in `cv/photo.jpg`) and `portfolio/assets/CV-Halina-Lukashenko-English.pdf` (same CV without the job-search bot, for /portfolio/)
+`cv/cv-en.html` → `portfolio/assets/CV-Halina-Lukashenko-EN.pdf` (full English CV for /work/, photo in `cv/photo.jpg`) and `portfolio/assets/CV-Halina-Lukashenko-English.pdf` (same CV without the job-search bot, for /portfolio/)
 `cv/references-en.html` → `portfolio/assets/References-Halina-Lukashenko-EN.pdf` (translated letters, no names or contact details)
 
 Build: `node pdf-src/build.js` (Playwright + Chromium).
