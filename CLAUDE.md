@@ -18,7 +18,7 @@
 - Не пушить в репозитории ботов, пока Halina тестирует бота: пуш перезапускает бота на Railway.
 
 ### Что где лежит
-- `/` — датская страница job-бота, `/en/` — английская (скриншоты бота @demo_job_search_english_bot).
+- `/` — визитка (фото, имя, кнопка LinkedIn), без бота. `/dk/` — датская страница job-бота, `/en/` — английская (скриншоты бота @demo_job_search_english_bot).
 - `/fitness/` (NordPuls) и `/helsekost/` (Sundt Liv) — демо чатботов на заготовленных ответах, без ИИ; датские PDF рядом.
 - `/projects/` — полное английское портфолио (его давать работодателям, в CV и LinkedIn): SQL & data experience (факты из CV), AI products (job-бот с Verify, real estate бот, Family Receipt Tracker — большие карточки с лентой скриншотов), Prototypes & concepts (NordPuls, Sundt Liv), фото, CV, рекомендации.
 - `/portfolio/` — та же страница БЕЗ job-бота (эта ссылка у консультантки Halina — ей нельзя знать о боте). При правках портфолио менять обе страницы. CV: `CV-Halina-Lukashenko-EN.pdf` — полное (ссылки на /projects/), `CV-Halina-Lukashenko-English.pdf` — без бота (для /portfolio/); оба из `pdf-src/cv/cv-en.html` (классы `full-only` / `short-only`).
