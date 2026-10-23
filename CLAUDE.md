@@ -39,7 +39,7 @@
 
 ### Важно о фактах
 - Aarhus Kommune: Halina только переводила скрипты PowerShell → Python для Eloomi и писала T-SQL; data loads в Eloomi при ней не делались — не писать.
-- Prominvestbank: в Департаменте статистической отчётности сначала заместитель начальника управления, после реорганизации департамента — руководитель направления (это другая должность, не повышение). Не писать «advanced from deputy head to head».
+- Prominvestbank: сначала заместитель начальника (управления статистической отчётности — точное название Halina проверит по трудовой книжке), после реорганизации — руководитель направления статистической отчётности (другая должность, не повышение). Пока пишем нейтрально: «Deputy Head of Statistical Reporting; after a reorganisation, Head of a statistical reporting area». Не писать «advanced from deputy head to head».
 - BI-инструментами не пользовалась (есть только курс Oracle BI 2015) — не писать BI в навыках.
 - Курсы Oracle 2015 — это курсы, не сертификаты.
 - Ошибка в 20% строк (Landbrug & Fødevarer): JOIN двух историй без условия на периоды размножал строки; 1 238 ложных из 5 894 (Halina хочет «около 20%»). Исправлено условием пересечения периодов — теперь обязательно в каждом JOIN с этой таблицей. Ещё: ROWNUM < 2 → ORDER BY … FETCH FIRST 1 ROW ONLY. Chief scientist (OVERLEVELSE): «brilliant», «excellent tables», «extensive work» — имя не указывать.
