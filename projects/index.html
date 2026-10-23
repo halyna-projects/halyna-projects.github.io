@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halina Lukashenko — SQL and AI Portfolio</title>
+<meta name="description" content="Halina Lukashenko: SQL developer with 20+ years in databases, reporting and data quality, and builder of AI chatbots and Telegram bots.">
+<meta property="og:title" content="Halina Lukashenko — SQL and AI Portfolio">
+<meta property="og:description" content="SQL developer with 20+ years in databases and data quality, building AI chatbots with Claude Code and Gemini.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://halyna-projects.github.io/projects/">
+<meta property="og:image" content="https://halyna-projects.github.io/portfolio/assets/og-portfolio.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<script data-goatcounter="https://halyna-demo-dk-jobbot.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+  :root {
+    --accent: #3b82f6;
+    --accent2: #a855f7;
+    --accent3: #22c55e;
+    --amber: #f59e0b;
+    --text: #e9eaf2;
+    --muted: #9aa0b8;
+    --bg: #060608;
+    --bg-alt: #0e0e16;
+    --border: #24242f;
+    --surface: #121219;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  header.hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 0 44px;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4; pointer-events: none; }
+  .blob-1 { width: 420px; height: 420px; top: -180px; right: -120px; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); }
+  .blob-2 { width: 320px; height: 320px; bottom: -160px; left: -100px; background: radial-gradient(circle, var(--accent2) 0%, transparent 70%); }
+  .hero .wrap { position: relative; z-index: 1; }
+  .eyebrow { color: var(--accent); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 10px; }
+  h1 { font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.15; margin: 0 0 14px; }
+  .lead { font-size: 1.12rem; color: var(--muted); max-width: 680px; margin: 0 0 22px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; padding: 0; list-style: none; }
+  .tags li { font-size: 0.82rem; padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text); }
+  .contact-line { font-size: 0.95rem; color: var(--muted); }
+  .contact-line a { color: var(--text); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  .contact-line a:hover { color: var(--accent); }
+
+  section { padding: 48px 0 8px; }
+  .section-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 22px; }
+  h2 { font-size: 1.6rem; margin: 0; }
+  .section-note { color: var(--muted); font-size: 0.95rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 48% 1fr; }
+  .card.featured .thumb { aspect-ratio: auto; min-height: 280px; }
+  .gallery { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 22px 20px; border-top: 1px solid var(--border); }
+  .gallery a { display: block; text-decoration: none; color: var(--muted); font-size: 0.8rem; }
+  .gallery img { width: 100%; height: 120px; object-fit: cover; object-position: left top; border-radius: 8px; border: 1px solid var(--border); display: block; margin-bottom: 6px; background: #fff; }
+  .gallery a:hover img { border-color: var(--accent); }
+  .gallery a:hover { color: var(--accent); }
+  .thumb { display: block; aspect-ratio: 16 / 9; background: var(--bg-alt); border-bottom: 1px solid var(--border); overflow: hidden; }
+  .card.featured .thumb { border-bottom: 0; border-right: 1px solid var(--border); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
+  .body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .status { align-self: flex-start; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .status.live { color: var(--accent3); background: rgba(34, 197, 94, 0.12); }
+  .status.local { color: var(--accent); background: rgba(59, 130, 246, 0.14); }
+  .status.concept { color: var(--amber); background: rgba(245, 158, 11, 0.13); }
+  h3 { font-size: 1.2rem; margin: 0 0 8px; line-height: 1.3; }
+  .body p { color: var(--muted); margin: 0 0 14px; font-size: 0.97rem; }
+  .tech { font-size: 0.82rem; color: var(--text); opacity: 0.85; margin: 0 0 16px; }
+  .tech span { color: var(--muted); }
+  .buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  .btn {
+    display: inline-block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: var(--bg-alt);
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #2563eb; color: #fff; }
+
+  .hero-inner { display: flex; align-items: center; gap: 40px; }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero-photo { flex: none; width: 190px; height: auto; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); }
+  .hero-buttons { margin: 0 0 18px; }
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-bottom: 14px; }
+  blockquote { margin: 0; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 14px; padding: 20px 22px; }
+  blockquote p { margin: 0 0 12px; font-style: italic; }
+  blockquote footer { margin: 0; padding: 0; border: 0; font-size: 0.88rem; color: var(--muted); }
+  blockquote footer b { color: var(--text); }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+  .fact { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+  .fact-num { font-size: 1.7rem; font-weight: 700; color: var(--accent); margin: 0 0 4px; line-height: 1.2; }
+  .fact p { color: var(--muted); margin: 0 0 10px; font-size: 0.97rem; }
+  .fact .fact-num { color: var(--accent); font-size: 1.7rem; margin-bottom: 4px; }
+  .fact-where { font-size: 0.82rem !important; color: var(--text) !important; opacity: 0.85; margin: 0 !important; }
+
+  footer { margin-top: 56px; border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--muted); font-size: 0.95rem; }
+  footer .name { color: var(--text); font-weight: 700; font-size: 1.05rem; margin: 0 0 4px; }
+  footer p { margin: 0 0 4px; }
+  footer a { color: var(--text); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  .fact pre { margin: 0 0 10px; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow-x: auto; font-size: 0.72rem; color: var(--text); }
+  .code-note { margin-top: 14px; font-style: italic; }
+
+  @media (max-width: 760px) {
+    header.hero { padding: 40px 0 32px; }
+    .card.featured { grid-template-columns: 1fr; }
+    .card.featured .thumb { aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
+    .gallery { grid-template-columns: repeat(2, 1fr); padding: 14px 16px 18px; }
+    .grid { grid-template-columns: 1fr; }
+    .hero-inner { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
+    .hero-photo { width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+    <p class="eyebrow">Portfolio</p>
+    <h1>Halina Lukashenko<br>SQL developer and AI product builder</h1>
+    <p class="lead">20+ years of SQL, databases, regulatory reporting and data quality, from a Ukrainian bank to the Danish agricultural sector. Today I also build and test AI tools: Telegram bots, website chat assistants and dashboards, using Gemini and Claude Code.</p>
+    <ul class="tags">
+      <li>SQL</li>
+      <li>Oracle</li>
+      <li>PL/SQL</li>
+      <li>T-SQL</li>
+      <li>MS SQL Server</li>
+      <li>Data quality &amp; QA</li>
+      <li>Gemini API</li>
+      <li>Claude Code</li>
+      <li>Telegram bots</li>
+    </ul>
+    <div class="buttons hero-buttons">
+      <a class="btn primary" href="../portfolio/assets/CV-Halina-Lukashenko-EN.pdf">Download CV (PDF)</a>
+      <a class="btn" href="#references">References</a>
+    </div>
+    <p class="contact-line"><a href="mailto:HL22111770@GMAIL.COM">HL22111770@GMAIL.COM</a> &nbsp;·&nbsp; <a href="tel:+4522111770">Tlf. +45 22 11 17 70</a> &nbsp;·&nbsp; <a href="https://linkedin.com/in/halina-lukashenko">LinkedIn</a></p>
+    </div>
+    <img class="hero-photo" src="../portfolio/assets/halina.jpg" alt="Halina Lukashenko" width="230" height="275">
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="sql">
+    <div class="section-head">
+      <h2>SQL &amp; data experience</h2>
+      <span class="section-note">Work for employers; code is not public, details in the CV and references</span>
+    </div>
+    <div class="facts">
+      <div class="fact">
+        <p class="fact-num">20%</p>
+        <h3>Data quality fix in a live register</h3>
+        <p>Joining two history tables on ID alone multiplied rows in historical data &mdash; a cross-join between periods. About 20% of the rows (1,238 of 5,894) were false. I added a period-overlap condition:</p>
+<pre>AND o.start_dt &lt;=
+  NVL(h.end_dt, DATE '9999-01-01')
+AND h.start_dt &lt;=
+  NVL(o.end_dt, DATE '9999-01-01')</pre>
+        <p>After the fix, views and SELECTs returned clean data. The condition is now an internal standard: it is required in every join with this table, and the team has adopted it in its procedures and views. I also replaced <code>ROWNUM &lt; 2</code>, which picked an arbitrary row, with <code>ORDER BY &hellip; FETCH FIRST 1 ROW ONLY</code>, so the query always returns the right row.</p>
+        <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">2 min &rarr; 1 s</p>
+        <h3>Query performance</h3>
+        <p>Diagnosed and solved performance problems across SQL, PHP and the front end; one query went from 2 minutes to 1 second.</p>
+        <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">~100</p>
+        <h3>Database objects for research</h3>
+        <p>Developed and adapted about 100 Oracle database objects. Central developer in the OVERLEVELSE (Survival) research project: two complete model variants; the chief scientist called the work "brilliant" and "excellent tables" and thanked me for my "extensive work"; the tables and reports were used in two research presentations.</p>
+        <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle, PL/SQL</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">22 years</p>
+        <h3>Regulatory reporting in banking</h3>
+        <p>Mandatory reporting to the National Bank of Ukraine and the Deposit Guarantee Fund. Built the first tables and procedures that all later reporting grew from; advanced to head of the Statistical Reporting Department.</p>
+        <p class="fact-where">Prominvestbank, Kyiv · Oracle, MS SQL, Sybase, Borland C</p>
+      </div>
+      <div class="fact">
+        <p class="fact-num">T-SQL</p>
+        <h3>Scripts for a municipal course portal</h3>
+        <p>T-SQL procedures and reports for the municipality's systems, and migration of PowerShell scripts to Python for Eloomi, the course portal with about 30,000 users.</p>
+        <p class="fact-where">Aarhus Municipality · MS SQL, T-SQL</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="section-head">
+      <h2>AI products</h2>
+      <span class="section-note">Built and running, with real screenshots</span>
+    </div>
+    <div class="grid">
+
+      <article class="card featured">
+        <a class="thumb" href="../en/"><img src="../portfolio/assets/thumb-job-bot.jpg" alt="Verify checking an application letter in the job search bot" loading="lazy"></a>
+        <div class="body">
+          <span class="status live">Live · try it in Telegram</span>
+          <h3>AI Job Search Assistant with Verify</h3>
+          <p>A Telegram bot that helps people find jobs in Denmark: it scores vacancies against your CV, writes tailored applications as PDF, and checks every letter with <em>Verify</em>, a built-in fact-checker that catches claims not supported by your CV.</p>
+          <p class="tech"><span>Tech:</span> Python · Gemini API · Telegram · Railway</p>
+          <div class="buttons">
+            <a class="btn primary" href="https://t.me/demo_job_search_english_bot">Try the bot</a>
+            <a class="btn" href="../en/">English page</a>
+            <a class="btn" href="../">Danish page</a>
+            <a class="btn" href="../assets/job-search-bot-presentation-EN.pdf">Presentation PDF</a>
+            <a class="btn" href="../assets/verify-documentation-EN.pdf">Verify PDF</a>
+          </div>
+        </div>
+        <div class="gallery">
+          <a href="../assets/en-match-positive.png" target="_blank" rel="noopener"><img src="../assets/en-match-positive.png" alt="CV match score" loading="lazy"><span>CV match score</span></a>
+          <a href="../assets/en-letter-pdfs.png" target="_blank" rel="noopener"><img src="../assets/en-letter-pdfs.png" alt="Application as PDF" loading="lazy"><span>Application as PDF</span></a>
+          <a href="../assets/en-verify-issues.png" target="_blank" rel="noopener"><img src="../assets/en-verify-issues.png" alt="Verify finds issues" loading="lazy"><span>Verify finds issues</span></a>
+          <a href="../assets/en-verify-pass.png" target="_blank" rel="noopener"><img src="../assets/en-verify-pass.png" alt="Verify passes" loading="lazy"><span>Verify passes</span></a>
+        </div>
+      </article>
+
+      <article class="card featured">
+        <a class="thumb" href="../portfolio/assets/ai-real-estate-bot-EN.pdf"><img style="object-position: center" src="../portfolio/assets/thumb-real-estate-title.jpg" alt="AI Real Estate Bot for Telegram: Canada, Toronto and Calgary" loading="lazy"></a>
+        <div class="body">
+          <span class="status local">Working prototype · PDF demo</span>
+          <h3>AI Real Estate Bot + Agent Dashboard</h3>
+          <p>A Telegram bot that guides clients through buying, renting or selling in Toronto and Calgary and sends matching listings. Every inquiry lands in an agent dashboard with lead status, hot / warm / cold temperature and next action.</p>
+          <p class="tech"><span>Tech:</span> Python · Gemini API · Telegram · web dashboard</p>
+          <div class="buttons">
+            <a class="btn primary" href="../portfolio/assets/ai-real-estate-bot-EN.pdf">Open PDF</a>
+          </div>
+        </div>
+        <div class="gallery">
+          <a href="../portfolio/assets/re-chat-buttons.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/re-chat-buttons.jpg" alt="Client picks via buttons" loading="lazy"><span>Client picks via buttons</span></a>
+          <a href="../portfolio/assets/re-listings.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/re-listings.jpg" alt="Matching listings" loading="lazy"><span>Matching listings</span></a>
+          <a href="../portfolio/assets/re-pipeline.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/re-pipeline.jpg" alt="Agent pipeline" loading="lazy"><span>Agent pipeline</span></a>
+          <a href="../portfolio/assets/re-clients.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/re-clients.jpg" alt="All clients in one table" loading="lazy"><span>All clients in one table</span></a>
+        </div>
+      </article>
+
+      <article class="card featured">
+        <a class="thumb" href="../portfolio/assets/family-receipt-tracker-EN.pdf"><img src="../portfolio/assets/thumb-receipts.jpg" alt="Family Receipt Tracker: Telegram bot and web dashboard" loading="lazy"></a>
+        <div class="body">
+          <span class="status local">Working prototype · PDF demo</span>
+          <h3>Family Receipt Tracker</h3>
+          <p>Snap a photo of a receipt: the bot reads the store, date and every item with AI, sorts items into categories, tracks return deadlines and warranties, and shows the family's spending in the chat and in a login-protected web cabinet. Tested on real Danish receipts from Lidl, Kvickly, Salling, Magasin and L&oslash;vbjerg.</p>
+          <p class="tech"><span>Tech:</span> Python · aiogram · Gemini vision · Pydantic · SQLite · aiohttp · pytest (21 tests)</p>
+          <div class="buttons">
+            <a class="btn primary" href="../portfolio/assets/family-receipt-tracker-EN.pdf">Open PDF</a>
+          </div>
+        </div>
+        <div class="gallery">
+          <a href="../portfolio/assets/rt-receipt-photo.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/rt-receipt-photo.jpg" alt="Crumpled receipt photo" loading="lazy"><span>Crumpled receipt in</span></a>
+          <a href="../portfolio/assets/rt-parsed.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/rt-parsed.jpg" alt="Every item read and categorised" loading="lazy"><span>Every item read</span></a>
+          <a href="../portfolio/assets/rt-month.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/rt-month.jpg" alt="Monthly spending by category" loading="lazy"><span>Monthly analytics</span></a>
+          <a href="../portfolio/assets/rt-cabinet.jpg" target="_blank" rel="noopener"><img src="../portfolio/assets/rt-cabinet.jpg" alt="Web cabinet" loading="lazy"><span>Web cabinet</span></a>
+        </div>
+      </article>
+
+
+    </div>
+  </section>
+
+  <section id="concepts">
+    <div class="section-head">
+      <h2>Prototypes &amp; concepts</h2>
+      <span class="section-note">Ideas and clickable demos</span>
+    </div>
+    <div class="grid">
+
+
+      <article class="card">
+        <a class="thumb" href="../fitness/"><img src="../portfolio/assets/thumb-nordpuls.jpg" alt="NordPuls fitness chatbot demo page" loading="lazy"></a>
+        <div class="body">
+          <span class="status concept">Clickable demo · in Danish</span>
+          <h3>NordPuls: chatbot for fitness centres</h3>
+          <p>Interactive demo of a website chat assistant: answers opening hours and prices for the right centre, books classes and sells shakes, 24/7. The demo runs on prepared answers; the full version would use an LLM.</p>
+          <p class="tech"><span>Tech:</span> HTML · JavaScript</p>
+          <div class="buttons">
+            <a class="btn primary" href="../fitness/">Live demo</a>
+            <a class="btn" href="../fitness/chatbot-til-fitnesscentre.pdf">Open PDF</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <a class="thumb" href="../helsekost/"><img src="../portfolio/assets/thumb-sundt-liv.jpg" alt="Sundt Liv health food store chatbot demo page" loading="lazy"></a>
+        <div class="body">
+          <span class="status concept">Clickable demo · in Danish</span>
+          <h3>Sundt Liv: chatbot for health food stores</h3>
+          <p>Interactive demo of a website chat assistant: answers questions about allergens, gluten-free and vegan products and stock. The demo runs on prepared answers; the full version would use an LLM.</p>
+          <p class="tech"><span>Tech:</span> HTML · JavaScript</p>
+          <div class="buttons">
+            <a class="btn primary" href="../helsekost/">Live demo</a>
+            <a class="btn" href="../helsekost/chatbot-til-helsekostbutikker.pdf">Open PDF</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="references">
+    <div class="section-head">
+      <h2>References</h2>
+      <span class="section-note">Translated from Danish</span>
+    </div>
+    <div class="quotes">
+      <blockquote>
+        <p>"We have benefited greatly from Halyna's experience with Oracle and SQL development, data analysis and system architecture. Halyna works in a structured and efficient way, with a solid understanding of relational models and periodic datasets. [&hellip;] I therefore give Halyna my warmest recommendation."</p>
+        <footer><b>Head of Department</b>, Breeding &amp; Genetics, Landbrug &amp; F&oslash;devarer &middot; 2026</footer>
+      </blockquote>
+      <blockquote>
+        <p>"Halyna is quick to grasp the technical aspects of a task and has solved tasks that were part of our production deliveries. Halyna will be able to contribute heavy SQL expertise in organisations with high technical demands for rigour and quality."</p>
+        <footer><b>Head of Section</b>, Digital Foundations, Aarhus Municipality &middot; 2024</footer>
+      </blockquote>
+    </div>
+    <div class="buttons">
+      <a class="btn primary" href="../portfolio/assets/References-Halina-Lukashenko-EN.pdf">Full letters in English (PDF)</a>
+    </div>
+    <p class="section-note">Danish originals and referee contact details available on request.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="name">Halina Lukashenko</p>
+    <p><a href="mailto:HL22111770@GMAIL.COM">HL22111770@GMAIL.COM</a></p>
+    <p><a href="tel:+4522111770">Tlf. +45 22 11 17 70</a></p>
+    <p class="code-note">Source code available on request.</p>
+  </div>
+</footer>
+
+</body>
+</html>
