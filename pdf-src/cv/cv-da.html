@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>CV Halina Lukashenko</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm 13mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 9.6pt; line-height: 1.42; color: #1e2230; }
+  a { color: #2563eb; text-decoration: none; }
+  header { display: flex; gap: 18px; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #2563eb; }
+  header img { width: 86px; height: 103px; object-fit: cover; border-radius: 8px; flex: none; }
+  h1 { font-size: 21pt; margin: 0 0 2px; letter-spacing: -0.01em; }
+  .title { font-size: 11pt; color: #2563eb; font-weight: 600; margin: 0 0 6px; }
+  .contact { color: #4b5263; font-size: 9pt; margin: 0; }
+  .contact b { color: #1e2230; }
+  h2 { font-size: 10.5pt; text-transform: uppercase; letter-spacing: 0.07em; color: #2563eb; margin: 13px 0 5px; padding-bottom: 2px; border-bottom: 1px solid #dbe3f5; }
+  p { margin: 0 0 6px; }
+  .job { margin: 0 0 8px; break-inside: avoid; }
+  .job-head { display: flex; justify-content: space-between; gap: 10px; }
+  .job-head b { font-size: 10pt; }
+  .when { color: #4b5263; white-space: nowrap; font-size: 9pt; }
+  .org { color: #4b5263; margin: 0 0 2px; font-size: 9pt; }
+  ul { margin: 2px 0 0; padding-left: 15px; }
+  li { margin: 0 0 1.5px; }
+  .projects li b { color: #1e2230; }
+  .tag { display: inline-block; font-size: 7.6pt; font-weight: 600; padding: 0 6px; border-radius: 8px; margin-left: 4px; vertical-align: 1px; }
+  .live { background: #dcfce7; color: #15803d; }
+  .proto { background: #dbeafe; color: #1d4ed8; }
+  .concept { background: #fef3c7; color: #b45309; }
+  .skills { display: grid; grid-template-columns: 92px 1fr; gap: 2px 10px; }
+  .skills b { color: #1e2230; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+  blockquote { margin: 0 0 7px; padding: 4px 0 4px 10px; border-left: 3px solid #dbe3f5; font-style: italic; break-inside: avoid; }
+  blockquote span { display: block; font-style: normal; color: #4b5263; font-size: 8.8pt; margin-top: 2px; }
+  .small { color: #4b5263; font-size: 8.8pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="photo.jpg" alt="">
+  <div>
+    <h1>Halina Lukashenko</h1>
+    <p class="title">SQL-udvikler | Oracle · PL/SQL · T-SQL | AI-chatbots og -agenter</p>
+    <p class="contact">Aarhus · <b>Tlf. +45 22 11 17 70</b> · <b><a href="mailto:HL22111770@GMAIL.COM">HL22111770@GMAIL.COM</a></b><br>
+    <a href="https://linkedin.com/in/halina-lukashenko">linkedin.com/in/halina-lukashenko</a> · Portfolio: <a href="https://halyna-projects.github.io/work/">halyna-projects.github.io/work</a></p>
+  </div>
+</header>
+
+<h2>Profil</h2>
+<p>SQL-udvikler med over 20 års erfaring med SQL, databaser og systematisk fejlfinding – fra en ukrainsk bank til den danske landbrugssektor. Stærk i Oracle, PL/SQL, Microsoft SQL Server og T-SQL: datamodellering, lovpligtig indberetning, performanceoptimering og datakvalitet. God til at se, hvor data eller logik ikke stemmer, og til at omsætte komplekse krav til konkrete, testbare løsninger.</p>
+<p>Jeg specificerer, bygger og tester også AI-drevne produkter med agentiske AI-udviklingsværktøjer (Claude Code), bl.a. en live Telegram-jobsøgningsbot med Google Gemini, hvor jeg fandt og rettede flere reelle kvalitetsproblemer i AI'ens output før lancering. Fra idé til en live bot med database, AI-integration og automatisk baggrundslogik på dage frem for uger – med kvaliteten under kontrol: præcise krav, systematisk test og fejl fanget, før noget går i produktion.</p>
+
+<h2>Erhvervserfaring</h2>
+<div class="job">
+  <div class="job-head"><b>IT-udvikler, Avl &amp; Genetik</b><span class="when">dec. 2024 – marts 2026</span></div>
+  <p class="org">Landbrug &amp; Fødevarer F.m.b.A., Aarhus · praktik, derefter tidsbegrænset ansættelse</p>
+  <ul>
+    <li>Fandt rækkemultiplikation ved JOIN af to historiktabeller (ca. 20% af rækkerne: 1.238 af 5.894 var falske) og rettede den med en betingelse for overlappende perioder, som i dag er intern standard i IT-teamet.</li>
+    <li>Erstattede ROWNUM &lt; 2 (en tilfældig række) med ORDER BY … FETCH FIRST 1 ROW ONLY, så forespørgslerne altid returnerer den rigtige række.</li>
+    <li>Udviklede og tilpassede ca. 100 databaseobjekter i Oracle.</li>
+    <li>Central udviklerrolle i OVERLEVELSE-projektet: byggede to komplette, fuldt operationelle modelvarianter; chefforskeren kaldte arbejdet "brilliant" og "fremragende tabeller" og takkede for mit "omfattende arbejde".</li>
+    <li>Diagnosticerede og løste performanceproblemer: forespørgselstid reduceret fra 2 minutter til 1 sekund.</li>
+    <li>Medforfatter i KS-fordelingsprojektet; leverede SQL-udtræk som datagrundlag for videnskabeligt arbejde.</li>
+    <li>Udarbejdede teknisk dokumentation og arkitekturdiagrammer på dansk i Confluence.</li>
+  </ul>
+</div>
+<div class="job">
+  <div class="job-head"><b>IT-praktikant, datakonsulent (udvikler)</b><span class="when">april 2024 – juli 2024</span></div>
+  <p class="org">Aarhus Kommune, Digitale Fundamenter, Aarhus</p>
+  <ul>
+    <li>Udviklede T-SQL-scripts (procedurer og rapporter) til kommunens systemer.</li>
+    <li>Migrerede eksisterende PowerShell-scripts til Python til Eloomi, kommunens kursusportal (ca. 30.000 brugere).</li>
+  </ul>
+</div>
+<div class="job">
+  <div class="job-head"><b>Softwareudvikler</b><span class="when">jan. 2000 – feb. 2022</span></div>
+  <p class="org">Prominvestbank, Kyiv, Ukraine</p>
+  <ul>
+    <li>Avancerede fra stedfortrædende leder til leder af Afdelingen for Statistisk Indberetning.</li>
+    <li>Programmerede i Borland C til bankens kernesystem; en del af de daglige kerneprogrammer var personligt udviklet af mig.</li>
+    <li>Udviklede i Oracle, Microsoft SQL og Sybase til lovpligtig indberetning til Ukraines Nationalbank og Indskydergarantifonden.</li>
+    <li>Organiserede hele den tekniske proces omkring aflevering af indberetningerne til Ukraines Nationalbank.</li>
+    <li>Designede og implementerede hele den daglige arbejdsproces i PowerBuilder.</li>
+  </ul>
+</div>
+
+<h2>AI-projekter</h2>
+<ul class="projects">
+  <li><b>AI-jobsøgningsassistent med Verify</b><span class="tag live">Live</span> Telegram-bot, der vurderer jobopslag op mod brugerens CV, skriver målrettede ansøgninger som PDF og tjekker hvert brev med Verify, en indbygget faktatjekker for påstande, som CV'et ikke understøtter. Dansk og engelsk version. <span class="small">Python · Gemini API · Telegram · Railway</span></li>
+  <li><b>AI Daily Planner</b><span class="tag live">Live</span> Telegram-påmindelsesbot, der forstår opgaver skrevet i almindeligt sprog: trin-for-trin-guide, gentagne opgaver, udsættelse og eskalerende påmindelser, plus et webdashboard synkroniseret med botten. <span class="small">Python · Gemini API · Telegram · webdashboard</span></li>
+  <li><b>AI-ejendomsmæglerbot + dashboard</b><span class="tag proto">Fungerende prototype</span> Telegram-bot til køb, leje og salg i Toronto og Calgary; hver henvendelse lander i et dashboard med status, temperatur og næste skridt. <span class="small">Python · Gemini API · Telegram</span></li>
+  <li><b>Family Receipt Tracker</b><span class="tag proto">Fungerende prototype</span> Telegram-bot og webkabinet: AI læser fotograferede kvitteringer vare for vare, sorterer dem i kategorier, holder styr på returret og garanti og viser et fælles familiebudget. Testet på rigtige danske kvitteringer. <span class="small">Python · Gemini vision · SQLite · 21 automatiske tests</span></li>
+  <li><b>Chatbot-demoer til hjemmesider</b><span class="tag concept">Demoer</span> Klikbare demoer til et fitnesscenter (NordPuls) og en helsekostbutik (Sundt Liv) med salgsflyers til lokale virksomheder.</li>
+</ul>
+<p class="small">Detaljer, skærmbilleder og live demoer: <a href="https://halyna-projects.github.io/work/">halyna-projects.github.io/work</a></p>
+
+<h2>Uddannelse</h2>
+<div class="job-head"><span><b>Bachelorgrad, Datalogi</b> · Taras Sjevtjenko Nationale Universitet, Kyiv, Ukraine</span><span class="when">1995 – 2000</span></div>
+
+<h2>Kurser</h2>
+<ul>
+  <li>Oracle BI Suite EE 10g R3: Create Reports and Dashboards (2015)</li>
+  <li>Oracle Database 11g: Analytic SQL for Data Warehousing (2015)</li>
+  <li>Oracle Database 11g: Data Warehousing Fundamentals (2015)</li>
+</ul>
+
+<div class="two">
+  <div>
+    <h2>Kompetencer</h2>
+    <div class="skills">
+      <b>Databaser</b><span>SQL, Oracle Database, PL/SQL, Microsoft SQL Server, T-SQL, Sybase (ASA/ASE), data warehousing</span>
+      <b>Kvalitet</b><span>Datakvalitet, software quality assurance, systematisk test</span>
+      <b>AI</b><span>AI-drevne produkter, agentisk udvikling (Claude Code), Gemini API, Telegram-bots, prompt engineering</span>
+      <b>Udvikling</b><span>Borland C, PowerBuilder, Python (grundlæggende niveau)</span>
+    </div>
+  </div>
+  <div>
+    <h2>Sprog</h2>
+    <div class="skills">
+      <b>Dansk</b><span>Godt (øvet niveau)</span>
+      <b>Engelsk</b><span>Flydende</span>
+      <b>Ukrainsk</b><span>Modersmål</span>
+      <b>Russisk</b><span>Modersmål</span>
+      <b>Fransk</b><span>Begynder</span>
+    </div>
+  </div>
+</div>
+
+<h2>Anbefalinger</h2>
+<blockquote>"Vi har haft meget stor gavn af Halynas erfaring med Oracle og SQL-udvikling, dataanalyse og systemarkitektur. Halyna arbejder struktureret, effektivt og med solid forståelse for relationelle modeller og periodiske datasæt."
+<span>Afdelingsleder, Avl &amp; Genetik, Landbrug &amp; Fødevarer (2026)</span></blockquote>
+<blockquote>"Halyna vil kunne bidrage med tung SQL-faglighed i organisationer med store tekniske krav til stringens og kvalitet."
+<span>Sektionsleder, Digitale Fundamenter, Aarhus Kommune (2024)</span></blockquote>
+<p class="small">Fulde anbefalinger og kontaktoplysninger på referencer gives gerne på forespørgsel.</p>
+
+</body>
+</html>
