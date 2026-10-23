@@ -41,3 +41,4 @@ orange label (P01–P16, V1–V4). When the English bot is running:
 ## To do for the Danish PDFs
 Add the same "fixing is optional" paragraph (in Danish) to the Danish presentation and Verify PDF,
 as in the English versions.
+`cv/cv-da.html` → `portfolio/assets/CV-Halina-Lukashenko-DA.pdf` (Danish CV for applications, links to /work/; not linked from the site)

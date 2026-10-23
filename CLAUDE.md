@@ -23,22 +23,23 @@
 - `/work/` (старый адрес `/projects/` перенаправляет сюда) — полное английское портфолио (его давать работодателям, в CV и LinkedIn): SQL & data experience (факты из CV), AI products (job-бот с Verify, AI Daily Planner, Family Receipt Tracker, real estate бот — большие карточки с лентой скриншотов), Prototypes & concepts (NordPuls, Sundt Liv), фото, CV, рекомендации.
 - `/portfolio/` — та же страница БЕЗ job-бота, порядок: SQL → AI products (Planner) → Prototypes & concepts (NordPuls, Sundt Liv, Receipt Tracker, Real Estate) (эта ссылка у консультантки Halina — ей нельзя знать о боте). При правках портфолио менять обе страницы. CV: `CV-Halina-Lukashenko-EN.pdf` — полное (ссылки на /work/), `CV-Halina-Lukashenko-English.pdf` — без бота (для /portfolio/); оба из `pdf-src/cv/cv-en.html` (классы `full-only` / `short-only`).
 - `portfolio/assets/` — PDF real estate, трекера чеков, CV, переводов рекомендаций, картинки карточек.
-- `pdf-src/` — исходники английских PDF; `pdf-src/cv/` — CV и переводы рекомендаций. Сборка: `node pdf-src/build.js`.
+- `pdf-src/` — исходники английских PDF; `pdf-src/cv/` — CV (английское `cv-en.html`; датское `cv-da.html` → `portfolio/assets/CV-Halina-Lukashenko-DA.pdf`, с сайта не ссылается, для заявок) и переводы рекомендаций. Сборка: `node pdf-src/build.js`.
 - Рекомендации на сайте — только должность и компания, без имён, телефонов, почт и адресов («referee contact details available on request»).
 
 ### Что осталось
 1. AI Planner (@ai_daily_planner_english_bot): карточка уже есть (на /work/ — после job-бота, на /portfolio/ — первая после SQL), PDF `portfolio/assets/ai-daily-planner-EN.pdf` — временно почищенный старый: на стр. 5 закрашена строка браузера (localhost:8011, «Докажите, что это вы», аватарка), стр. 12 с русским окном «Сообщение с localhost:8011… Отмена» убрана. Когда Railway оживёт: Halina переснимет кабинет с настоящего адреса, задачи «to go walk»/«to buy bread» → «Go for a walk»/«Buy bread», вернуть страницу «Confirm before changing state», заменить PDF и картинки `pl-*.jpg`; потом кнопка «Try the bot» и метка «Live» (только после замены ключей, п. 2).
 2. Railway (утечка переменных окружения 21–22 окт. 2026): когда Railway включит сборки для Hobby — новый ключ Gemini (сейчас один ключ …y8fQ, free tier, следов чужого использования не было), новые токены Telegram у всех ботов на Railway, вписать в Variables (лучше через Shared Variables). Сделать до того, как ботами начнут пользоваться другие (дочка/гимназия, кнопка «Try the bot»).
 3. Verify во всех ботах: не считать ошибкой длительность, посчитанную из дат (пример: «22 years at Prominvestbank» при Jan 2000 – Feb 2022), и честные признания пробелов.
-4. CV/портфолио: Halina пришлёт скрины про ошибку в 20% строк и место, где сказано про «omfattende» работу, — добавить в CV и портфолио (всё конфиденциальное скрыть). Возможно — пост в LinkedIn про SQL по этим скринам.
-5. Шапка CV: бот при генерации CV под вакансию не вставляет фото — возможная доработка бота (не пушить, пока Halina тестирует).
-6. Английский скриншот «Add a job manually» на `/en/` вместо датского.
-7. Датские PDF job-бота: абзац «исправлять после Verify необязательно» (см. `pdf-src/README.md`).
-8. Видео про датского бота с подписями на украинском, потом про английского бота с английскими подписями (скрины пришлёт Halina).
-9. Real estate бот: когда будет на Railway — кнопка «Try the bot».
+4. Шапка CV: бот при генерации CV под вакансию не вставляет фото — возможная доработка бота (не пушить, пока Halina тестирует).
+5. Английский скриншот «Add a job manually» на `/en/` вместо датского.
+6. Датские PDF job-бота: абзац «исправлять после Verify необязательно» (см. `pdf-src/README.md`).
+7. Видео про датского бота с подписями на украинском, потом про английского бота с английскими подписями (скрины пришлёт Halina).
+8. Real estate бот: когда будет на Railway — кнопка «Try the bot».
+9. Job-бот (датский): ошибки, найденные 22.10.2026 (переданы в сессию бота): в CV-PDF пропадают символы «+», «@», «–», «(», «:», дефис в T-SQL; строки рвутся посреди предложения; лишний заголовок «Ansøgning til stilling» и английский Profil в датском CV; в боте старое CV (data loads в Aarhus Kommune); ansøgning для датской вакансии по-английски, без «Att.:»; выдумки «Data Engineer», «agile», «certificeringer», искажённая цитата OVERLEVELSE, «data pipelines»; Verify ругает честные признания пробелов и пропускает настоящие ошибки.
 
 ### Важно о фактах
 - Aarhus Kommune: Halina только переводила скрипты PowerShell → Python для Eloomi и писала T-SQL; data loads в Eloomi при ней не делались — не писать.
 - BI-инструментами не пользовалась (есть только курс Oracle BI 2015) — не писать BI в навыках.
 - Курсы Oracle 2015 — это курсы, не сертификаты.
+- Ошибка в 20% строк (Landbrug & Fødevarer): JOIN двух историй без условия на периоды размножал строки; 1 238 ложных из 5 894 (Halina хочет «около 20%»). Исправлено условием пересечения периодов — теперь обязательно в каждом JOIN с этой таблицей. Ещё: ROWNUM < 2 → ORDER BY … FETCH FIRST 1 ROW ONLY. Chief scientist (OVERLEVELSE): «brilliant», «excellent tables», «extensive work» — имя не указывать.
 - Уровень датского в CV: «Godt (øvet niveau)»; в LinkedIn стоит «Professional working proficiency» — Halina решит, какой оставить.

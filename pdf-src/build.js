@@ -9,6 +9,8 @@ const jobs = [
   // Full CV (links to /work/) and a short one without the job-search bot (for /portfolio/)
   { src: 'cv/cv-en.html', out: 'CV-Halina-Lukashenko-EN.pdf', dir: 'portfolio/assets', pageNumbers: false, hide: '.short-only' },
   { src: 'cv/cv-en.html', out: 'CV-Halina-Lukashenko-English.pdf', dir: 'portfolio/assets', pageNumbers: false, hide: '.full-only' },
+  // Danish CV (full, links to /work/); not linked from the site, used for applications
+  { src: 'cv/cv-da.html', out: 'CV-Halina-Lukashenko-DA.pdf', dir: 'portfolio/assets', pageNumbers: false },
   { src: 'cv/references-en.html', out: 'References-Halina-Lukashenko-EN.pdf', dir: 'portfolio/assets', pageNumbers: false },
 ];
 
