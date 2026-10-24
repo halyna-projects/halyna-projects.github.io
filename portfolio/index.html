@@ -186,12 +186,13 @@
       <div class="fact">
         <p class="fact-num">20%</p>
         <h3>Data quality fix in a live register</h3>
-        <p>Joining two history tables on ID alone multiplied rows in historical data &mdash; a cross-join between periods. About 20% of the rows (1,238 of 5,894) were false. I added a period-overlap condition:</p>
+        <p>A query joining two history tables returned too many rows. My first check &mdash; is every row unique? &mdash; showed it wasn&rsquo;t: the JOIN matched on ID only, so every period in one table was combined with every period in the other, even periods that never overlapped. About 20% of the rows (1,238 of 5,894) were false.</p>
+        <p>My first date condition kept growing to cover rare cases, so I asked AI for a short, general rule and got the standard period-overlap test: two periods overlap when each one starts before the other one ends.</p>
 <pre>AND o.start_dt &lt;=
   NVL(h.end_dt, DATE '9999-01-01')
 AND h.start_dt &lt;=
   NVL(o.end_dt, DATE '9999-01-01')</pre>
-        <p>After the fix, views and SELECTs returned clean data. The condition is now an internal standard: it is required in every join with this table, and the team has adopted it in its procedures and views. I also replaced <code>ROWNUM &lt; 2</code>, which picked an arbitrary row, with <code>ORDER BY &hellip; FETCH FIRST 1 ROW ONLY</code>, so the query always returns the right row.</p>
+        <p>The condition is now a required standard in every JOIN with this table, and I updated about 70 database objects to use it. I also replaced <code>ROWNUM &lt; 2</code>, which picked an arbitrary row, with <code>ORDER BY &hellip; FETCH FIRST 1 ROW ONLY</code>, so the query always returns the right row.</p>
         <p class="fact-where">Landbrug &amp; F&oslash;devarer · Oracle</p>
       </div>
       <div class="fact">
