@@ -8,7 +8,7 @@
 
 ## О проекте
 
-Публичный сайт Halina Lukashenko (GitHub Pages, ветка `main`). Личные заметки и планы поиска работы сюда не класть — только в приватные репозитории.
+Публичный сайт Halina Lukashenko (GitHub Pages, ветка `main`). Репозиторий ПУБЛИЧНЫЙ: любой может прочитать этот файл, историю и PR. Личные заметки, планы поиска работы, кому что отправлено, ключи и их части, имена людей — сюда не класть (ни в файлы, ни в описания PR), только в приватные репозитории.
 
 ### Правила Halina
 - Ничего не делать без её «да». PR мержит она сама; не говорить «уже на сайте», пока не смержила и не проверено.
@@ -21,7 +21,7 @@
 - `/` — визитка (фото, имя, кнопка LinkedIn), без бота. `/dk/` — датская страница job-бота, `/en/` — английская (скриншоты бота @demo_job_search_english_bot).
 - `/fitness/` (NordPuls) и `/helsekost/` (Sundt Liv) — демо чатботов на заготовленных ответах, без ИИ; датские PDF рядом.
 - `/work/` (старый адрес `/projects/` перенаправляет сюда) — полное английское портфолио (его давать работодателям, в CV и LinkedIn): SQL & data experience (факты из CV), AI products (job-бот с Verify, AI Daily Planner, Family Receipt Tracker, real estate бот — большие карточки с лентой скриншотов), Prototypes & concepts (NordPuls, Sundt Liv), фото, CV, рекомендации.
-- `/portfolio/` — та же страница БЕЗ job-бота, порядок: SQL → AI products (Planner) → Prototypes & concepts (NordPuls, Sundt Liv, Receipt Tracker, Real Estate) (эта ссылка у консультантки Halina — ей нельзя знать о боте). `/portfolio/` не удалять и не переименовывать: 22.10.2026 консультантке ушло CV со ссылкой на `/portfolio/`. При правках портфолио менять обе страницы. CV на обеих страницах одно и то же: `CV-Halina-Lukashenko-EN.pdf` (ссылки на /work/).
+- `/portfolio/` — та же страница БЕЗ job-бота, порядок: SQL → AI products (Planner) → Prototypes & concepts (NordPuls, Sundt Liv, Receipt Tracker, Real Estate) `/portfolio/` не удалять и не переименовывать: эта ссылка уже разослана. Кому и почему — только в приватных заметках Halina, сюда не писать. При правках портфолио менять обе страницы. CV на обеих страницах одно и то же: `CV-Halina-Lukashenko-EN.pdf` (ссылки на /work/).
 - `portfolio/assets/` — PDF real estate, трекера чеков, CV, переводов рекомендаций, картинки карточек.
 - `work/assets/` — копии тех же файлов для `/work/` (и фото визитки): всё, на что ссылается `/work/`, лежит здесь, чтобы ссылки с /work/, из LinkedIn и CV никогда не вели в `/portfolio/`. В LinkedIn давать только ссылки `/work/...`. При замене файла (PDF, картинки) менять обе копии; CV-EN и References-EN `build.js` копирует в `work/assets/` сам.
 - `pdf-src/` — исходники английских PDF; `pdf-src/cv/` — CV (английское `cv-en.html`; датское `cv-da.html` → `portfolio/assets/CV-Halina-Lukashenko-DA.pdf`, с сайта не ссылается, для заявок) и переводы рекомендаций. Сборка: `node pdf-src/build.js`.
@@ -29,7 +29,7 @@
 
 ### Что осталось
 1. AI Planner (@ai_daily_planner_english_bot): карточка уже есть (на /work/ — после job-бота, на /portfolio/ — первая после SQL), PDF `portfolio/assets/ai-daily-planner-EN.pdf` — временно почищенный старый: на стр. 5 закрашена строка браузера (localhost:8011, «Докажите, что это вы», аватарка), стр. 12 с русским окном «Сообщение с localhost:8011… Отмена» убрана. Когда Railway оживёт: Halina переснимет кабинет с настоящего адреса, задачи «to go walk»/«to buy bread» → «Go for a walk»/«Buy bread», вернуть страницу «Confirm before changing state», заменить PDF и картинки `pl-*.jpg`; потом кнопка «Try the bot» и метка «Live» (только после замены ключей, п. 2).
-2. Railway (утечка переменных окружения 21–22 окт. 2026): когда Railway включит сборки для Hobby — новый ключ Gemini (сейчас один ключ …y8fQ, free tier, следов чужого использования не было), новые токены Telegram у всех ботов на Railway, вписать в Variables (лучше через Shared Variables). Сделать до того, как ботами начнут пользоваться другие (дочка/гимназия, кнопка «Try the bot»).
+2. Railway: когда Railway снова включит сборки для Hobby — заменить ключ Gemini и токены Telegram у всех ботов (вписать в Variables, лучше через Shared Variables). Сделать до того, как появится кнопка «Try the bot». Подробности — в приватных заметках.
 3. Verify во всех ботах: не считать ошибкой длительность, посчитанную из дат (пример: «22 years at Prominvestbank» при Jan 2000 – Feb 2022), и честные признания пробелов.
 4. Шапка CV: бот при генерации CV под вакансию не вставляет фото — возможная доработка бота (не пушить, пока Halina тестирует).
 5. Английский скриншот «Add a job manually» на `/en/` вместо датского.
