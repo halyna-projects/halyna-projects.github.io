@@ -43,7 +43,7 @@ CV и документы:
 - Job-бот английский: @demo_job_search_english_bot; датский: @Demo_job_search_dansk_bot.
 - AI Daily Planner (английский): @ai_daily_planner_english_bot.
 - Family Receipt Tracker: @family_receipt_HL1907_bot; английская версия: @family_receipt_en_HL1907_bot.
-- Real estate бот — имя пока не записано.
+- Real estate бот: @REAL_ESTATE_HL1967_BOT.
 - Кнопку «Try the bot» на сайте ставить только после замены ключей (п. 2 «Что осталось»).
 
 LinkedIn: https://www.linkedin.com/in/halina-lukashenko
