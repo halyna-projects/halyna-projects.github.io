@@ -27,6 +27,27 @@
 - `pdf-src/` — исходники английских PDF; `pdf-src/cv/` — CV (английское `cv-en.html`; датское `cv-da.html` → `portfolio/assets/CV-Halina-Lukashenko-DA.pdf`, с сайта не ссылается, для заявок) и переводы рекомендаций. Сборка: `node pdf-src/build.js`.
 - Рекомендации на сайте — только должность и компания, без имён, телефонов, почт и адресов («referee contact details available on request»).
 
+### Все ссылки (проверены 25.10.2026)
+Сайт (https://halyna-projects.github.io):
+- `/` — визитка; `/work/` — полное портфолио (работодателям, CV, LinkedIn); `/portfolio/` — урезанная версия без job-бота; `/projects/` → перенаправляет на `/work/`.
+- `/dk/` — датская страница job-бота; `/en/` — английская.
+- `/fitness/` (NordPuls) и `/helsekost/` (Sundt Liv) — демо; флаеры: `/fitness/chatbot-til-fitnesscentre.pdf`, `/helsekost/chatbot-til-helsekostbutikker.pdf`.
+
+CV и документы:
+- CV EN: `/work/assets/CV-Halina-Lukashenko-EN.pdf` (копия в `/portfolio/assets/`); CV DA: `/portfolio/assets/CV-Halina-Lukashenko-DA.pdf` (с сайта не ссылается).
+- Рекомендации EN: `/work/assets/References-Halina-Lukashenko-EN.pdf`.
+- PDF продуктов: `/work/assets/ai-daily-planner-EN.pdf`, `/work/assets/family-receipt-tracker-EN.pdf`, `/work/assets/ai-real-estate-bot-EN.pdf`.
+- Job-бот: `/assets/job-search-bot-presentation-EN.pdf`, `/assets/job-search-bot-presentation.pdf` (DA), `/assets/verify-documentation-EN.pdf`, `/assets/verify-dokumentation-DA.pdf`.
+
+Боты в Telegram (https://t.me/имя):
+- Job-бот английский: @demo_job_search_english_bot; датский: @Demo_job_search_dansk_bot.
+- AI Daily Planner (английский): @ai_daily_planner_english_bot.
+- Family Receipt Tracker: @family_receipt_HL1907_bot; английская версия: @family_receipt_en_HL1907_bot.
+- Real estate бот — имя пока не записано.
+- Кнопку «Try the bot» на сайте ставить только после замены ключей (п. 2 «Что осталось»).
+
+LinkedIn: https://www.linkedin.com/in/halina-lukashenko
+
 ### Что осталось
 1. AI Planner (@ai_daily_planner_english_bot): карточка уже есть (на /work/ — после job-бота, на /portfolio/ — первая после SQL), PDF `portfolio/assets/ai-daily-planner-EN.pdf` — временно почищенный старый: на стр. 5 закрашена строка браузера (localhost:8011, «Докажите, что это вы», аватарка), стр. 12 с русским окном «Сообщение с localhost:8011… Отмена» убрана. Когда Railway оживёт: Halina переснимет кабинет с настоящего адреса, задачи «to go walk»/«to buy bread» → «Go for a walk»/«Buy bread», вернуть страницу «Confirm before changing state», заменить PDF и картинки `pl-*.jpg`; потом кнопка «Try the bot» и метка «Live» (только после замены ключей, п. 2).
 2. Railway: 24.10.2026 Railway снова работает. Порядок: сначала заменить ключ Gemini и токены Telegram у всех ботов (вписать в Variables, лучше через Shared Variables). Потом Halina переносит туда английский AI Planner, переснимает кабинет (п. 1), и только после этого — кнопка «Try the bot». Подробности — в приватных заметках.
