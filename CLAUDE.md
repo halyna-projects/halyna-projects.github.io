@@ -44,13 +44,13 @@ CV и документы:
 - AI Daily Planner (английский): @ai_daily_planner_english_bot.
 - Family Receipt Tracker: @family_receipt_HL1907_bot; английская версия: @family_receipt_en_HL1907_bot.
 - Real estate бот: @REAL_ESTATE_HL1967_BOT.
-- Кнопку «Try the bot» на сайте ставить только после замены ключей (п. 2 «Что осталось»).
+- Кнопки «Try the bot» (25.10.2026, после замены ключей): job-бот английский (/work/), AI Daily Planner и Family Receipt Tracker (английский) — на /work/ и /portfolio/. Real estate — без кнопки (не на Railway).
 
 LinkedIn: https://www.linkedin.com/in/halina-lukashenko
 
 ### Что осталось
-1. AI Planner (@ai_daily_planner_english_bot): карточка уже есть (на /work/ — после job-бота, на /portfolio/ — первая после SQL), PDF `portfolio/assets/ai-daily-planner-EN.pdf` — временно почищенный старый: на стр. 5 закрашена строка браузера (localhost:8011, «Докажите, что это вы», аватарка), стр. 12 с русским окном «Сообщение с localhost:8011… Отмена» убрана. Когда Railway оживёт: Halina переснимет кабинет с настоящего адреса, задачи «to go walk»/«to buy bread» → «Go for a walk»/«Buy bread», вернуть страницу «Confirm before changing state», заменить PDF и картинки `pl-*.jpg`; потом кнопка «Try the bot» и метка «Live» (только после замены ключей, п. 2).
-2. Railway: 24.10.2026 Railway снова работает. Порядок: сначала заменить ключ Gemini и токены Telegram у всех ботов (вписать в Variables, лучше через Shared Variables). Потом Halina переносит туда английский AI Planner, переснимает кабинет (п. 1), и только после этого — кнопка «Try the bot». Подробности — в приватных заметках.
+1. AI Planner: 25.10.2026 карточка «Live» + «Try the bot» на /work/ и /portfolio/, кабинет переснят с настоящего адреса (задачи Buy bread / Go for a walk), PDF пересобран из скриншотов (заменены стр. «wizard», «Recurring», «Web cabinet», «Editing», добавлена «All tasks in the chat»), `pl-cabinet.jpg` и `pl-recurring.jpg` заменены. Осталось: в PDF стр. «A real reminder», «Snooze», «Snooze confirmed» и картинка `pl-snooze.jpg` ещё со старой задачей «to go walk»; страница «Confirm before changing state» не вернулась (окно подтверждения рисует браузер на его языке — снимать в англоязычном браузере). Бот присылает подтверждение задачи дважды (передано в сессию планера).
+2. Railway: 25.10.2026 ключ Gemini и токены Telegram у всех ботов на Railway заменены, все отвечают. Боты, которые запускаются только с компьютера, и `.env` на компьютере — разобрать позже. Подробности — в приватных заметках.
 3. Verify во всех ботах: не считать ошибкой длительность, посчитанную из дат (пример: «22 years at Prominvestbank» при Jan 2000 – Feb 2022), и честные признания пробелов.
 4. Шапка CV: бот при генерации CV под вакансию не вставляет фото — возможная доработка бота (не пушить, пока Halina тестирует).
 5. Английский скриншот «Add a job manually» на `/en/` вместо датского.
